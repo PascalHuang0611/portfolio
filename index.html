@@ -147,22 +147,19 @@
   // 月份用 "YYYY-MM"，end 為含該月。k: solo 獨立 / lead 帶領 / dead 完成設計未上線 / live 正式系統
   // segs：同一款的前後階段（例：前身暫緩 → 正式版），畫在同一列並以虛線相連。approx:true 表示期間待確認（橘色虛線外框）。
   const games = [
-    {n:"Cash Bingo",        segs:[{s:"2025-06", e:"2026-06", k:"solo"}]},
+    {n:"Cash Bingo 系列：Cash Bingo → 12 月依 PM 需求重作模型 → 小改參數成 Lucky Coins → Apolaki 加 ExBet", segs:[{l:"Cash Bingo", s:"2025-06", e:"2025-06", k:"solo"},{l:"重作模型", s:"2025-12", e:"2025-12", k:"solo", approx:true},{l:"Lucky Coins", s:"2026-01", e:"2026-02", k:"solo", approx:true},{l:"Apolaki（+ExBet）", s:"2026-08", e:"2026-08", k:"lead"}]},
     {n:"LiveMines（視訊實體機台）", segs:[{s:"2025-07", e:"2026-09", k:"solo"}]},
     {n:"Pula Puti",         segs:[{s:"2025-07", e:"2025-09", k:"solo"}]},
     {n:"ColorRoll",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}]},
     {n:"Drop Ball",         segs:[{s:"2025-07", e:"2026-03", k:"solo"}]},
     {n:"BingBing Run",      segs:[{s:"2025-07", e:"2026-06", k:"solo"}]},
-    {n:"Chicky Mines（前身 LuckyMines 暫緩）", segs:[{s:"2025-07", e:"2025-07", k:"dead"},{s:"2026-01", e:"2026-03", k:"solo"}]},
-    {n:"Pinoy Hi-Lo（前身 Hi-Lo 第一版未通過）", segs:[{s:"2025-09", e:"2025-09", k:"dead", approx:true},{s:"2026-01", e:"2026-07", k:"lead"}]},
+    {n:"Chicky Mines：前身 LuckyMines 2025/07 完成設計後暫緩，2026/01 重啟為 Chicky Mines", segs:[{l:"LuckyMines（暫緩）", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-03", k:"solo"}]},
+    {n:"Pinoy Hi-Lo：前身 Hi-Lo 第一版未通過，2026 年帶下屬重做上線", segs:[{l:"Hi-Lo 第一版（未通過）", s:"2025-09", e:"2025-09", k:"dead", approx:true},{l:"Pinoy Hi-Lo", s:"2026-01", e:"2026-07", k:"lead"}]},
     {n:"Plinko 系列（三變體，未上線）", segs:[{s:"2025-10", e:"2025-11", k:"dead", approx:true}]},
-    {n:"Lucky Coins",       segs:[{s:"2025-10", e:"2025-12", k:"solo"}]},
     {n:"BingoSlot（未上線）", segs:[{s:"2025-11", e:"2025-12", k:"dead"}]},
-    {n:"Piggy Crash",       segs:[{s:"2026-01", e:"2026-03", k:"solo"}]},
+    {n:"Piggy Crash 系列：Pinoy Rush 為同框架衍生", segs:[{l:"Piggy Crash", s:"2026-01", e:"2026-03", k:"solo"},{l:"Pinoy Rush（衍生）", s:"2026-04", e:"2026-05", k:"solo"}]},
     {n:"Chicky Tower",      segs:[{s:"2026-01", e:"2026-08", k:"solo"}]},
     {n:"Chicken Run",       segs:[{s:"2026-01", e:"2026-07", k:"lead"}]},
-    {n:"Pinoy Rush",        segs:[{s:"2026-04", e:"2026-05", k:"solo"}]},
-    {n:"Apolaki",           segs:[{s:"2026-08", e:"2026-08", k:"lead"}]},
   ];
   const side = [
     {n:"Slot 製作方案",        segs:[{s:"2025-06", e:"2025-06", k:"live"}], m:["2025-06"]},
@@ -190,10 +187,23 @@
   // 標籤位置與列排布一起算：單段寬條文字放條內，其餘放右側，右側放不下就放左側
   function place(it){
     it.s=it.segs[0].s; it.e=it.segs[it.segs.length-1].e;
-    const xa=x0(it.s), xb=x1(it.e), tw=est(it.n), pad=(it.m?12:0);
-    if(it.segs.length===1 && xb-xa > tw+12+pad){ it.lx=xa+6+pad; it.anchor="start"; it.inside=true; it.left=xa; it.right=xb; }
-    else if(xb+6+tw <= W-R){ it.lx=xb+6; it.anchor="start"; it.inside=false; it.left=xa; it.right=xb+6+tw; }
-    else { it.lx=xa-6; it.anchor="end"; it.inside=false; it.left=xa-6-tw; it.right=xb; }
+    const xa=x0(it.s), xb=x1(it.e), pad=(it.m?12:0);
+    if(it.segs.length===1){
+      const tw=est(it.n);
+      if(xb-xa > tw+12+pad){ it.lx=xa+6+pad; it.anchor="start"; it.inside=true; it.left=xa; it.right=xb; }
+      else if(xb+6+tw <= W-R){ it.lx=xb+6; it.anchor="start"; it.inside=false; it.left=xa; it.right=xb+6+tw; }
+      else { it.lx=xa-6; it.anchor="end"; it.inside=false; it.left=xa-6-tw; it.right=xb; }
+      return;
+    }
+    // 多段：每段各自標籤。優先放段內，其次放段右側的空隙，再其次放段左側
+    it.left=xa; it.right=xb;
+    it.segs.forEach((sg,i)=>{
+      const a=x0(sg.s), b=x1(sg.e), tw=est(sg.l||""), next=it.segs[i+1]?x0(it.segs[i+1].s):W-R, prev=it.segs[i-1]?x1(it.segs[i-1].e):0;
+      if(b-a > tw+12){ sg.lx=a+6; sg.anchor="start"; sg.inside=true; }
+      else if(b+6+tw <= next-6){ sg.lx=b+6; sg.anchor="start"; sg.inside=false; it.right=Math.max(it.right,b+6+tw); }
+      else if(a-6-tw >= prev+6){ sg.lx=a-6; sg.anchor="end"; sg.inside=false; it.left=Math.min(it.left,a-6-tw); }
+      else { sg.lx=null; }
+    });
   }
   function pack(items){
     items.forEach(place);
@@ -235,7 +245,10 @@
       const y=topY+8+it.row*rowH;
       const g=el("g",{style:"cursor:pointer"});
       for(let i=1;i<it.segs.length;i++){
-        el("line",{x1:x1(it.segs[i-1].e),y1:y+barH/2,x2:x0(it.segs[i].s),y2:y+barH/2,stroke:"#b5b5b5","stroke-width":1.2,"stroke-dasharray":"3 3"},null,g);
+        const pv=it.segs[i-1], nx=it.segs[i];
+        let cx1=x1(pv.e); if(pv.lx!=null && !pv.inside && pv.anchor==="start") cx1=pv.lx+est(pv.l||"")+6;
+        let cx2=x0(nx.s); if(nx.lx!=null && !nx.inside && nx.anchor==="end") cx2=nx.lx-est(nx.l||"")-6;
+        if(cx2-cx1>8) el("line",{x1:cx1,y1:y+barH/2,x2:cx2,y2:y+barH/2,stroke:"#b5b5b5","stroke-width":1.2,"stroke-dasharray":"3 3"},null,g);
       }
       for(const sg of it.segs){
         const xa=x0(sg.s), xb=x1(sg.e);
@@ -244,9 +257,12 @@
         if(sg.approx){a.stroke="#e0552b";a["stroke-width"]=1.2;a["stroke-dasharray"]="3 2";}
         el("rect",a,null,g);
       }
-      const wide=it.inside, k0=it.segs[0].k;
-      const t=el("text",{x:it.lx,"text-anchor":it.anchor,y:y+11,"font-size":11,fill: wide?"#fff":"#444"},it.n,g);
-      if(wide && k0==="lead") t.setAttribute("fill","#1d3f66");
+      const lbl=(x,anchor,inside,k,txt)=>{
+        const t=el("text",{x:x,"text-anchor":anchor,y:y+11,"font-size":11,fill: inside?"#fff":"#444"},txt,g);
+        if(inside && k==="lead") t.setAttribute("fill","#1d3f66");
+      };
+      if(it.segs.length===1) lbl(it.lx,it.anchor,it.inside,it.segs[0].k,it.n);
+      else it.segs.forEach(sg=>{ if(sg.lx!=null && sg.l) lbl(sg.lx,sg.anchor,sg.inside,sg.k,sg.l); });
       (it.m||[]).forEach(mm=>el("circle",{cx:x0(mm)+8,cy:y+barH/2,r:4.5,fill:"#fff",stroke:css("--side"),"stroke-width":2},null,g));
       const tip=it.segs.map(sg=>sg.s+" – "+sg.e+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（期間待確認）":"")).join("　→　");
       el("title",{},it.n+"　"+tip,g);
