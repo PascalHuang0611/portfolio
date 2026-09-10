@@ -38,7 +38,10 @@
   .legend span{display:inline-flex;align-items:center;gap:6px}
   .sw{width:22px;height:10px;border-radius:3px;display:inline-block}
   .dot{width:10px;height:10px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--side)}
-  .regions{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .regions{display:grid;grid-template-columns:3fr 2fr;gap:18px}
+  .region.wide{grid-column:1/-1}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  @media (max-width:860px){.cols2{grid-template-columns:1fr}}
   .region{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 12px;border-top:4px solid var(--c)}
   .region h3{margin:0;font-size:16px;font-weight:600}
   .region .tag{font-size:12.5px;color:var(--ink2);margin:2px 0 12px}
@@ -136,21 +139,6 @@
       <a class="item" href="#"><span><b>數值設計方法論</b><small>為什麼一款遊戲數學一週能做完、上線後還對得上：八個階段與建模 → 模擬 → 交叉比對 → 回放的驗證鏈</small></span><span class="st">文章</span></a>
     </div>
 
-    <div class="region" style="--c:var(--side);--cb:var(--side-bg);--cs:var(--side-soft)">
-      <h3>本職之外，做成正式系統</h3>
-      <p class="tag">兩條線 ｜ 風控從首月提案走到最後一個月的伺服器；數據基建把行為層、結果層、深挖三層補齊</p>
-      <p class="grp">風控：從提案到伺服器</p>
-      <a class="item" href="#"><span><b>Slot 製作方案</b><small>公司要轉做 Slot 但沒有數學基礎；入職首月比較四種做法，水位系統從這裡開始</small></span><span class="st">提案</span></a>
-      <a class="item" href="#"><span><b>SlotBingo 錄製抽盤</b><small>四種做法之一先做成原型，沒有被單獨採用；一年後成為 DELTA 接入第二款遊戲的選盤機制</small></span><span class="st">併入 DELTA</span></a>
-      <a class="item" href="#"><span><b>數值系統兩階段盲測</b><small>七套數值系統各說各話，沒人能判斷；882 組模擬加資訊熵量化「會不會被玩家猜到」，讓 PM 自己比出結論，勝出兩套</small></span><span class="st">決策依據</span></a>
-      <a class="item" href="#"><span><b>DELTA 水位決策伺服器</b><small>水位系統提了十三個月才在盲測勝出，RD 沒有博弈後端經驗不敢接；三週寫出參照實作，萬人百萬轉零錯誤後交接</small></span><span class="st">已交接</span></a>
-      <p class="grp">數據基建三層</p>
-      <a class="item" href="#"><span><b>行為層：CA 事件收集與行為鏈路</b><small>想知道玩家在哪一步離開，GA 給不了這個粒度；自建前端 Cocos 事件 SDK 與 Go 收集服務，20k events/s 佇列零累積，加上行為旅程分析頁</small></span><span class="st">運作中</span></a>
-      <a class="item" href="#"><span><b>結果層：BI 資料管線</b><small>公司沒有數據分析，報表靠人手整理；第一版 DEMO 未通過，半年後第二版通過並自動化上線，成為主要分析工具</small></span><span class="st">運作中</span></a>
-      <a class="item" href="#"><span><b>深挖：注單分析工具三代</b><small>上線後 PM 每週要決策，手上只有原始注單；單檔儀表板一個月迭代近 70 版，House 決策面板與漏斗</small></span><span class="st">運作中</span></a>
-      <a class="item dead" href="#"><span><b>未採用的嘗試</b><small>Lark 心得擷取分析器：群組心得自動擷取加 LLM 結構化，做完了但沒被採用</small></span><span class="st">未採用</span></a>
-    </div>
-
     <div class="region" style="--c:var(--team);--cb:var(--team-bg);--cs:var(--team-soft)">
       <h3>部門與帶人</h3>
       <p class="tag">2025/11 – 2026/09 ｜ 帶領 1 → 3 → 2 人</p>
@@ -158,6 +146,27 @@
       <a class="item" href="#"><span><b>招募與面試</b><small>沒有人知道怎麼面機率工程師與數據分析師；寫 JD 與面試腳本，把實戰題變成考題，例如刻意不給 Schema、看候選人會不會主動要</small></span><span class="st">文件</span></a>
       <a class="item" href="#"><span><b>入職指引與試用期評核</b><small>新人沒有驗收標準；用 PM 的真實需求當考題，審核時抓到兩個數學錯誤</small></span><span class="st">流程</span></a>
       <p class="note">這一區在公開版只列標題，內容於面談時展示。</p>
+    </div>
+
+    <div class="region wide" style="--c:var(--side);--cb:var(--side-bg);--cs:var(--side-soft)">
+      <h3>本職之外，做成正式系統</h3>
+      <p class="tag">兩條線 ｜ 風控從首月提案走到最後一個月的伺服器；數據基建把行為層、結果層、深挖三層補齊</p>
+      <div class="cols2">
+      <div>
+      <p class="grp">風控：從提案到伺服器</p>
+      <a class="item" href="#"><span><b>Slot 製作方案</b><small>公司要轉做 Slot 但沒有數學基礎；入職首月比較四種做法，水位系統從這裡開始</small></span><span class="st">提案</span></a>
+      <a class="item" href="#"><span><b>SlotBingo 錄製抽盤</b><small>四種做法之一先做成原型，沒有被單獨採用；一年後成為 DELTA 接入第二款遊戲的選盤機制</small></span><span class="st">併入 DELTA</span></a>
+      <a class="item" href="#"><span><b>數值系統兩階段盲測</b><small>七套數值系統各說各話，沒人能判斷；882 組模擬加資訊熵量化「會不會被玩家猜到」，讓 PM 自己比出結論，勝出兩套</small></span><span class="st">決策依據</span></a>
+      <a class="item" href="#"><span><b>DELTA 水位決策伺服器</b><small>水位系統提了十三個月才在盲測勝出，RD 沒有博弈後端經驗不敢接；三週寫出參照實作，萬人百萬轉零錯誤後交接</small></span><span class="st">已交接</span></a>
+      </div>
+      <div>
+      <p class="grp">數據基建三層</p>
+      <a class="item" href="#"><span><b>行為層：CA 事件收集與行為鏈路</b><small>想知道玩家在哪一步離開，GA 給不了這個粒度；自建前端 Cocos 事件 SDK 與 Go 收集服務，20k events/s 佇列零累積，加上行為旅程分析頁</small></span><span class="st">運作中</span></a>
+      <a class="item" href="#"><span><b>結果層：BI 資料管線</b><small>公司沒有數據分析，報表靠人手整理；第一版 DEMO 未通過，半年後第二版通過並自動化上線，成為主要分析工具</small></span><span class="st">運作中</span></a>
+      <a class="item" href="#"><span><b>深挖：注單分析工具三代</b><small>上線後 PM 每週要決策，手上只有原始注單；單檔儀表板一個月迭代近 70 版，House 決策面板與漏斗</small></span><span class="st">運作中</span></a>
+      <a class="item dead" href="#"><span><b>未採用的嘗試</b><small>Lark 心得擷取分析器：群組心得自動擷取加 LLM 結構化，做完了但沒被採用</small></span><span class="st">未採用</span></a>
+      </div>
+      </div>
     </div>
 
   </div>
