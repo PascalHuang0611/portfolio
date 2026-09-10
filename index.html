@@ -90,6 +90,8 @@
     <div class="legend">
       <span><i class="sw" style="background:var(--job)"></i>本職・獨立完成</span>
       <span><i class="sw" style="background:var(--job-soft)"></i>本職・帶領下屬完成</span>
+      <span><i class="sw" style="height:3px;background:#c9d8ea"></i>交付開發中</span>
+      <span><i style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:9px solid #1b1b1b"></i>上線月</span>
       <span><i class="sw" style="background:repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px);border:1px solid #bbb"></i>完成設計、未上線或未採用</span>
       <span><i class="sw" style="background:var(--side)"></i>本職之外・成為正式系統</span>
       <span><i class="dot"></i>向 GM 報備並取得同意</span>
@@ -144,27 +146,27 @@
 
 <script>
 (function(){
-  // 月份用 "YYYY-MM"，end 為含該月。k: solo 獨立 / lead 帶領 / dead 完成設計未上線 / live 正式系統
-  // segs：同一款的前後階段（例：前身暫緩 → 正式版），畫在同一列並以虛線相連。approx:true 表示期間待確認（橘色虛線外框）。
+  // 三層畫法：segs = 實際動手的月份（實心短塊）；thin = 細線，從第一塊到 launch 或 to（交付 RD 開發、等待上線）；launch = 上線月旗標。
+  // k: solo 獨立 / lead 帶領 / dead 完成設計未上線 / live 正式系統。approx:true = 月份待確認（橘色虛框）。l = 該段標籤（多段時用）。
   const games = [
-    {n:"Cash Bingo 系列：Cash Bingo → 12 月依 PM 需求重作模型 → 小改參數成 Lucky Coins → Apolaki 加 ExBet", segs:[{l:"Cash Bingo", s:"2025-06", e:"2025-06", k:"solo"},{l:"重作模型", s:"2025-12", e:"2025-12", k:"solo", approx:true},{l:"Lucky Coins", s:"2026-01", e:"2026-02", k:"solo", approx:true},{l:"Apolaki（+ExBet）", s:"2026-08", e:"2026-08", k:"lead"}]},
-    {n:"LiveMines（視訊實體機台）", segs:[{s:"2025-07", e:"2026-09", k:"solo"}]},
-    {n:"Pula Puti",         segs:[{s:"2025-07", e:"2025-09", k:"solo"}]},
-    {n:"ColorRoll",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}]},
-    {n:"Drop Ball",         segs:[{s:"2025-07", e:"2026-03", k:"solo"}]},
-    {n:"BingBing Run",      segs:[{s:"2025-07", e:"2026-06", k:"solo"}]},
-    {n:"Chicky Mines：前身 LuckyMines 2025/07 完成設計後暫緩，2026/01 重啟為 Chicky Mines", segs:[{l:"LuckyMines（暫緩）", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-03", k:"solo"}]},
-    {n:"Pinoy Hi-Lo：前身 Hi-Lo 第一版未通過，2026 年帶下屬重做上線", segs:[{l:"Hi-Lo 第一版（未通過）", s:"2025-09", e:"2025-09", k:"dead", approx:true},{l:"Pinoy Hi-Lo", s:"2026-01", e:"2026-07", k:"lead"}]},
-    {n:"Plinko 系列（三變體，未上線）", segs:[{s:"2025-10", e:"2025-11", k:"dead", approx:true}]},
+    {n:"LiveMines（視訊實體機台）", segs:[{s:"2025-07", e:"2025-07", k:"solo"},{l:"LiveMines V1–V14 迭代、GLI 送審、上線後注單回放", s:"2025-09", e:"2026-09", k:"solo"}], launch:"2026-08"},
+    {n:"Cash Bingo 系列", segs:[{l:"Cash Bingo", s:"2025-06", e:"2025-06", k:"solo"},{l:"重作模型", s:"2025-12", e:"2025-12", k:"solo", approx:true},{l:"Lucky Coins", s:"2026-04", e:"2026-04", k:"solo"},{l:"Apolaki（+ExBet）", s:"2026-08", e:"2026-08", k:"lead"}]},
+    {n:"Pula Puti",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], to:"2025-09"},
+    {n:"ColorRoll",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], to:"2025-09"},
+    {n:"Drop Ball 系列",    segs:[{l:"Drop Ball 閃電版", s:"2025-07", e:"2025-07", k:"solo"},{l:"ExtraBet 金球升級版", s:"2026-03", e:"2026-03", k:"solo", approx:true}]},
+    {n:"BingBing Run",      segs:[{s:"2025-07", e:"2025-07", k:"solo"}], to:"2026-06"},
+    {n:"Chicky Mines 系列", segs:[{l:"LuckyMines（暫緩）", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-01", k:"solo", approx:true}], to:"2026-03"},
+    {n:"Pinoy Hi-Lo 系列",  segs:[{l:"Hi-Lo 第一版（未通過）", s:"2025-09", e:"2025-09", k:"dead", approx:true},{l:"Pinoy Hi-Lo", s:"2026-01", e:"2026-02", k:"lead", approx:true},{l:"接手修正", s:"2026-05", e:"2026-05", k:"solo", approx:true},{l:"", s:"2026-07", e:"2026-07", k:"solo", approx:true}]},
     {n:"BingoSlot（未上線）", segs:[{s:"2025-11", e:"2025-12", k:"dead"}]},
-    {n:"Piggy Crash 系列：Pinoy Rush 為同框架衍生", segs:[{l:"Piggy Crash", s:"2026-01", e:"2026-03", k:"solo"},{l:"Pinoy Rush（衍生）", s:"2026-04", e:"2026-05", k:"solo"}]},
-    {n:"Chicky Tower",      segs:[{s:"2026-01", e:"2026-08", k:"solo"}]},
-    {n:"Chicken Run",       segs:[{s:"2026-01", e:"2026-07", k:"lead"}]},
+    {n:"Piggy Crash 系列",  segs:[{l:"Piggy Crash", s:"2026-01", e:"2026-01", k:"solo", approx:true},{l:"Pinoy Rush（衍生）", s:"2026-04", e:"2026-04", k:"solo", approx:true}]},
+    {n:"Chicky Tower",      segs:[{l:"Chicky Tower", s:"2026-01", e:"2026-01", k:"solo", approx:true},{l:"上線後稽核修正", s:"2026-08", e:"2026-08", k:"solo", approx:true}]},
+    {n:"Chicken Run",       segs:[{s:"2026-01", e:"2026-02", k:"lead", approx:true}], to:"2026-07"},
+    {n:"Plinko 系列（三變體，未上線）", segs:[{s:"2026-03", e:"2026-03", k:"dead"}]},
   ];
   const side = [
     {n:"Slot 製作方案",        segs:[{s:"2025-06", e:"2025-06", k:"live"}], m:["2025-06"]},
     {n:"錄製抽盤架構（未採用）", segs:[{s:"2025-09", e:"2025-09", k:"dead"}]},
-    {n:"BI 資料管線",          segs:[{s:"2025-10", e:"2026-03", k:"live"}], m:["2025-10"]},
+    {n:"BI 資料管線",          segs:[{s:"2025-10", e:"2025-10", k:"live"}], m:["2025-10"], launch:"2026-03"},
     {n:"Lark 心得擷取（未採用）", segs:[{s:"2025-10", e:"2025-10", k:"dead"}]},
     {n:"注單分析工具三代",      segs:[{s:"2026-01", e:"2026-09", k:"live"}], m:["2026-01"]},
     {n:"CA 事件收集與行為鏈路", segs:[{s:"2026-06", e:"2026-07", k:"live"}], m:["2026-06"]},
@@ -184,24 +186,32 @@
   const x0 = ym => L + idx(ym)*colW, x1 = ym => L + (idx(ym)+1)*colW;
   const est = n => [...n].reduce((w,c)=>w+(c.charCodeAt(0)>255?11:6.2),0);
 
-  // 標籤位置與列排布一起算：單段寬條文字放條內，其餘放右側，右側放不下就放左側
+  // 每列的整體範圍：第一塊起點 → 最後一塊 / launch / to 三者最晚
+  function extent(it){
+    const last=it.segs[it.segs.length-1].e;
+    let e=last; if(it.to && idx(it.to)>idx(e)) e=it.to; if(it.launch && idx(it.launch)>idx(e)) e=it.launch;
+    return {s:it.segs[0].s, e:e};
+  }
+  // 標籤：單段放段內或右側；多段每段各自放段內、右側空隙或左側
   function place(it){
-    it.s=it.segs[0].s; it.e=it.segs[it.segs.length-1].e;
+    const ex=extent(it); it.s=ex.s; it.e=ex.e;
     const xa=x0(it.s), xb=x1(it.e), pad=(it.m?12:0);
-    if(it.segs.length===1){
+    const single=it.segs.length===1, sg0=it.segs[0], b0=x1(sg0.e), a0=x0(sg0.s);
+    if(single){
       const tw=est(it.n);
-      if(xb-xa > tw+12+pad){ it.lx=xa+6+pad; it.anchor="start"; it.inside=true; it.left=xa; it.right=xb; }
-      else if(xb+6+tw <= W-R){ it.lx=xb+6; it.anchor="start"; it.inside=false; it.left=xa; it.right=xb+6+tw; }
-      else { it.lx=xa-6; it.anchor="end"; it.inside=false; it.left=xa-6-tw; it.right=xb; }
+      if(b0-a0 > tw+12+pad){ it.lx=a0+6+pad; it.anchor="start"; it.inside=true; it.left=xa; it.right=xb; }
+      else if(b0+6+tw <= (it.launch?x0(it.launch)-8:W-R)){ it.lx=b0+6; it.anchor="start"; it.inside=false; it.left=xa; it.right=Math.max(xb,b0+6+tw); }
+      else { it.lx=a0-6; it.anchor="end"; it.inside=false; it.left=a0-6-tw; it.right=xb; }
+      sg0.lx=it.lx; sg0.anchor=it.anchor; sg0.inside=it.inside; sg0.l=it.n;
       return;
     }
-    // 多段：每段各自標籤。優先放段內，其次放段右側的空隙，再其次放段左側
     it.left=xa; it.right=xb;
     it.segs.forEach((sg,i)=>{
-      const a=x0(sg.s), b=x1(sg.e), tw=est(sg.l||""), next=it.segs[i+1]?x0(it.segs[i+1].s):W-R, prev=it.segs[i-1]?x1(it.segs[i-1].e):0;
+      if(!sg.l){ sg.lx=null; return; }
+      const a=x0(sg.s), b=x1(sg.e), tw=est(sg.l), next=it.segs[i+1]?x0(it.segs[i+1].s):(it.launch?x0(it.launch)-8:W-R), prev=it.segs[i-1]?x1(it.segs[i-1].e):0;
       if(b-a > tw+12){ sg.lx=a+6; sg.anchor="start"; sg.inside=true; }
       else if(b+6+tw <= next-6){ sg.lx=b+6; sg.anchor="start"; sg.inside=false; it.right=Math.max(it.right,b+6+tw); }
-      else if(a-6-tw >= prev+6){ sg.lx=a-6; sg.anchor="end"; sg.inside=false; it.left=Math.min(it.left,a-6-tw); }
+      else if(a-6-tw >= Math.max(prev+6, L)){ sg.lx=a-6; sg.anchor="end"; sg.inside=false; it.left=Math.min(it.left,a-6-tw); }
       else { sg.lx=null; }
     });
   }
@@ -234,21 +244,25 @@
     el("text",{x:10,y:y+14,"font-size":13,"font-weight":600,fill:color},label);
     el("text",{x:10,y:y+32,"font-size":11.5,fill:"#777"},sub);
   };
-  lane(gTop,gH,"本職：遊戲數學","14 款上線；含 3 款帶領下屬完成",css("--job"));
+  lane(gTop,gH,"本職：遊戲數學","實心 = 動手的月份；細線 = 開發中；▲ = 上線",css("--job"));
   lane(sTop,sH,"本職之外","做出原型 → 報備 → 同意 → 正式系統",css("--side"));
 
   const defs=el("defs",{}); const pat=el("pattern",{id:"hatch",width:6,height:6,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},null,defs);
   el("rect",{width:3,height:6,fill:"#cfcfcf"},null,pat);
 
-  const drawBars=(items,topY,colors)=>{
+  const drawBars=(items,topY,colors,thinColor)=>{
     for(const it of items){
-      const y=topY+8+it.row*rowH;
+      const y=topY+8+it.row*rowH, cy=y+barH/2;
       const g=el("g",{style:"cursor:pointer"});
-      for(let i=1;i<it.segs.length;i++){
-        const pv=it.segs[i-1], nx=it.segs[i];
-        let cx1=x1(pv.e); if(pv.lx!=null && !pv.inside && pv.anchor==="start") cx1=pv.lx+est(pv.l||"")+6;
-        let cx2=x0(nx.s); if(nx.lx!=null && !nx.inside && nx.anchor==="end") cx2=nx.lx-est(nx.l||"")-6;
-        if(cx2-cx1>8) el("line",{x1:cx1,y1:y+barH/2,x2:cx2,y2:y+barH/2,stroke:"#b5b5b5","stroke-width":1.2,"stroke-dasharray":"3 3"},null,g);
+      // 細線：只畫在塊與塊、最後一塊到 launch/to 之間的空隙，並避開標籤文字
+      const ex=extent(it), endX = it.launch? x0(it.launch)+colW/2 : x1(ex.e);
+      const lblR = sg => (sg.lx!=null && !sg.inside && sg.anchor==="start") ? sg.lx+est(sg.l||"")+6 : x1(sg.e);
+      const lblL = sg => (sg.lx!=null && !sg.inside && sg.anchor==="end") ? sg.lx-est(sg.l||"")-6 : x0(sg.s);
+      const thin=(a,b)=>{ if(b-a>8) el("line",{x1:a,y1:cy,x2:b,y2:cy,stroke:thinColor,"stroke-width":2.5,"stroke-linecap":"round"},null,g); };
+      for(let i=0;i<it.segs.length;i++){
+        const a=lblR(it.segs[i]);
+        const b= i+1<it.segs.length ? lblL(it.segs[i+1]) : endX;
+        if(i+1<it.segs.length || endX > x1(it.segs[i].e)+2) thin(a,b);
       }
       for(const sg of it.segs){
         const xa=x0(sg.s), xb=x1(sg.e);
@@ -257,19 +271,20 @@
         if(sg.approx){a.stroke="#e0552b";a["stroke-width"]=1.2;a["stroke-dasharray"]="3 2";}
         el("rect",a,null,g);
       }
+      if(it.launch){ const lx=x0(it.launch)+colW/2; el("path",{d:`M${lx} ${y-1} L${lx-5} ${y+barH+4} L${lx+5} ${y+barH+4} Z`,fill:"#1b1b1b"},null,g); }
       const lbl=(x,anchor,inside,k,txt)=>{
         const t=el("text",{x:x,"text-anchor":anchor,y:y+11,"font-size":11,fill: inside?"#fff":"#444"},txt,g);
         if(inside && k==="lead") t.setAttribute("fill","#1d3f66");
       };
       if(it.segs.length===1) lbl(it.lx,it.anchor,it.inside,it.segs[0].k,it.n);
       else it.segs.forEach(sg=>{ if(sg.lx!=null && sg.l) lbl(sg.lx,sg.anchor,sg.inside,sg.k,sg.l); });
-      (it.m||[]).forEach(mm=>el("circle",{cx:x0(mm)+8,cy:y+barH/2,r:4.5,fill:"#fff",stroke:css("--side"),"stroke-width":2},null,g));
-      const tip=it.segs.map(sg=>sg.s+" – "+sg.e+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（期間待確認）":"")).join("　→　");
+      (it.m||[]).forEach(mm=>el("circle",{cx:x0(mm)+8,cy:cy,r:4.5,fill:"#fff",stroke:css("--side"),"stroke-width":2},null,g));
+      const tip=it.segs.map(sg=>(sg.l?sg.l+" ":"")+sg.s+(sg.e!==sg.s?" – "+sg.e:"")+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（待確認）":"")).join("；")+(it.launch?"；上線 "+it.launch:"");
       el("title",{},it.n+"　"+tip,g);
     }
   };
-  drawBars(games,gTop,{solo:css("--job"),lead:css("--job-soft")});
-  drawBars(side,sTop,{live:css("--side")});
+  drawBars(games,gTop,{solo:css("--job"),lead:css("--job-soft")},"#d7e3f2");
+  drawBars(side,sTop,{live:css("--side")},"#cfe8e3");
 
   const ay=H-14;
   el("line",{x1:L,y1:ay-6,x2:W-R,y2:ay-6,stroke:"#ccc","stroke-width":1});
