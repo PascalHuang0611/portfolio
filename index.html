@@ -90,10 +90,10 @@
     <div class="legend">
       <span><i class="sw" style="background:var(--job)"></i>本職・獨立完成</span>
       <span><i class="sw" style="background:var(--job-soft)"></i>本職・帶領下屬完成</span>
-      <span><i class="sw" style="background:repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px);border:1px solid #bbb"></i>完成設計、未上線</span>
+      <span><i class="sw" style="background:repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px);border:1px solid #bbb"></i>完成設計、未上線或未採用</span>
       <span><i class="sw" style="background:var(--side)"></i>本職之外・成為正式系統</span>
-      <span><i class="sw" style="background:var(--side-soft)"></i>本職之外・未採用</span>
       <span><i class="dot"></i>向 GM 報備並取得同意</span>
+      <span><i class="sw" style="border:1.5px dashed #e0552b;background:transparent"></i>期間待確認</span>
     </div>
   </div>
 </section>
@@ -144,33 +144,35 @@
 
 <script>
 (function(){
-  // 月份用 "YYYY-MM"，end 為含該月。approx:true 表示期間待確認。
+  // 月份用 "YYYY-MM"，end 為含該月。k: solo 獨立 / lead 帶領 / dead 完成設計未上線 / live 正式系統
+  // segs：同一款的前後階段（例：前身暫緩 → 正式版），畫在同一列並以虛線相連。approx:true 表示期間待確認（橘色虛線外框）。
   const games = [
-    {n:"Cash Bingo",        s:"2025-06", e:"2026-06", k:"solo"},
-    {n:"LiveMines（視訊實體機台）", s:"2025-07", e:"2026-09", k:"solo"},
-    {n:"Pula Puti",         s:"2025-07", e:"2025-09", k:"solo"},
-    {n:"ColorRoll",         s:"2025-07", e:"2025-07", k:"solo"},
-    {n:"Drop Ball",         s:"2025-07", e:"2026-03", k:"solo"},
-    {n:"BingBing Run",      s:"2025-07", e:"2026-06", k:"solo"},
-    {n:"Lucky Coins",       s:"2025-10", e:"2025-12", k:"solo"},
-    {n:"BingoSlot（未上線）", s:"2025-11", e:"2025-12", k:"dead"},
-    {n:"Piggy Crash",       s:"2026-01", e:"2026-03", k:"solo"},
-    {n:"Chicky Mines",      s:"2026-01", e:"2026-03", k:"solo"},
-    {n:"Chicky Tower",      s:"2026-01", e:"2026-08", k:"solo"},
-    {n:"Chicken Run",       s:"2026-01", e:"2026-07", k:"lead"},
-    {n:"Pinoy Hi-Lo",       s:"2026-01", e:"2026-07", k:"lead"},
-    {n:"Pinoy Rush",        s:"2026-04", e:"2026-05", k:"solo"},
-    {n:"Apolaki",           s:"2026-08", e:"2026-08", k:"lead"},
+    {n:"Cash Bingo",        segs:[{s:"2025-06", e:"2026-06", k:"solo"}]},
+    {n:"LiveMines（視訊實體機台）", segs:[{s:"2025-07", e:"2026-09", k:"solo"}]},
+    {n:"Pula Puti",         segs:[{s:"2025-07", e:"2025-09", k:"solo"}]},
+    {n:"ColorRoll",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}]},
+    {n:"Drop Ball",         segs:[{s:"2025-07", e:"2026-03", k:"solo"}]},
+    {n:"BingBing Run",      segs:[{s:"2025-07", e:"2026-06", k:"solo"}]},
+    {n:"Chicky Mines（前身 LuckyMines 暫緩）", segs:[{s:"2025-07", e:"2025-07", k:"dead"},{s:"2026-01", e:"2026-03", k:"solo"}]},
+    {n:"Pinoy Hi-Lo（前身 Hi-Lo 第一版未通過）", segs:[{s:"2025-09", e:"2025-09", k:"dead", approx:true},{s:"2026-01", e:"2026-07", k:"lead"}]},
+    {n:"Plinko 系列（三變體，未上線）", segs:[{s:"2025-10", e:"2025-11", k:"dead", approx:true}]},
+    {n:"Lucky Coins",       segs:[{s:"2025-10", e:"2025-12", k:"solo"}]},
+    {n:"BingoSlot（未上線）", segs:[{s:"2025-11", e:"2025-12", k:"dead"}]},
+    {n:"Piggy Crash",       segs:[{s:"2026-01", e:"2026-03", k:"solo"}]},
+    {n:"Chicky Tower",      segs:[{s:"2026-01", e:"2026-08", k:"solo"}]},
+    {n:"Chicken Run",       segs:[{s:"2026-01", e:"2026-07", k:"lead"}]},
+    {n:"Pinoy Rush",        segs:[{s:"2026-04", e:"2026-05", k:"solo"}]},
+    {n:"Apolaki",           segs:[{s:"2026-08", e:"2026-08", k:"lead"}]},
   ];
   const side = [
-    {n:"Slot 製作方案",        s:"2025-06", e:"2025-06", k:"live", m:["2025-06"]},
-    {n:"錄製抽盤架構（未採用）", s:"2025-09", e:"2025-09", k:"dead"},
-    {n:"BI 資料管線",          s:"2025-10", e:"2026-03", k:"live", m:["2025-10"]},
-    {n:"Lark 心得擷取（未採用）", s:"2025-10", e:"2025-10", k:"dead"},
-    {n:"注單分析工具三代",      s:"2026-01", e:"2026-09", k:"live", m:["2026-01"]},
-    {n:"CA 事件收集與行為鏈路", s:"2026-06", e:"2026-07", k:"live", m:["2026-06"]},
-    {n:"水位兩階段盲測",        s:"2026-07", e:"2026-08", k:"live", m:["2026-07"]},
-    {n:"DELTA 水位伺服器",      s:"2026-08", e:"2026-09", k:"live", m:["2026-08"]},
+    {n:"Slot 製作方案",        segs:[{s:"2025-06", e:"2025-06", k:"live"}], m:["2025-06"]},
+    {n:"錄製抽盤架構（未採用）", segs:[{s:"2025-09", e:"2025-09", k:"dead"}]},
+    {n:"BI 資料管線",          segs:[{s:"2025-10", e:"2026-03", k:"live"}], m:["2025-10"]},
+    {n:"Lark 心得擷取（未採用）", segs:[{s:"2025-10", e:"2025-10", k:"dead"}]},
+    {n:"注單分析工具三代",      segs:[{s:"2026-01", e:"2026-09", k:"live"}], m:["2026-01"]},
+    {n:"CA 事件收集與行為鏈路", segs:[{s:"2026-06", e:"2026-07", k:"live"}], m:["2026-06"]},
+    {n:"水位兩階段盲測",        segs:[{s:"2026-07", e:"2026-08", k:"live"}], m:["2026-07"]},
+    {n:"DELTA 水位伺服器",      segs:[{s:"2026-08", e:"2026-09", k:"live"}], m:["2026-08"]},
   ];
   const events = [
     {m:"2025-05", t:"入職"}, {m:"2025-07", t:"提前轉正・數值宣講"}, {m:"2025-12", t:"年度最佳員工"},
@@ -183,12 +185,13 @@
   const rowH = 22, barH = 14;
   const idx = ym => { const [y,m]=ym.split("-").map(Number); return y*12+(m-1)-M0; };
   const x0 = ym => L + idx(ym)*colW, x1 = ym => L + (idx(ym)+1)*colW;
-
-  // 標籤位置與列排布一起算：寬條文字放條內，窄條放右側，右側放不下就放左側
   const est = n => [...n].reduce((w,c)=>w+(c.charCodeAt(0)>255?11:6.2),0);
+
+  // 標籤位置與列排布一起算：單段寬條文字放條內，其餘放右側，右側放不下就放左側
   function place(it){
-    const xa=x0(it.s), xb=x1(it.e), tw=est(it.n);
-    if(xb-xa > tw+12+(it.m?12:0)){ it.lx=xa+6+(it.m?12:0); it.anchor="start"; it.inside=true; it.left=xa; it.right=xb; }
+    it.s=it.segs[0].s; it.e=it.segs[it.segs.length-1].e;
+    const xa=x0(it.s), xb=x1(it.e), tw=est(it.n), pad=(it.m?12:0);
+    if(it.segs.length===1 && xb-xa > tw+12+pad){ it.lx=xa+6+pad; it.anchor="start"; it.inside=true; it.left=xa; it.right=xb; }
     else if(xb+6+tw <= W-R){ it.lx=xb+6; it.anchor="start"; it.inside=false; it.left=xa; it.right=xb+6+tw; }
     else { it.lx=xa-6; it.anchor="end"; it.inside=false; it.left=xa-6-tw; it.right=xb; }
   }
@@ -208,7 +211,7 @@
   const svg = document.getElementById("timeline");
   svg.setAttribute("viewBox", "0 0 "+W+" "+H);
   const NS="http://www.w3.org/2000/svg";
-  const el=(t,a,txt)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e;};
+  const el=(t,a,txt,parent)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;(parent||svg).appendChild(e);return e;};
   const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 
   for(let i=0;i<=months;i++){
@@ -224,31 +227,33 @@
   lane(gTop,gH,"本職：遊戲數學","14 款上線；含 3 款帶領下屬完成",css("--job"));
   lane(sTop,sH,"本職之外","做出原型 → 報備 → 同意 → 正式系統",css("--side"));
 
-  const defs=el("defs",{}); const p=document.createElementNS(NS,"pattern");
-  p.setAttribute("id","hatch");p.setAttribute("width","6");p.setAttribute("height","6");p.setAttribute("patternUnits","userSpaceOnUse");p.setAttribute("patternTransform","rotate(45)");
-  const pr=document.createElementNS(NS,"rect");pr.setAttribute("width","3");pr.setAttribute("height","6");pr.setAttribute("fill","#cfcfcf");p.appendChild(pr);defs.appendChild(p);
+  const defs=el("defs",{}); const pat=el("pattern",{id:"hatch",width:6,height:6,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},null,defs);
+  el("rect",{width:3,height:6,fill:"#cfcfcf"},null,pat);
 
   const drawBars=(items,topY,colors)=>{
     for(const it of items){
-      const y=topY+8+it.row*rowH, xa=x0(it.s), xb=x1(it.e);
-      const fill = it.k==="dead" ? "url(#hatch)" : colors[it.k];
+      const y=topY+8+it.row*rowH;
       const g=el("g",{style:"cursor:pointer"});
-      const r=document.createElementNS(NS,"rect");
-      r.setAttribute("x",xa);r.setAttribute("y",y);r.setAttribute("width",Math.max(xb-xa,6));r.setAttribute("height",barH);r.setAttribute("rx",3);r.setAttribute("fill",fill);
-      if(it.k==="dead"){r.setAttribute("stroke","#bbb");r.setAttribute("stroke-width","1");}
-      if(it.approx){r.setAttribute("stroke-dasharray","3 2");r.setAttribute("stroke","#fff");}
-      g.appendChild(r);
-      const t=document.createElementNS(NS,"text");
-      const wide=it.inside;
-      t.setAttribute("x", it.lx); t.setAttribute("text-anchor", it.anchor); t.setAttribute("y",y+11); t.setAttribute("font-size",11);
-      t.setAttribute("fill", wide? "#fff" : "#444"); if(wide && it.k==="lead") t.setAttribute("fill","#1d3f66"); if(wide && it.k==="dead") t.setAttribute("fill","#555");
-      t.textContent=it.n; g.appendChild(t);
-      (it.m||[]).forEach(mm=>{const c=document.createElementNS(NS,"circle");c.setAttribute("cx",x0(mm)+8);c.setAttribute("cy",y+barH/2);c.setAttribute("r",4.5);c.setAttribute("fill","#fff");c.setAttribute("stroke",css("--side"));c.setAttribute("stroke-width","2");g.appendChild(c);});
-      const title=document.createElementNS(NS,"title");title.textContent=it.n+"　"+it.s+" – "+it.e+(it.approx?"（期間待確認）":"");g.appendChild(title);
+      for(let i=1;i<it.segs.length;i++){
+        el("line",{x1:x1(it.segs[i-1].e),y1:y+barH/2,x2:x0(it.segs[i].s),y2:y+barH/2,stroke:"#b5b5b5","stroke-width":1.2,"stroke-dasharray":"3 3"},null,g);
+      }
+      for(const sg of it.segs){
+        const xa=x0(sg.s), xb=x1(sg.e);
+        const a={x:xa,y:y,width:Math.max(xb-xa,6),height:barH,rx:3,fill: sg.k==="dead"?"url(#hatch)":colors[sg.k]};
+        if(sg.k==="dead"){a.stroke="#bbb";a["stroke-width"]=1;}
+        if(sg.approx){a.stroke="#e0552b";a["stroke-width"]=1.2;a["stroke-dasharray"]="3 2";}
+        el("rect",a,null,g);
+      }
+      const wide=it.inside, k0=it.segs[0].k;
+      const t=el("text",{x:it.lx,"text-anchor":it.anchor,y:y+11,"font-size":11,fill: wide?"#fff":"#444"},it.n,g);
+      if(wide && k0==="lead") t.setAttribute("fill","#1d3f66");
+      (it.m||[]).forEach(mm=>el("circle",{cx:x0(mm)+8,cy:y+barH/2,r:4.5,fill:"#fff",stroke:css("--side"),"stroke-width":2},null,g));
+      const tip=it.segs.map(sg=>sg.s+" – "+sg.e+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（期間待確認）":"")).join("　→　");
+      el("title",{},it.n+"　"+tip,g);
     }
   };
   drawBars(games,gTop,{solo:css("--job"),lead:css("--job-soft")});
-  drawBars(side,sTop,{live:css("--side"),dead:"url(#hatch)"});
+  drawBars(side,sTop,{live:css("--side")});
 
   const ay=H-14;
   el("line",{x1:L,y1:ay-6,x2:W-R,y2:ay-6,stroke:"#ccc","stroke-width":1});
