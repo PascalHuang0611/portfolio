@@ -150,11 +150,11 @@
   // k: solo 獨立 / lead 帶領 / dead 完成設計未上線 / live 正式系統。approx:true = 月份待確認（橘色虛框）。
   // 多段列：每段的 l 為說明文字，畫在塊的上方（撞到就改畫下方）；第一段的 l 應含遊戲名。
   const games = [
-    {n:"LiveMines（視訊實體機台）", segs:[{l:"LiveMines｜V1–V14 迭代", s:"2025-07", e:"2025-08", k:"solo"},{l:"物理賭具偏差修正", s:"2025-12", e:"2025-12", k:"solo"},{l:"風控模擬", s:"2026-04", e:"2026-04", k:"solo"},{l:"人流模擬 FinalCheck", s:"2026-05", e:"2026-05", k:"solo"},{l:"上線・注單回放", s:"2026-08", e:"2026-09", k:"solo"}], launch:"2026-08"},
+    {n:"LiveMines（視訊實體機台）", segs:[{l:"LiveMines｜V1–V14 迭代", d:"兩個月內與 PM 迭代 14 版玩法（7 層地圖碎片 → 雙寶箱 → 單球 JP → 閃電九宮格 + Cash Out），向高層提案", s:"2025-07", e:"2025-08", k:"solo"},{l:"物理賭具偏差修正", s:"2025-12", e:"2025-12", k:"solo"},{l:"風控模擬", s:"2026-04", e:"2026-04", k:"solo"},{l:"人流模擬 FinalCheck", s:"2026-05", e:"2026-05", k:"solo"},{l:"上線・注單回放", s:"2026-08", e:"2026-09", k:"solo"}], launch:"2026-08"},
     {n:"Cash Bingo 系列", segs:[{l:"Cash Bingo", s:"2025-06", e:"2025-06", k:"solo"},{l:"重作模型", s:"2025-12", e:"2025-12", k:"solo"},{l:"Lucky Coins", s:"2026-04", e:"2026-04", k:"solo"},{l:"Apolaki（+ExBet）", s:"2026-08", e:"2026-08", k:"lead"}]},
     {n:"Pula Puti",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], to:"2025-09"},
     {n:"ColorRoll",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], to:"2025-09"},
-    {n:"Drop Ball 系列", segs:[{l:"Drop Ball｜閃電、金球、多金球、多金球 ExtraBet 四分支", s:"2025-07", e:"2025-07", k:"solo"},{l:"ExtraBet 金球升級版", s:"2025-09", e:"2025-09", k:"solo"},{l:"多金球 + JP 最終版", s:"2025-11", e:"2025-11", k:"solo"}]},
+    {n:"Drop Ball", segs:[{l:"Drop Ball｜V1–V4", d:"V1 閃電版、V2 金球版、V3 多金球版、V4 多金球 ExtraBet，四個玩法分支同月完成", s:"2025-07", e:"2025-07", k:"solo"},{l:"V5", d:"V5 ExtraBet 金球升級版（2025/09/16）", s:"2025-09", e:"2025-09", k:"solo"},{l:"V6 上線版", d:"V6 多金球 + JP 最終版（2025/11/14）", s:"2025-11", e:"2025-11", k:"solo"}]},
     {n:"BingBing Run",      segs:[{s:"2025-07", e:"2025-07", k:"solo"}], to:"2026-06"},
     {n:"Chicky Mines 系列", segs:[{l:"LuckyMines（暫緩）", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-01", k:"solo", approx:true}], to:"2026-03"},
     {n:"Pinoy Hi-Lo 系列",  segs:[{l:"Hi-Lo 第一版（未通過）", s:"2025-09", e:"2025-09", k:"dead", approx:true},{l:"Pinoy Hi-Lo（帶人）", s:"2026-01", e:"2026-02", k:"lead", approx:true},{l:"接手修正", s:"2026-05", e:"2026-05", k:"solo", approx:true},{l:"修正", s:"2026-07", e:"2026-07", k:"solo", approx:true}]},
@@ -286,8 +286,11 @@
         if(it.inside && it.segs[0].k==="lead") t.setAttribute("fill","#1d3f66");
       }
       (it.m||[]).forEach(mm=>el("circle",{cx:x0(mm)+8,cy:cy,r:4.5,fill:"#fff",stroke:css("--side"),"stroke-width":2},null,g));
-      const tip=it.segs.map(sg=>(sg.l?sg.l+" ":"")+sg.s+(sg.e!==sg.s?" – "+sg.e:"")+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（待確認）":"")).join("；")+(it.launch?"；上線 "+it.launch:"");
-      el("title",{},it.n+"　"+tip,g);
+      const tip=it.segs.map(sg=>sg.s+(sg.e!==sg.s?" – "+sg.e:"")+"　"+(sg.d||sg.l||"")+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（待確認）":"")).join("
+")+(it.launch?"
+上線 "+it.launch:"");
+      el("title",{},it.n+"
+"+tip,g);
     }
   };
   drawBars(games,G,gTop,{solo:css("--job"),lead:css("--job-soft")},"#d7e3f2",css("--job"));
