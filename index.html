@@ -22,7 +22,7 @@
   .punch{margin:0 0 10px;max-width:860px;font-size:17px;font-weight:600;line-height:1.6;white-space:nowrap}
   @media (max-width:1000px){.punch{white-space:normal}}
   .pos{margin:0;max-width:760px;font-size:15.5px}
-  .method{margin:16px 0 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13.5px;color:var(--ink2)}
+  .method{grid-column:1/-1;margin:4px 0 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13.5px;color:var(--ink2)}
   .method .k{font-weight:600;color:var(--ink)}
   .step{background:var(--side-bg);color:var(--side);border:1px solid var(--side-soft);border-radius:999px;padding:1px 10px;font-weight:500}
   .arrow{color:var(--ink3)}
@@ -89,22 +89,23 @@
     <p class="role">機率工程師 ／ 遊戲後端工程師 ｜ 桃園</p>
     <p class="punch">我解兩種問題：讓遊戲數學上線前算得準、上線後對得上；把公司缺的基礎設施做成正式系統。</p>
     <p class="pos">博弈遊戲數值設計與伺服器工程師。十一年遊戲業資歷，其中九年博弈遊戲後端 C++ 與機率設計並行，近一年半從零建立數值數據部門，交付 17 款上線遊戲的數學模型（含 3 款衍生版），並將風控水位系統從提案、兩階段盲測勝出一路做到 Go 伺服器實作與交接。所有數學先建模、再模擬、再與伺服器交叉比對；所有伺服器先把邊界切乾淨再寫。</p>
-    <p class="method">
-      <span class="k">職務範圍：遊戲數學設計</span>
-      <span class="arrow">｜</span>
-      <span>本職之外的每一項：</span>
-      <span class="step">發現公司的問題</span><span class="arrow">→</span>
-      <span class="step">做出原型</span><span class="arrow">→</span>
-      <span class="step">向 GM 報備</span><span class="arrow">→</span>
-      <span class="step">取得同意</span><span class="arrow">→</span>
-      <span class="step">推行為正式系統</span>
-    </p>
   </div>
   <p class="imgnote">作品集網站建置中<br>面試時可實機展示</p>
   <nav class="links">
     <a href="#">履歷 PDF</a>
     <a href="mailto:a4568245682@gmail.com">a4568245682@gmail.com</a>
   </nav>
+  <p class="method">
+      <span class="k">職務範圍：遊戲數學設計</span>
+      <span class="arrow">｜</span>
+      <span>本職之外：</span>
+      <span class="step">發現公司問題</span><span class="arrow">→</span>
+      <span class="step">做出原型</span><span class="arrow">→</span>
+      <span class="step">向主管報備</span><span class="arrow">→</span>
+      <span class="step">取得同意</span><span class="arrow">→</span>
+      <span class="step">成為正式系統</span><span class="arrow">→</span>
+      <span class="step">附文件交接</span>
+    </p>
 </header>
 
 <section>
@@ -121,7 +122,7 @@
       <span><i style="display:inline-block;width:5px;height:5px;border:1.6px solid var(--job);border-radius:1px;transform:rotate(45deg);background:#fff"></i>衍生版上線（小）</span>
       <span><i class="sw" style="background:repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px);border:1px solid #bbb"></i>完成設計、未上線或未採用</span>
       <span><i class="sw" style="background:var(--side)"></i>本職之外・成為正式系統</span>
-      <span><i class="dot"></i>向 GM 報備並取得同意</span>
+      <span><i class="dot"></i>向主管報備並取得同意</span>
     </div>
   </div>
 </section>
@@ -319,7 +320,7 @@
     el("text",{x:10,y:y+32,"font-size":11.5,fill:"#777"},sub);
   };
   lane(gTop,gH,"本職：遊戲數學","17 款上線（含 3 款衍生版）",css("--job"));
-  lane(sTop,sH,"本職之外","問題 → 原型 → 報備 → 同意 → 正式系統",css("--side"));
+  lane(sTop,sH,"本職之外","問題→原型→報備→同意→正式系統→交接",css("--side"));
 
   const defs=el("defs",{}); const pat=el("pattern",{id:"hatch",width:6,height:6,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},null,defs);
   el("rect",{width:3,height:6,fill:"#cfcfcf"},null,pat);
@@ -377,7 +378,7 @@
     mob.appendChild(ol);
   };
   block("本職：遊戲數學（17 款上線，含 3 款衍生版）",games,css("--job"));
-  block("本職之外：問題 → 原型 → 報備 → 同意 → 正式系統",side,css("--side"));
+  block("本職之外：問題 → 原型 → 報備 → 同意 → 正式系統 → 交接",side,css("--side"));
 
   const ay=H-14;
   el("line",{x1:L,y1:ay-6,x2:W-R,y2:ay-6,stroke:"#ccc","stroke-width":1});
