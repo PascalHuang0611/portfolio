@@ -61,6 +61,16 @@
   body.img .links{display:none}
   .imgnote{display:none;font-size:13px;color:var(--ink2);text-align:right;line-height:1.6;white-space:nowrap}
   body.img .imgnote{display:block}
+  .tlm{display:none}
+  .tlm h4{margin:12px 0 4px;font-size:13.5px;font-weight:600}
+  .tlm ol{list-style:none;margin:0;padding:0 0 0 12px;border-left:2px solid var(--line)}
+  .tlm li{position:relative;padding:0 0 10px 12px;font-size:13.5px;line-height:1.5}
+  .tlm li::before{content:"";position:absolute;left:-17px;top:6px;width:8px;height:8px;border-radius:2px;background:var(--c)}
+  .tlm li.dead::before{background:repeating-linear-gradient(45deg,#ccc 0 2px,#fff 2px 4px);border:1px solid #bbb}
+  .tlm li.lead::before{background:var(--job-soft)}
+  .tlm .m{color:var(--ink2);font-size:12.5px}
+  .tlm .lv{color:var(--c);font-size:12.5px}
+  @media (max-width:760px){.tl svg,.tl .legend{display:none !important}.tlm{display:block}}
   @media (max-width:860px){header{grid-template-columns:1fr}.links{text-align:left}.regions{grid-template-columns:1fr}}
 </style>
 </head>
@@ -95,6 +105,7 @@
   <p class="sub">上軌是本職，下軌是本職之外做出來、後來成為公司正式運作系統的東西。點任一條進入案例頁。</p>
   <div class="tl">
     <svg id="timeline" viewBox="0 0 1060 10" style="width:100%;min-width:760px;display:block" role="img" aria-label="雙軌時間軸"></svg>
+    <div class="tlm" id="tlm"></div>
     <div class="legend">
       <span><i class="sw" style="background:var(--job)"></i>本職・獨立完成</span>
       <span><i class="sw" style="background:var(--job-soft)"></i>本職・帶領團隊成員完成</span>
@@ -335,6 +346,24 @@
   };
   drawBars(games,G,gTop,{solo:css("--job"),lead:css("--job-soft")},"#d7e3f2",css("--job"));
   drawBars(side,S,sTop,{live:css("--side")},"#cfe8e3",css("--side"));
+
+  // 窄螢幕：同一份資料改成直式清單
+  const fmt = ym => ym.replace("-","/");
+  const mob = document.getElementById("tlm");
+  const block=(title,items,color)=>{
+    const h=document.createElement("h4"); h.textContent=title; h.style.color=color; mob.appendChild(h);
+    const ol=document.createElement("ol"); ol.style.setProperty("--c",color);
+    items.slice().sort((a,b)=>idx(a.s)-idx(b.s)).forEach(it=>{
+      const li=document.createElement("li"); const k0=it.segs[0].k; if(k0==="dead") li.className="dead"; else if(k0==="lead") li.className="lead";
+      const segs=it.segs.map(sg=>fmt(sg.s)+(sg.e!==sg.s?"–"+fmt(sg.e):"")+(sg.l&&it.segs.length>1?"（"+sg.l+"）":"")).join("、");
+      const lv=(it.launch||[]).map(L=>"◇ "+L.l).join("；");
+      li.innerHTML="<b>"+it.n+"</b><br><span class='m'>動手："+segs+"</span>"+(lv?"<br><span class='lv'>"+lv+"</span>":"");
+      ol.appendChild(li);
+    });
+    mob.appendChild(ol);
+  };
+  block("本職：遊戲數學（17 款上線，含 3 款衍生版）",games,css("--job"));
+  block("本職之外：原型 → 報備 → 同意 → 正式系統",side,css("--side"));
 
   const ay=H-14;
   el("line",{x1:L,y1:ay-6,x2:W-R,y2:ay-6,stroke:"#ccc","stroke-width":1});
