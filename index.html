@@ -48,6 +48,15 @@
   .item.dead .st{color:var(--dead);border-color:#ddd;background:#f3f3f3}
   .note{font-size:12.5px;color:var(--ink3);margin-top:10px;padding:0 10px}
   .grp{font-size:12px;font-weight:600;color:var(--c);margin:10px 10px 2px;letter-spacing:.5px}
+  .prior{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px 14px;border-top:4px solid #8a8a8a}
+  .prior h3{margin:0;font-size:16px;font-weight:600}
+  .prior .tag{font-size:12.5px;color:var(--ink2);margin:2px 0 12px}
+  .prior .cols{display:grid;grid-template-columns:1fr 1fr;gap:6px 28px}
+  .prior h4{margin:6px 0 2px;font-size:13px;color:var(--ink2);font-weight:600}
+  .prior ul{margin:0;padding-left:18px;font-size:14px}
+  .prior li{margin:0 0 3px}
+  .prior .jp{margin:12px 0 0;padding-top:10px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--ink2)}
+  @media (max-width:860px){.prior .cols{grid-template-columns:1fr}}
   footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   body.img .links{display:none}
   .imgnote{display:none;font-size:13px;color:var(--ink2);text-align:right;line-height:1.6;white-space:nowrap}
@@ -77,8 +86,6 @@
   <p class="imgnote">作品集網站建置中<br>面試時可實機展示各項工具與程式碼</p>
   <nav class="links">
     <a href="#">履歷 PDF</a>
-    <a href="https://github.com/PascalHuang0611" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://github.com/PascalHuang0611?tab=repositories" target="_blank" rel="noopener">線上 demo（GitHub Pages，多個專案）</a>
     <a href="mailto:a4568245682@gmail.com">a4568245682@gmail.com</a>
   </nav>
 </header>
@@ -138,6 +145,36 @@
       <p class="note">這一區在公開版只列標題，內容於面談時展示。</p>
     </div>
 
+  </div>
+</section>
+
+<section>
+  <h2>2016/07 – 2025/05 ｜ 宇峻奧汀科技</h2>
+  <p class="sub">九年博弈遊戲伺服器 C++ 開發與機率設計並行。這段沒有留下作品集素材，只列工作內容。</p>
+  <div class="prior">
+    <h3>資深程式設計師 → 機率工程師</h3>
+    <p class="tag">多媒體傳播業，500 人以上 ｜ 九年考績皆最高等級，含一次 S 級</p>
+    <div class="cols">
+      <div>
+        <h4>伺服器（C++）</h4>
+        <ul>
+          <li>博弈遊戲伺服器端開發：賽馬、老虎機、捕魚機、收集系統、成就系統、遊戲內活動</li>
+          <li>負責專案中兩個最具挑戰性的大型移植：全新遊戲類型與複雜活動功能，需同時掌握來源與目標項目的架構</li>
+          <li>老虎機演算法革新（類背包問題），部分系統記憶體用量降低 90% 以上</li>
+          <li>多人捕魚：路徑演算法、路徑編輯器與多人同步（C# / Unity 客戶端）</li>
+        </ul>
+      </div>
+      <div>
+        <h4>機率與數值</h4>
+        <ul>
+          <li>機率公式設計與驗算：象棋麻將、捕魚機整體機率設計；賽馬公式驗算並修正數值錯誤</li>
+          <li>專案缺乏數值專才時獨立開發近十款數值計算輔助工具；自動生成滾輪帶工具（輸入 Hit Rate / RTP 產出滾輪表）</li>
+          <li>參與三項新活動設計，兩項儲值活動位居專案活動營收第一、第二</li>
+          <li>率先導入 AI 輔助開發並推動團隊採用，活動付費比連續提升 50%、30%，獲 S 級考績</li>
+        </ul>
+      </div>
+    </div>
+    <p class="jp">更早：2015/04 – 2016/04 日本北海道 エウクレイア System Designer，遊戲系統、關卡、數值與 UI 設計，導入 Live2D 開發環境。2013 – 2015 日本工学院専門学校 ゲームクリエイター科。</p>
   </div>
 </section>
 
