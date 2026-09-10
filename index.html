@@ -92,7 +92,7 @@
       <span><i class="sw" style="background:var(--job-soft)"></i>本職・帶領下屬完成</span>
       <span><i class="sw" style="height:3px;background:#c9d8ea"></i>交付開發中</span>
       <span><i style="display:inline-block;width:8px;height:8px;border:2px solid var(--job);border-radius:1.5px;transform:rotate(45deg);background:#fff"></i>上線</span>
-      <span><i style="display:inline-block;width:6px;height:6px;border:2px solid var(--job);border-radius:1px;transform:rotate(45deg);background:var(--job)"></i>衍生版上線</span>
+      <span><i style="display:inline-block;width:5px;height:5px;border:1.6px solid var(--job);border-radius:1px;transform:rotate(45deg);background:#fff"></i>衍生版上線（小）</span>
       <span><i class="sw" style="background:repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px);border:1px solid #bbb"></i>完成設計、未上線或未採用</span>
       <span><i class="sw" style="background:var(--side)"></i>本職之外・成為正式系統</span>
       <span><i class="dot"></i>向 GM 報備並取得同意</span>
@@ -284,7 +284,7 @@
         el("rect",a,null,g);
         if(it.multi && sg.cap) el("text",{x:xa,y: sg.cap==="up"? y-4 : y+barH+11,"font-size":10.5,fill:"#444"},sg.l,g);
       }
-      (it.launch||[]).forEach(L=>{ const lx=x0(L.m)+colW/2; const r=L.dv?3.5:5; el("rect",{x:lx-r,y:cy-r,width:2*r,height:2*r,rx:1.2,fill:L.dv?markColor:"#fff",stroke:markColor,"stroke-width":2,transform:`rotate(45 ${lx} ${cy})`},null,g); const onSeg=it.segs.some(sg=>idx(sg.s)<=idx(L.m)&&idx(L.m)<=idx(sg.e)); if(L.dv && !onSeg) el("text",{x:lx+8,y:cy+4,"font-size":9.5,fill:"#666"},L.dv,g); });
+      (it.launch||[]).forEach(L=>{ const lx=x0(L.m)+colW/2; const r=L.dv?3.5:5; el("rect",{x:lx-r,y:cy-r,width:2*r,height:2*r,rx:1.2,fill:"#fff",stroke:markColor,"stroke-width":L.dv?1.6:2,transform:`rotate(45 ${lx} ${cy})`},null,g); const onSeg=it.segs.some(sg=>idx(sg.s)<=idx(L.m)&&idx(L.m)<=idx(sg.e)); if(L.dv && !onSeg) el("text",{x:lx+8,y:cy+4,"font-size":9.5,fill:"#666"},L.dv,g); });
       if(!it.multi){
         const t=el("text",{x:it.lx,"text-anchor":it.anchor,y:y+11,"font-size":11,fill: it.inside?"#fff":"#444"},it.n,g);
         if(it.inside && it.segs[0].k==="lead") t.setAttribute("fill","#1d3f66");
