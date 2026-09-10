@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>黃培昇 ｜ 作品集</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1b1b1b; --ink2:#555; --ink3:#8a8a8a; --line:#e3e2de;
+    --job:#2f6fb5; --job-bg:#e9f1fb; --job-soft:#b9d2ee;
+    --side:#1f8a7a; --side-bg:#e6f4f1; --side-soft:#a9d9d0;
+    --team:#b5761a; --team-bg:#fbf1e1; --team-soft:#ecd2a3;
+    --dead:#9a9a9a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;font-size:15px;line-height:1.7}
+  a{color:inherit}
+  .wrap{max-width:1100px;margin:0 auto;padding:40px 28px 60px}
+  header{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;padding-bottom:28px;border-bottom:1px solid var(--line)}
+  h1{font-size:30px;margin:0;letter-spacing:1px;font-weight:600}
+  .role{color:var(--ink2);margin:2px 0 14px;font-size:15px}
+  .pos{margin:0;max-width:760px;font-size:15.5px}
+  .method{margin:16px 0 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13.5px;color:var(--ink2)}
+  .method .k{font-weight:600;color:var(--ink)}
+  .step{background:var(--side-bg);color:var(--side);border:1px solid var(--side-soft);border-radius:999px;padding:1px 10px;font-weight:500}
+  .arrow{color:var(--ink3)}
+  .links{display:flex;flex-direction:column;gap:6px;font-size:13.5px;text-align:right;white-space:nowrap}
+  .links a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--line)}
+  .links a:hover{color:var(--ink)}
+  section{margin-top:40px}
+  h2{font-size:19px;margin:0 0 4px;font-weight:600}
+  .sub{color:var(--ink2);margin:0 0 18px;font-size:14px}
+  .tl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 18px 10px;overflow-x:auto}
+  svg text{font-family:inherit}
+  .legend{display:flex;flex-wrap:wrap;gap:14px 22px;font-size:12.5px;color:var(--ink2);margin-top:10px;padding:0 4px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:22px;height:10px;border-radius:3px;display:inline-block}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--side)}
+  .regions{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .region{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 12px;border-top:4px solid var(--c)}
+  .region h3{margin:0;font-size:16px;font-weight:600}
+  .region .tag{font-size:12.5px;color:var(--ink2);margin:2px 0 12px}
+  .item{display:flex;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:8px;text-decoration:none;color:inherit;border:1px solid transparent}
+  .item:hover{background:var(--cb);border-color:var(--cs)}
+  .item b{font-weight:500;font-size:14.5px}
+  .item small{display:block;color:var(--ink2);font-size:12.5px;line-height:1.4}
+  .item .st{font-size:11.5px;color:var(--c);white-space:nowrap;align-self:flex-start;margin-top:3px;border:1px solid var(--cs);background:var(--cb);border-radius:999px;padding:0 7px}
+  .item.dead .st{color:var(--dead);border-color:#ddd;background:#f3f3f3}
+  .note{font-size:12.5px;color:var(--ink3);margin-top:10px;padding:0 10px}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  @media (max-width:860px){header{grid-template-columns:1fr}.links{text-align:left}.regions{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>黃培昇 <span style="font-weight:400;color:var(--ink2);font-size:20px">Pascal Huang</span></h1>
+    <p class="role">機率工程師 ／ 遊戲後端工程師 ｜ 桃園</p>
+    <p class="pos">博弈遊戲數值設計與伺服器工程師，兩邊都能獨立完成。九年後端 C++ 與機率設計背景，近一年半從空白知識庫建立數值數據部門，交付 14 款上線遊戲的數學模型，並將風控水位系統從提案、兩階段盲測評比一路做到 Go 伺服器實作與交接。所有數學先建模、再模擬、再與伺服器交叉比對；所有伺服器先把邊界切乾淨再寫。</p>
+    <p class="method">
+      <span class="k">職務範圍：遊戲數學設計</span>
+      <span class="arrow">｜</span>
+      <span>本職之外的每一項：</span>
+      <span class="step">做出原型</span><span class="arrow">→</span>
+      <span class="step">向 GM 報備</span><span class="arrow">→</span>
+      <span class="step">取得同意</span><span class="arrow">→</span>
+      <span class="step">推行為正式系統</span>
+    </p>
+  </div>
+  <nav class="links">
+    <a href="#">履歷 PDF</a>
+    <a href="https://github.com/PascalHuang0611" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/PascalHuang0611?tab=repositories" target="_blank" rel="noopener">線上 demo（GitHub Pages，多個專案）</a>
+    <a href="mailto:a4568245682@gmail.com">a4568245682@gmail.com</a>
+  </nav>
+</header>
+
+<section>
+  <h2>2025/05 – 2026/11 ｜ 特雷維科技有限公司</h2>
+  <p class="sub">上軌是本職，下軌是本職之外做出來、後來成為公司正式運作系統的東西。點任一條進入案例頁。</p>
+  <div class="tl">
+    <svg id="timeline" viewBox="0 0 1060 10" style="width:100%;min-width:760px;display:block" role="img" aria-label="雙軌時間軸"></svg>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--job)"></i>本職・獨立完成</span>
+      <span><i class="sw" style="background:var(--job-soft)"></i>本職・帶領下屬完成</span>
+      <span><i class="sw" style="background:repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px);border:1px solid #bbb"></i>完成設計、未上線</span>
+      <span><i class="sw" style="background:var(--side)"></i>本職之外・成為正式系統</span>
+      <span><i class="sw" style="background:var(--side-soft)"></i>本職之外・未採用</span>
+      <span><i class="dot"></i>向 GM 報備並取得同意</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>案例</h2>
+  <p class="sub">每個案例頁同一個結構：當時的問題、為什麼沒有人負責、我先做了什麼、報備與決策、推行與結果、回頭看。</p>
+  <div class="regions">
+
+    <div class="region" style="--c:var(--job);--cb:var(--job-bg);--cs:var(--job-soft)">
+      <h3>本職：遊戲數學</h3>
+      <p class="tag">14 款上線 ｜ 視訊實體機台 1、電子類 13 ｜ 其中 3 款帶領下屬完成</p>
+      <a class="item" href="#"><span><b>14 款遊戲總覽</b><small>類型、期間、我的角色、驗證方式</small></span><span class="st">總覽</span></a>
+      <a class="item" href="#"><span><b>LiveMines</b><small>從零定義玩法到 GLI 認證，上線後以真實注單回放驗證風控</small></span><span class="st">深挖</span></a>
+      <a class="item" href="#"><span><b>BingoSlot 逆向生成引擎</b><small>結果導向的數學：零超發、損耗補償、C API 封裝</small></span><span class="st">深挖</span></a>
+      <a class="item" href="#"><span><b>數值設計方法論</b><small>八個階段，以及建模 → 模擬 → 交叉比對 → 回放的驗證鏈</small></span><span class="st">文章</span></a>
+    </div>
+
+    <div class="region" style="--c:var(--side);--cb:var(--side-bg);--cs:var(--side-soft)">
+      <h3>本職之外，做成正式系統</h3>
+      <p class="tag">依時間順序 ｜ 從第一個月的提案到最後一個月的伺服器</p>
+      <a class="item" href="#"><span><b>Slot 製作方案</b><small>2025/06 ・ 入職首月的四方案比較，水位系統的起點</small></span><span class="st">提案</span></a>
+      <a class="item" href="#"><span><b>BI 資料管線</b><small>2025/10 提案 → 2026/03 自動化上線，公司主要分析工具</small></span><span class="st">運作中</span></a>
+      <a class="item" href="#"><span><b>注單分析工具三代</b><small>六格版 → LLM 診斷版 → LiveMines 九格版，一個月迭代近 70 版</small></span><span class="st">運作中</span></a>
+      <a class="item" href="#"><span><b>CA 事件收集與行為鏈路</b><small>2026/06 ・ Go 收集服務 20k events/s、Cocos SDK、旅程分析頁</small></span><span class="st">已交接</span></a>
+      <a class="item" href="#"><span><b>水位系統兩階段盲測</b><small>2026/07 ・ 七系統 882 組模擬、熵指標，再套真實賠率表二階盲測</small></span><span class="st">決策依據</span></a>
+      <a class="item" href="#"><span><b>DELTA 水位決策伺服器</b><small>2026/08 ・ RD 提議由我實作；draw / settle、萬人百萬轉零錯誤</small></span><span class="st">已交接</span></a>
+      <a class="item dead" href="#"><span><b>未採用的兩個嘗試</b><small>錄製抽盤架構（2025/09）、Lark 心得擷取分析器（2025/10）</small></span><span class="st">未採用</span></a>
+    </div>
+
+    <div class="region" style="--c:var(--team);--cb:var(--team-bg);--cs:var(--team-soft)">
+      <h3>部門與帶人</h3>
+      <p class="tag">2025/11 – 2026/09 ｜ 帶領 1 → 3 → 2 人</p>
+      <a class="item" href="#"><span><b>從空白知識庫到部門</b><small>知識庫、交付標準、MD5 版控、模擬報表格式</small></span><span class="st">流程</span></a>
+      <a class="item" href="#"><span><b>招募與面試</b><small>機率工程師與數據分析師 JD、面試腳本</small></span><span class="st">文件</span></a>
+      <a class="item" href="#"><span><b>入職指引與試用期評核</b><small>用 PM 的真實需求當考題；審核抓到的兩個數學錯誤</small></span><span class="st">流程</span></a>
+      <p class="note">這一區在公開版只列標題，內容於面談時展示。</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span>公開版 ｜ 截圖一律使用合成資料，不含任何上線遊戲的實際參數與玩家資料。</span>
+  <span>最後更新 2026/09</span>
+</footer>
+</div>
+
+<script>
+(function(){
+  // 月份用 "YYYY-MM"，end 為含該月。approx:true 表示期間待確認。
+  const games = [
+    {n:"Cash Bingo",        s:"2025-06", e:"2026-06", k:"solo"},
+    {n:"LiveMines（視訊實體機台）", s:"2025-07", e:"2026-09", k:"solo"},
+    {n:"Pula Puti",         s:"2025-07", e:"2025-09", k:"solo"},
+    {n:"ColorRoll",         s:"2025-07", e:"2025-07", k:"solo"},
+    {n:"Drop Ball",         s:"2025-07", e:"2026-03", k:"solo"},
+    {n:"BingBing Run",      s:"2025-07", e:"2026-06", k:"solo"},
+    {n:"Lucky Coins",       s:"2025-10", e:"2025-12", k:"solo"},
+    {n:"BingoSlot（未上線）", s:"2025-11", e:"2025-12", k:"dead"},
+    {n:"Piggy Crash",       s:"2026-01", e:"2026-03", k:"solo"},
+    {n:"Chicky Mines",      s:"2026-01", e:"2026-03", k:"solo"},
+    {n:"Chicky Tower",      s:"2026-01", e:"2026-08", k:"solo"},
+    {n:"Chicken Run",       s:"2026-01", e:"2026-07", k:"lead"},
+    {n:"Pinoy Hi-Lo",       s:"2026-01", e:"2026-07", k:"lead"},
+    {n:"Pinoy Rush",        s:"2026-04", e:"2026-05", k:"solo"},
+    {n:"Apolaki",           s:"2026-08", e:"2026-08", k:"lead"},
+  ];
+  const side = [
+    {n:"Slot 製作方案",        s:"2025-06", e:"2025-06", k:"live", m:["2025-06"]},
+    {n:"錄製抽盤架構（未採用）", s:"2025-09", e:"2025-09", k:"dead"},
+    {n:"BI 資料管線",          s:"2025-10", e:"2026-03", k:"live", m:["2025-10"]},
+    {n:"Lark 心得擷取（未採用）", s:"2025-10", e:"2025-10", k:"dead"},
+    {n:"注單分析工具三代",      s:"2026-01", e:"2026-09", k:"live", m:["2026-01"]},
+    {n:"CA 事件收集與行為鏈路", s:"2026-06", e:"2026-07", k:"live", m:["2026-06"]},
+    {n:"水位兩階段盲測",        s:"2026-07", e:"2026-08", k:"live", m:["2026-07"]},
+    {n:"DELTA 水位伺服器",      s:"2026-08", e:"2026-09", k:"live", m:["2026-08"]},
+  ];
+  const events = [
+    {m:"2025-05", t:"入職"}, {m:"2025-07", t:"提前轉正・數值宣講"}, {m:"2025-12", t:"年度最佳員工"},
+    {m:"2026-04", t:"帶 3 人"}, {m:"2026-09", t:"公司宣布解散"}, {m:"2026-11", t:"完成交接"}
+  ];
+
+  const M0 = 2025*12+4;               // 2025-05
+  const months = 19;                  // 到 2026-11
+  const W = 1060, L = 210, R = 20, colW = (W-L-R)/months;
+  const rowH = 22, barH = 14;
+  const idx = ym => { const [y,m]=ym.split("-").map(Number); return y*12+(m-1)-M0; };
+  const x0 = ym => L + idx(ym)*colW, x1 = ym => L + (idx(ym)+1)*colW;
+
+  // 標籤位置與列排布一起算：寬條文字放條內，窄條放右側，右側放不下就放左側
+  const est = n => [...n].reduce((w,c)=>w+(c.charCodeAt(0)>255?11:6.2),0);
+  function place(it){
+    const xa=x0(it.s), xb=x1(it.e), tw=est(it.n);
+    if(xb-xa > tw+12+(it.m?12:0)){ it.lx=xa+6+(it.m?12:0); it.anchor="start"; it.inside=true; it.left=xa; it.right=xb; }
+    else if(xb+6+tw <= W-R){ it.lx=xb+6; it.anchor="start"; it.inside=false; it.left=xa; it.right=xb+6+tw; }
+    else { it.lx=xa-6; it.anchor="end"; it.inside=false; it.left=xa-6-tw; it.right=xb; }
+  }
+  function pack(items){
+    items.forEach(place);
+    items.sort((a,b)=> idx(a.s)-idx(b.s) || (idx(b.e)-idx(b.s))-(idx(a.e)-idx(a.s)));
+    const rows=[];
+    for(const it of items){ let r=rows.findIndex(end=>end+10<it.left); if(r<0){r=rows.length;rows.push(-1e9);} rows[r]=it.right; it.row=r; }
+    return rows.length;
+  }
+  const gRows = pack(games), sRows = pack(side);
+  const top = 34, laneGap = 26;
+  const gTop = top, gH = gRows*rowH + 8;
+  const sTop = gTop + gH + laneGap, sH = sRows*rowH + 8;
+  const H = sTop + sH + 30;
+
+  const svg = document.getElementById("timeline");
+  svg.setAttribute("viewBox", "0 0 "+W+" "+H);
+  const NS="http://www.w3.org/2000/svg";
+  const el=(t,a,txt)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e;};
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+  for(let i=0;i<=months;i++){
+    const x=L+i*colW, y=M0+i, yy=Math.floor(y/12), mm=y%12+1;
+    el("line",{x1:x,y1:top-6,x2:x,y2:H-22,stroke:"#eeeeea","stroke-width":1});
+    if(i<months && (mm===1||mm===4||mm===7||mm===10)) el("text",{x:x+3,y:top-12,"font-size":11,fill:"#8a8a8a"}, mm===1? yy+"/01" : (mm<10?"0":"")+mm);
+  }
+  const lane=(y,h,label,sub,color)=>{
+    el("rect",{x:0,y:y-4,width:W,height:h,rx:8,fill:"#fafaf8"});
+    el("text",{x:10,y:y+14,"font-size":13,"font-weight":600,fill:color},label);
+    el("text",{x:10,y:y+32,"font-size":11.5,fill:"#777"},sub);
+  };
+  lane(gTop,gH,"本職：遊戲數學","14 款上線；含 3 款帶領下屬完成",css("--job"));
+  lane(sTop,sH,"本職之外","做出原型 → 報備 → 同意 → 正式系統",css("--side"));
+
+  const defs=el("defs",{}); const p=document.createElementNS(NS,"pattern");
+  p.setAttribute("id","hatch");p.setAttribute("width","6");p.setAttribute("height","6");p.setAttribute("patternUnits","userSpaceOnUse");p.setAttribute("patternTransform","rotate(45)");
+  const pr=document.createElementNS(NS,"rect");pr.setAttribute("width","3");pr.setAttribute("height","6");pr.setAttribute("fill","#cfcfcf");p.appendChild(pr);defs.appendChild(p);
+
+  const drawBars=(items,topY,colors)=>{
+    for(const it of items){
+      const y=topY+8+it.row*rowH, xa=x0(it.s), xb=x1(it.e);
+      const fill = it.k==="dead" ? "url(#hatch)" : colors[it.k];
+      const g=el("g",{style:"cursor:pointer"});
+      const r=document.createElementNS(NS,"rect");
+      r.setAttribute("x",xa);r.setAttribute("y",y);r.setAttribute("width",Math.max(xb-xa,6));r.setAttribute("height",barH);r.setAttribute("rx",3);r.setAttribute("fill",fill);
+      if(it.k==="dead"){r.setAttribute("stroke","#bbb");r.setAttribute("stroke-width","1");}
+      if(it.approx){r.setAttribute("stroke-dasharray","3 2");r.setAttribute("stroke","#fff");}
+      g.appendChild(r);
+      const t=document.createElementNS(NS,"text");
+      const wide=it.inside;
+      t.setAttribute("x", it.lx); t.setAttribute("text-anchor", it.anchor); t.setAttribute("y",y+11); t.setAttribute("font-size",11);
+      t.setAttribute("fill", wide? "#fff" : "#444"); if(wide && it.k==="lead") t.setAttribute("fill","#1d3f66"); if(wide && it.k==="dead") t.setAttribute("fill","#555");
+      t.textContent=it.n; g.appendChild(t);
+      (it.m||[]).forEach(mm=>{const c=document.createElementNS(NS,"circle");c.setAttribute("cx",x0(mm)+8);c.setAttribute("cy",y+barH/2);c.setAttribute("r",4.5);c.setAttribute("fill","#fff");c.setAttribute("stroke",css("--side"));c.setAttribute("stroke-width","2");g.appendChild(c);});
+      const title=document.createElementNS(NS,"title");title.textContent=it.n+"　"+it.s+" – "+it.e+(it.approx?"（期間待確認）":"");g.appendChild(title);
+    }
+  };
+  drawBars(games,gTop,{solo:css("--job"),lead:css("--job-soft")});
+  drawBars(side,sTop,{live:css("--side"),dead:"url(#hatch)"});
+
+  const ay=H-14;
+  el("line",{x1:L,y1:ay-6,x2:W-R,y2:ay-6,stroke:"#ccc","stroke-width":1});
+  events.forEach(ev=>{const x=x0(ev.m)+colW/2;el("circle",{cx:x,cy:ay-6,r:3.5,fill:"#444"});el("text",{x:x,y:ay+8,"font-size":10.5,fill:"#666","text-anchor":"middle"},ev.t);});
+})();
+</script>
+</body>
+</html>
