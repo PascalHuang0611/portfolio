@@ -157,7 +157,7 @@
     {n:"ColorRoll",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"}]},
     {n:"Drop Ball", segs:[{l:"Drop Ball｜V1–V4", d:"V1 閃電版、V2 金球版、V3 多金球版、V4 多金球 ExtraBet，四個玩法分支同月完成", s:"2025-07", e:"2025-07", k:"solo"},{l:"V5", d:"V5 ExtraBet 金球升級版（2025/09/16）", s:"2025-09", e:"2025-09", k:"solo"},{l:"V6 上線版", d:"V6 多金球 + JP 最終版（2025/11/14）", s:"2025-11", e:"2025-11", k:"solo"},{l:"Flash 調整", d:"Drop Ball Flash 上線前一週的參數調整", s:"2026-06", e:"2026-06", k:"solo"},{l:"", d:"Color Flash（Flash 換皮）上線前一週的參數調整", s:"2026-08", e:"2026-08", k:"solo"}], launch:[{m:"2026-02", l:"Drop Ball 上線 2026/02/09"},{m:"2026-06", l:"Drop Ball Flash（參數調整、畫面優化版）上線 2026/06/17", dv:"Flash"},{m:"2026-08", l:"Color Flash（Flash 換皮）上線 2026/08/20", dv:"Color Flash"}]},
     {n:"BingBing Run", segs:[{l:"BingBing Run", s:"2025-07", e:"2025-07", k:"solo"},{l:"Mega 調整", d:"BingBing Run Mega（多關卡版）上線前一週的參數調整", s:"2026-06", e:"2026-06", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"},{m:"2026-06", l:"BingBing Run Mega（多關卡衍生版）上線 2026/06/17", dv:"Mega"}]},
-    {n:"Chicky Mines 系列", segs:[{l:"LuckyMines（暫緩）", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-01", k:"solo"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
+    {n:"Chicky Mines 系列", segs:[{l:"LuckyMines（暫緩）", d:"兩天完成：試算表 V3、數學說明、JSON、模擬器、模擬報表齊備後暫緩", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-01", k:"solo"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
     {n:"Pinoy Hi-Lo 系列",  segs:[{l:"Hi-Lo 第一版（未通過）", s:"2025-07", e:"2025-07", k:"dead"},{l:"Pinoy Hi-Lo（下屬製作、我審核）", s:"2026-03", e:"2026-05", k:"lead"},{l:"接手修正", d:"下屬離職後接手，2026/05 與 2026/07 各修正一次", s:"2026-05", e:"2026-05", k:"solo"},{l:"", d:"第二次修正（QA 回報條件機率問題）", s:"2026-07", e:"2026-07", k:"solo"}], launch:[{m:"2026-08", l:"上線 2026/08/10"}]},
     {n:"BingoSlot（未上線）", segs:[{s:"2025-11", e:"2025-12", k:"dead"}]},
     {n:"Piggy Crash 系列",  segs:[{l:"Piggy Crash", s:"2026-01", e:"2026-01", k:"solo"},{l:"Pinoy Rush（衍生）", s:"2026-03", e:"2026-03", k:"solo"}], launch:[{m:"2026-06", l:"Piggy Crash 上線 2026/06/17"},{m:"2026-08", l:"Pinoy Rush 上線 2026/08/20"}]},
@@ -284,7 +284,7 @@
         el("rect",a,null,g);
         if(it.multi && sg.cap) el("text",{x:xa,y: sg.cap==="up"? y-4 : y+barH+11,"font-size":10.5,fill:"#444"},sg.l,g);
       }
-      (it.launch||[]).forEach(L=>{ const lx=x0(L.m)+colW/2; const r=L.dv?3.5:5; el("rect",{x:lx-r,y:cy-r,width:2*r,height:2*r,rx:1.2,fill:L.dv?markColor:"#fff",stroke:markColor,"stroke-width":2,transform:`rotate(45 ${lx} ${cy})`},null,g); if(L.dv) el("text",{x:lx+8,y:cy+4,"font-size":9.5,fill:"#666"},L.dv,g); });
+      (it.launch||[]).forEach(L=>{ const lx=x0(L.m)+colW/2; const r=L.dv?3.5:5; el("rect",{x:lx-r,y:cy-r,width:2*r,height:2*r,rx:1.2,fill:L.dv?markColor:"#fff",stroke:markColor,"stroke-width":2,transform:`rotate(45 ${lx} ${cy})`},null,g); const onSeg=it.segs.some(sg=>idx(sg.s)<=idx(L.m)&&idx(L.m)<=idx(sg.e)); if(L.dv && !onSeg) el("text",{x:lx+8,y:cy+4,"font-size":9.5,fill:"#666"},L.dv,g); });
       if(!it.multi){
         const t=el("text",{x:it.lx,"text-anchor":it.anchor,y:y+11,"font-size":11,fill: it.inside?"#fff":"#444"},it.n,g);
         if(it.inside && it.segs[0].k==="lead") t.setAttribute("fill","#1d3f66");
