@@ -119,7 +119,7 @@
       <h3>本職之外，做成正式系統</h3>
       <p class="tag">依時間順序 ｜ 從第一個月的提案到最後一個月的伺服器</p>
       <a class="item" href="#"><span><b>Slot 製作方案</b><small>2025/06 ・ 入職首月的四方案比較，水位系統的起點</small></span><span class="st">提案</span></a>
-      <a class="item" href="#"><span><b>BI 資料管線</b><small>2025/10 提案 → 2026/03 自動化上線，公司主要分析工具</small></span><span class="st">運作中</span></a>
+      <a class="item" href="#"><span><b>BI 資料管線</b><small>2025/10 第一版 DEMO 未通過 → 2026/03 第二版通過並自動化上線，公司主要分析工具</small></span><span class="st">運作中</span></a>
       <a class="item" href="#"><span><b>注單分析工具三代</b><small>六格版 → LLM 診斷版 → LiveMines 九格版，一個月迭代近 70 版</small></span><span class="st">運作中</span></a>
       <a class="item" href="#"><span><b>CA 事件收集與行為鏈路</b><small>2026/06 ・ Go 收集服務 20k events/s、Cocos SDK、旅程分析頁</small></span><span class="st">已交接</span></a>
       <a class="item" href="#"><span><b>水位系統兩階段盲測</b><small>2026/07 ・ 七系統 882 組模擬、熵指標，再套真實賠率表二階盲測</small></span><span class="st">決策依據</span></a>
@@ -168,7 +168,7 @@
   const side = [
     {n:"Slot 製作方案",        segs:[{s:"2025-06", e:"2025-06", k:"live"}], m:["2025-06"]},
     {n:"錄製抽盤架構（未採用）", segs:[{s:"2025-10", e:"2025-10", k:"dead"}]},
-    {n:"BI 資料管線",          segs:[{s:"2025-10", e:"2025-10", k:"live"}], m:["2025-10"], launch:[{m:"2026-03", l:"自動化上線 2026/03"}]},
+    {n:"BI 資料管線", segs:[{l:"BI 資料管線｜第一版 DEMO（未通過）", d:"第一版 Power BI DEMO 提案，未通過", s:"2025-10", e:"2025-10", k:"dead"},{l:"第二版 DEMO 通過、自動化上線", d:"第二版 DEMO 提案通過，CronJob → SharePoint → Power Query → DAX 自動化上線，成為公司主要分析工具", s:"2026-03", e:"2026-03", k:"live"}], m:["2026-03"], launch:[{m:"2026-03", l:"自動化上線 2026/03"}]},
     {n:"Lark 心得擷取（未採用）", segs:[{s:"2025-10", e:"2025-10", k:"dead"}]},
     {n:"注單分析工具三代", segs:[{s:"2026-06", e:"2026-09", k:"live", d:"2026/06–09 持續演化：六格版 → LLM 診斷串接（中途的 AI 分析 side）→ LiveMines 九格版，一個月迭代近 70 版"}], m:["2026-06"]},
     {n:"CA 事件收集與行為鏈路", segs:[{s:"2026-06", e:"2026-07", k:"live"}], m:["2026-06"]},
