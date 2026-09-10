@@ -286,11 +286,8 @@
         if(it.inside && it.segs[0].k==="lead") t.setAttribute("fill","#1d3f66");
       }
       (it.m||[]).forEach(mm=>el("circle",{cx:x0(mm)+8,cy:cy,r:4.5,fill:"#fff",stroke:css("--side"),"stroke-width":2},null,g));
-      const tip=it.segs.map(sg=>sg.s+(sg.e!==sg.s?" – "+sg.e:"")+"　"+(sg.d||sg.l||"")+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（待確認）":"")).join("
-")+(it.launch?"
-上線 "+it.launch:"");
-      el("title",{},it.n+"
-"+tip,g);
+      const tip=it.segs.map(sg=>sg.s+(sg.e!==sg.s?" – "+sg.e:"")+"　"+(sg.d||sg.l||"")+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（待確認）":"")).join("\n")+(it.launch?"\n上線 "+it.launch:"");
+      el("title",{},it.n+"\n"+tip,g);
     }
   };
   drawBars(games,G,gTop,{solo:css("--job"),lead:css("--job-soft")},"#d7e3f2",css("--job"));
