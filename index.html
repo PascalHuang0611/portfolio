@@ -141,13 +141,14 @@
       <p class="tag">兩條線 ｜ 風控從首月提案走到最後一個月的伺服器；數據基建把行為層、結果層、深挖三層補齊</p>
       <p class="grp">風控：從提案到伺服器</p>
       <a class="item" href="#"><span><b>Slot 製作方案</b><small>公司要轉做 Slot 但沒有數學基礎；入職首月比較四種做法，水位系統從這裡開始</small></span><span class="st">提案</span></a>
+      <a class="item" href="#"><span><b>SlotBingo 錄製抽盤</b><small>四種做法之一先做成原型，沒有被單獨採用；一年後成為 DELTA 接入第二款遊戲的選盤機制</small></span><span class="st">併入 DELTA</span></a>
       <a class="item" href="#"><span><b>數值系統兩階段盲測</b><small>七套數值系統各說各話，沒人能判斷；882 組模擬加資訊熵量化「會不會被玩家猜到」，讓 PM 自己比出結論，勝出兩套</small></span><span class="st">決策依據</span></a>
       <a class="item" href="#"><span><b>DELTA 水位決策伺服器</b><small>水位系統提了十三個月才在盲測勝出，RD 沒有博弈後端經驗不敢接；三週寫出參照實作，萬人百萬轉零錯誤後交接</small></span><span class="st">已交接</span></a>
       <p class="grp">數據基建三層</p>
       <a class="item" href="#"><span><b>行為層：CA 事件收集與行為鏈路</b><small>想知道玩家在哪一步離開，GA 給不了這個粒度；自建事件收集服務，20k events/s 佇列零累積</small></span><span class="st">運作中</span></a>
       <a class="item" href="#"><span><b>結果層：BI 資料管線</b><small>公司沒有數據分析，報表靠人手整理；第一版 DEMO 未通過，半年後第二版通過並自動化上線，成為主要分析工具</small></span><span class="st">運作中</span></a>
       <a class="item" href="#"><span><b>深挖：注單分析工具三代</b><small>上線後 PM 每週要決策，手上只有原始注單；單檔儀表板一個月迭代近 70 版，House 決策面板與漏斗</small></span><span class="st">運作中</span></a>
-      <a class="item dead" href="#"><span><b>未採用的兩個嘗試</b><small>錄製抽盤架構、Lark 心得擷取分析器：做完了但沒被採用</small></span><span class="st">未採用</span></a>
+      <a class="item dead" href="#"><span><b>未採用的嘗試</b><small>Lark 心得擷取分析器：群組心得自動擷取加 LLM 結構化，做完了但沒被採用</small></span><span class="st">未採用</span></a>
     </div>
 
     <div class="region" style="--c:var(--team);--cb:var(--team-bg);--cs:var(--team-soft)">
@@ -220,7 +221,7 @@
   ];
   const side = [
     {n:"Slot 製作方案",        segs:[{s:"2025-06", e:"2025-06", k:"live"}], m:["2025-06"]},
-    {n:"SlotBingo 錄製抽盤（未採用）", segs:[{d:"離線海量生成盤面 + 容器化 + 線上權重抽樣的錄盤架構原型，Slot 製作方案的方案三。與上軌的 BingoSlot 逆向生成是兩個不同專案", s:"2025-10", e:"2025-10", k:"dead"}]},
+    {n:"SlotBingo 錄製抽盤（水位系統的子分支）", segs:[{l:"SlotBingo 錄製抽盤原型", d:"Slot 製作方案的方案三：離線海量生成盤面 + 容器化 + 線上權重抽樣。原型未單獨採用。與上軌的 BingoSlot 逆向生成是兩個不同專案", s:"2025-10", e:"2025-10", k:"dead"},{l:"接入 DELTA（TG201）", d:"以 TG201 錄盤選盤 + 倍率制作為 DELTA 接入的第二款遊戲，證明水位系統接新遊戲不需改動；錄盤負責遊戲端選盤面、水位負責決定該付多少", s:"2026-09", e:"2026-09", k:"live"}]},
     {n:"BI 資料管線", segs:[{l:"BI 資料管線｜第一版 DEMO（未通過）", d:"第一版 Power BI DEMO 提案，未通過", s:"2025-10", e:"2025-10", k:"dead"},{l:"第二版 DEMO 通過、自動化上線", d:"第二版 DEMO 提案通過，CronJob → SharePoint → Power Query → DAX 自動化上線，成為公司主要分析工具", s:"2026-03", e:"2026-03", k:"live"}], m:["2026-03"], launch:[{m:"2026-03", l:"自動化上線 2026/03"}]},
     {n:"Lark 心得擷取（未採用）", segs:[{s:"2025-10", e:"2025-10", k:"dead"}]},
     {n:"注單分析工具三代", segs:[{s:"2026-06", e:"2026-09", k:"live", d:"2026/06–09 持續演化：六格版 → LLM 診斷串接（中途的 AI 分析 side）→ LiveMines 九格版，一個月迭代近 70 版"}], m:["2026-06"]},
