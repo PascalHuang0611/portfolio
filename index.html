@@ -126,7 +126,7 @@
       <a class="item" href="#"><span><b>行為層：CA 事件收集與行為鏈路</b><small>2026/06 ・ 前端事件；Go 收集服務 20k events/s、Cocos SDK、旅程分析頁</small></span><span class="st">已交接</span></a>
       <a class="item" href="#"><span><b>結果層：BI 資料管線</b><small>後端注單；2025/10 第一版 DEMO 未通過 → 2026/03 第二版通過並自動化上線</small></span><span class="st">運作中</span></a>
       <a class="item" href="#"><span><b>深挖：注單分析工具三代</b><small>2026/06–09 ・ 六格版 → LLM 診斷串接 → LiveMines 九格版，一個月迭代近 70 版</small></span><span class="st">運作中</span></a>
-      <a class="item dead" href="#"><span><b>未採用的兩個嘗試</b><small>錄製抽盤架構（2025/10）、Lark 心得擷取分析器（2025/10）</small></span><span class="st">未採用</span></a>
+      <a class="item dead" href="#"><span><b>未採用的兩個嘗試</b><small>SlotBingo 錄製抽盤架構（2025/10）、Lark 心得擷取分析器（2025/10）</small></span><span class="st">未採用</span></a>
     </div>
 
     <div class="region" style="--c:var(--team);--cb:var(--team-bg);--cs:var(--team-soft)">
@@ -161,7 +161,7 @@
     {n:"BingBing Run", segs:[{l:"BingBing Run", s:"2025-07", e:"2025-07", k:"solo"},{l:"Mega 調整", d:"BingBing Run Mega（多關卡版）上線前一週的參數調整", s:"2026-06", e:"2026-06", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"},{m:"2026-06", l:"BingBing Run Mega（多關卡衍生版）上線 2026/06/17", dv:"Mega"}]},
     {n:"Chicky Mines 系列", segs:[{l:"LuckyMines（暫緩）", d:"兩天完成：試算表 V3、數學說明、JSON、模擬器、模擬報表齊備後暫緩", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-01", k:"solo"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
     {n:"Pinoy Hi-Lo 系列",  segs:[{l:"Hi-Lo 第一版（未通過）", s:"2025-07", e:"2025-07", k:"dead"},{l:"Pinoy Hi-Lo（下屬製作、我審核）", s:"2026-03", e:"2026-05", k:"lead"},{l:"接手修正", d:"下屬離職後接手，2026/05 與 2026/07 各修正一次", s:"2026-05", e:"2026-05", k:"solo"},{l:"", d:"第二次修正（QA 回報條件機率問題）", s:"2026-07", e:"2026-07", k:"solo"}], launch:[{m:"2026-08", l:"上線 2026/08/10"}]},
-    {n:"BingoSlot（未上線）", segs:[{s:"2025-11", e:"2025-12", k:"dead"}]},
+    {n:"BingoSlot 逆向生成（未上線）", segs:[{d:"結果導向的逆向生成引擎：K-Grow、零超發、損耗補償，封裝 C API SDK 供 Go 整合。與下軌的 SlotBingo 錄製抽盤是兩個不同專案", s:"2025-11", e:"2025-12", k:"dead"}]},
     {n:"Piggy Crash 系列",  segs:[{l:"Piggy Crash", s:"2026-01", e:"2026-01", k:"solo"},{l:"Pinoy Rush（衍生）", s:"2026-03", e:"2026-03", k:"solo"}], launch:[{m:"2026-06", l:"Piggy Crash 上線 2026/06/17"},{m:"2026-08", l:"Pinoy Rush 上線 2026/08/20"}]},
     {n:"Chicky Tower",      segs:[{l:"Chicky Tower", s:"2026-01", e:"2026-01", k:"solo"},{l:"上線後稽核修正", s:"2026-08", e:"2026-08", k:"solo"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
     {n:"Chicken Run（下屬製作、我審核）", segs:[{s:"2025-12", e:"2026-02", k:"lead"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
@@ -169,7 +169,7 @@
   ];
   const side = [
     {n:"Slot 製作方案",        segs:[{s:"2025-06", e:"2025-06", k:"live"}], m:["2025-06"]},
-    {n:"錄製抽盤架構（未採用）", segs:[{s:"2025-10", e:"2025-10", k:"dead"}]},
+    {n:"SlotBingo 錄製抽盤（未採用）", segs:[{d:"離線海量生成盤面 + 容器化 + 線上權重抽樣的錄盤架構原型，Slot 製作方案的方案三。與上軌的 BingoSlot 逆向生成是兩個不同專案", s:"2025-10", e:"2025-10", k:"dead"}]},
     {n:"BI 資料管線", segs:[{l:"BI 資料管線｜第一版 DEMO（未通過）", d:"第一版 Power BI DEMO 提案，未通過", s:"2025-10", e:"2025-10", k:"dead"},{l:"第二版 DEMO 通過、自動化上線", d:"第二版 DEMO 提案通過，CronJob → SharePoint → Power Query → DAX 自動化上線，成為公司主要分析工具", s:"2026-03", e:"2026-03", k:"live"}], m:["2026-03"], launch:[{m:"2026-03", l:"自動化上線 2026/03"}]},
     {n:"Lark 心得擷取（未採用）", segs:[{s:"2025-10", e:"2025-10", k:"dead"}]},
     {n:"注單分析工具三代", segs:[{s:"2026-06", e:"2026-09", k:"live", d:"2026/06–09 持續演化：六格版 → LLM 診斷串接（中途的 AI 分析 side）→ LiveMines 九格版，一個月迭代近 70 版"}], m:["2026-06"]},
