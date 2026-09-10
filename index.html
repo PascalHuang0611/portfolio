@@ -91,7 +91,7 @@
       <span><i class="sw" style="background:var(--job)"></i>本職・獨立完成</span>
       <span><i class="sw" style="background:var(--job-soft)"></i>本職・帶領下屬完成</span>
       <span><i class="sw" style="height:3px;background:#c9d8ea"></i>交付開發中</span>
-      <span><i style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:9px solid #1b1b1b"></i>上線月</span>
+      <span><i style="display:inline-block;width:8px;height:8px;border:2px solid var(--job);border-radius:1.5px;transform:rotate(45deg);background:#fff"></i>上線月</span>
       <span><i class="sw" style="background:repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px);border:1px solid #bbb"></i>完成設計、未上線或未採用</span>
       <span><i class="sw" style="background:var(--side)"></i>本職之外・成為正式系統</span>
       <span><i class="dot"></i>向 GM 報備並取得同意</span>
@@ -250,13 +250,13 @@
     el("text",{x:10,y:y+14,"font-size":13,"font-weight":600,fill:color},label);
     el("text",{x:10,y:y+32,"font-size":11.5,fill:"#777"},sub);
   };
-  lane(gTop,gH,"本職：遊戲數學","實心 = 動手的月份；細線 = 開發中；▲ = 上線",css("--job"));
+  lane(gTop,gH,"本職：遊戲數學","實心 = 動手的月份；細線 = 開發中；◇ = 上線",css("--job"));
   lane(sTop,sH,"本職之外","做出原型 → 報備 → 同意 → 正式系統",css("--side"));
 
   const defs=el("defs",{}); const pat=el("pattern",{id:"hatch",width:6,height:6,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},null,defs);
   el("rect",{width:3,height:6,fill:"#cfcfcf"},null,pat);
 
-  const drawBars=(items,P,topY,colors,thinColor)=>{
+  const drawBars=(items,P,topY,colors,thinColor,markColor)=>{
     for(const it of items){
       const y = topY+8+P.tops[it.row]+(P.multi[it.row]?14:0), cy=y+barH/2;
       const g=el("g",{style:"cursor:pointer"});
@@ -280,7 +280,7 @@
         el("rect",a,null,g);
         if(it.multi && sg.cap) el("text",{x:xa,y: sg.cap==="up"? y-4 : y+barH+11,"font-size":10.5,fill:"#444"},sg.l,g);
       }
-      if(it.launch){ const lx=x0(it.launch)+colW/2; el("path",{d:`M${lx} ${y-1} L${lx-5} ${y+barH+4} L${lx+5} ${y+barH+4} Z`,fill:"#1b1b1b"},null,g); }
+      if(it.launch){ const lx=x0(it.launch)+colW/2; el("rect",{x:lx-5,y:cy-5,width:10,height:10,rx:1.5,fill:"#fff",stroke:markColor,"stroke-width":2,transform:`rotate(45 ${lx} ${cy})`},null,g); }
       if(!it.multi){
         const t=el("text",{x:it.lx,"text-anchor":it.anchor,y:y+11,"font-size":11,fill: it.inside?"#fff":"#444"},it.n,g);
         if(it.inside && it.segs[0].k==="lead") t.setAttribute("fill","#1d3f66");
@@ -290,8 +290,8 @@
       el("title",{},it.n+"　"+tip,g);
     }
   };
-  drawBars(games,G,gTop,{solo:css("--job"),lead:css("--job-soft")},"#d7e3f2");
-  drawBars(side,S,sTop,{live:css("--side")},"#cfe8e3");
+  drawBars(games,G,gTop,{solo:css("--job"),lead:css("--job-soft")},"#d7e3f2",css("--job"));
+  drawBars(side,S,sTop,{live:css("--side")},"#cfe8e3",css("--side"));
 
   const ay=H-14;
   el("line",{x1:L,y1:ay-6,x2:W-R,y2:ay-6,stroke:"#ccc","stroke-width":1});
