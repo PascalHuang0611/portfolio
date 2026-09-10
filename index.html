@@ -62,7 +62,7 @@
   <div>
     <h1>黃培昇 <span style="font-weight:400;color:var(--ink2);font-size:20px">Pascal Huang</span></h1>
     <p class="role">機率工程師 ／ 遊戲後端工程師 ｜ 桃園</p>
-    <p class="pos">博弈遊戲數值設計與伺服器工程師，兩邊都能獨立完成。九年後端 C++ 與機率設計背景，近一年半從空白知識庫建立數值數據部門，交付 14 款上線遊戲的數學模型，並將風控水位系統從提案、兩階段盲測評比一路做到 Go 伺服器實作與交接。所有數學先建模、再模擬、再與伺服器交叉比對；所有伺服器先把邊界切乾淨再寫。</p>
+    <p class="pos">博弈遊戲數值設計與伺服器工程師，兩邊都能獨立完成。九年後端 C++ 與機率設計背景，近一年半從空白知識庫建立數值數據部門，交付 17 款上線遊戲的數學模型（含 3 款衍生版），並將風控水位系統從提案、兩階段盲測評比一路做到 Go 伺服器實作與交接。所有數學先建模、再模擬、再與伺服器交叉比對；所有伺服器先把邊界切乾淨再寫。</p>
     <p class="method">
       <span class="k">職務範圍：遊戲數學設計</span>
       <span class="arrow">｜</span>
@@ -91,7 +91,8 @@
       <span><i class="sw" style="background:var(--job)"></i>本職・獨立完成</span>
       <span><i class="sw" style="background:var(--job-soft)"></i>本職・帶領下屬完成</span>
       <span><i class="sw" style="height:3px;background:#c9d8ea"></i>交付開發中</span>
-      <span><i style="display:inline-block;width:8px;height:8px;border:2px solid var(--job);border-radius:1.5px;transform:rotate(45deg);background:#fff"></i>上線月</span>
+      <span><i style="display:inline-block;width:8px;height:8px;border:2px solid var(--job);border-radius:1.5px;transform:rotate(45deg);background:#fff"></i>上線</span>
+      <span><i style="display:inline-block;width:6px;height:6px;border:2px solid var(--job);border-radius:1px;transform:rotate(45deg);background:var(--job)"></i>衍生版上線</span>
       <span><i class="sw" style="background:repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px);border:1px solid #bbb"></i>完成設計、未上線或未採用</span>
       <span><i class="sw" style="background:var(--side)"></i>本職之外・成為正式系統</span>
       <span><i class="dot"></i>向 GM 報備並取得同意</span>
@@ -107,8 +108,8 @@
 
     <div class="region" style="--c:var(--job);--cb:var(--job-bg);--cs:var(--job-soft)">
       <h3>本職：遊戲數學</h3>
-      <p class="tag">14 款上線 ｜ 視訊實體機台 1、電子類 13 ｜ 其中 3 款帶領下屬完成</p>
-      <a class="item" href="#"><span><b>14 款遊戲總覽</b><small>類型、期間、我的角色、驗證方式</small></span><span class="st">總覽</span></a>
+      <p class="tag">17 款上線（含 3 款衍生版）｜ 視訊實體機台 1、電子類 16 ｜ 其中 3 款帶領下屬完成</p>
+      <a class="item" href="#"><span><b>17 款遊戲總覽</b><small>類型、期間、我的角色、驗證方式</small></span><span class="st">總覽</span></a>
       <a class="item" href="#"><span><b>LiveMines</b><small>從零定義玩法到 GLI 認證，上線後以真實注單回放驗證風控</small></span><span class="st">深挖</span></a>
       <a class="item" href="#"><span><b>BingoSlot 逆向生成引擎</b><small>結果導向的數學：零超發、損耗補償、C API 封裝</small></span><span class="st">深挖</span></a>
       <a class="item" href="#"><span><b>數值設計方法論</b><small>八個階段，以及建模 → 模擬 → 交叉比對 → 回放的驗證鏈</small></span><span class="st">文章</span></a>
@@ -151,22 +152,22 @@
   // 多段列：每段的 l 為說明文字，畫在塊的上方（撞到就改畫下方）；第一段的 l 應含遊戲名。
   const games = [
     {n:"LiveMines（視訊實體機台）", segs:[{l:"LiveMines｜V1–V14 迭代", d:"兩個月內與 PM 迭代 14 版玩法（7 層地圖碎片 → 雙寶箱 → 單球 JP → 閃電九宮格 + Cash Out），向高層提案", s:"2025-07", e:"2025-08", k:"solo"},{l:"物理賭具偏差修正", s:"2025-12", e:"2025-12", k:"solo"},{l:"風控模擬", s:"2026-04", e:"2026-04", k:"solo"},{l:"人流模擬 FinalCheck", s:"2026-05", e:"2026-05", k:"solo"},{l:"上線・注單回放", s:"2026-08", e:"2026-09", k:"solo"}], launch:[{m:"2026-08", l:"LiveMines 上線 2026/08/10"}]},
-    {n:"Cash Bingo 系列", segs:[{l:"Cash Bingo", s:"2025-06", e:"2025-06", k:"solo"},{l:"重作模型", s:"2025-12", e:"2025-12", k:"solo"},{l:"Lucky Coins", s:"2026-04", e:"2026-04", k:"solo"},{l:"Apolaki（+ExBet）", s:"2026-08", e:"2026-08", k:"lead"}], launch:[{m:"2026-06", l:"Cash Bingo、Lucky Coins 上線 2026/06/17"},{m:"2026-09", l:"Apolaki 上線 2026/09/03"}]},
+    {n:"Cash Bingo 系列", segs:[{l:"Cash Bingo", s:"2025-06", e:"2025-06", k:"solo"},{l:"重作模型", s:"2025-12", e:"2025-12", k:"solo"},{l:"Lucky Coins", s:"2026-04", e:"2026-04", k:"solo"},{l:"Apolaki（+ExBet，下屬製作）", s:"2026-07", e:"2026-07", k:"lead"}], launch:[{m:"2026-06", l:"Cash Bingo、Lucky Coins 上線 2026/06/17"},{m:"2026-09", l:"Apolaki 上線 2026/09/03"}]},
     {n:"Pula Puti",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], launch:[{m:"2025-12", l:"上線 2025/12/17"}]},
     {n:"ColorRoll",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"}]},
-    {n:"Drop Ball", segs:[{l:"Drop Ball｜V1–V4", d:"V1 閃電版、V2 金球版、V3 多金球版、V4 多金球 ExtraBet，四個玩法分支同月完成", s:"2025-07", e:"2025-07", k:"solo"},{l:"V5", d:"V5 ExtraBet 金球升級版（2025/09/16）", s:"2025-09", e:"2025-09", k:"solo"},{l:"V6 上線版", d:"V6 多金球 + JP 最終版（2025/11/14）", s:"2025-11", e:"2025-11", k:"solo"}], launch:[{m:"2026-02", l:"Drop Ball 上線 2026/02/09"},{m:"2026-06", l:"Drop Ball Flash（參數調整、畫面優化版）上線 2026/06/17"},{m:"2026-08", l:"Color Flash（Flash 換皮）上線 2026/08/20"}]},
-    {n:"BingBing Run",      segs:[{s:"2025-07", e:"2025-07", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"},{m:"2026-06", l:"BingBing Run Mega（多關卡衍生版）上線 2026/06/17"}]},
-    {n:"Chicky Mines 系列", segs:[{l:"LuckyMines（暫緩）", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-01", k:"solo", approx:true}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
-    {n:"Pinoy Hi-Lo 系列",  segs:[{l:"Hi-Lo 第一版（未通過）", s:"2025-09", e:"2025-09", k:"dead", approx:true},{l:"Pinoy Hi-Lo（帶人）", s:"2026-01", e:"2026-02", k:"lead", approx:true},{l:"接手修正", s:"2026-05", e:"2026-05", k:"solo", approx:true},{l:"修正", s:"2026-07", e:"2026-07", k:"solo", approx:true}], launch:[{m:"2026-08", l:"上線 2026/08/10"}]},
+    {n:"Drop Ball", segs:[{l:"Drop Ball｜V1–V4", d:"V1 閃電版、V2 金球版、V3 多金球版、V4 多金球 ExtraBet，四個玩法分支同月完成", s:"2025-07", e:"2025-07", k:"solo"},{l:"V5", d:"V5 ExtraBet 金球升級版（2025/09/16）", s:"2025-09", e:"2025-09", k:"solo"},{l:"V6 上線版", d:"V6 多金球 + JP 最終版（2025/11/14）", s:"2025-11", e:"2025-11", k:"solo"}], launch:[{m:"2026-02", l:"Drop Ball 上線 2026/02/09"},{m:"2026-06", l:"Drop Ball Flash（參數調整、畫面優化版）上線 2026/06/17", dv:"Flash"},{m:"2026-08", l:"Color Flash（Flash 換皮）上線 2026/08/20", dv:"Color Flash"}]},
+    {n:"BingBing Run",      segs:[{s:"2025-07", e:"2025-07", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"},{m:"2026-06", l:"BingBing Run Mega（多關卡衍生版）上線 2026/06/17", dv:"Mega"}]},
+    {n:"Chicky Mines 系列", segs:[{l:"LuckyMines（暫緩）", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-01", k:"solo"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
+    {n:"Pinoy Hi-Lo 系列",  segs:[{l:"Hi-Lo 第一版（未通過）", s:"2025-07", e:"2025-07", k:"dead", approx:true},{l:"Pinoy Hi-Lo（下屬製作、我審核）", s:"2026-03", e:"2026-05", k:"lead"},{l:"接手修正", d:"下屬離職後接手，2026/05 與 2026/07 各修正一次", s:"2026-05", e:"2026-05", k:"solo"},{l:"", d:"第二次修正（QA 回報條件機率問題）", s:"2026-07", e:"2026-07", k:"solo"}], launch:[{m:"2026-08", l:"上線 2026/08/10"}]},
     {n:"BingoSlot（未上線）", segs:[{s:"2025-11", e:"2025-12", k:"dead"}]},
-    {n:"Piggy Crash 系列",  segs:[{l:"Piggy Crash", s:"2026-01", e:"2026-01", k:"solo", approx:true},{l:"Pinoy Rush（衍生）", s:"2026-04", e:"2026-04", k:"solo", approx:true}], launch:[{m:"2026-06", l:"Piggy Crash 上線 2026/06/17"},{m:"2026-08", l:"Pinoy Rush 上線 2026/08/20"}]},
-    {n:"Chicky Tower",      segs:[{l:"Chicky Tower", s:"2026-01", e:"2026-01", k:"solo", approx:true},{l:"上線後稽核修正", s:"2026-08", e:"2026-08", k:"solo", approx:true}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
-    {n:"Chicken Run（帶人）", segs:[{s:"2026-01", e:"2026-02", k:"lead", approx:true}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
+    {n:"Piggy Crash 系列",  segs:[{l:"Piggy Crash", s:"2026-01", e:"2026-01", k:"solo"},{l:"Pinoy Rush（衍生）", s:"2026-03", e:"2026-03", k:"solo"}], launch:[{m:"2026-06", l:"Piggy Crash 上線 2026/06/17"},{m:"2026-08", l:"Pinoy Rush 上線 2026/08/20"}]},
+    {n:"Chicky Tower",      segs:[{l:"Chicky Tower", s:"2026-01", e:"2026-01", k:"solo"},{l:"上線後稽核修正", s:"2026-08", e:"2026-08", k:"solo"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
+    {n:"Chicken Run（下屬製作、我審核）", segs:[{s:"2025-12", e:"2026-02", k:"lead"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
     {n:"Plinko 系列（三變體，未上線）", segs:[{s:"2026-03", e:"2026-03", k:"dead"}]},
   ];
   const side = [
     {n:"Slot 製作方案",        segs:[{s:"2025-06", e:"2025-06", k:"live"}], m:["2025-06"]},
-    {n:"錄製抽盤架構（未採用）", segs:[{s:"2025-09", e:"2025-09", k:"dead"}]},
+    {n:"錄製抽盤架構（未採用）", segs:[{s:"2025-10", e:"2025-10", k:"dead"}]},
     {n:"BI 資料管線",          segs:[{s:"2025-10", e:"2025-10", k:"live"}], m:["2025-10"], launch:[{m:"2026-03", l:"自動化上線 2026/03"}]},
     {n:"Lark 心得擷取（未採用）", segs:[{s:"2025-10", e:"2025-10", k:"dead"}]},
     {n:"注單分析工具三代",      segs:[{l:"注單分析｜六格版", s:"2026-03", e:"2026-03", k:"live", approx:true},{l:"LLM 診斷版", s:"2026-05", e:"2026-05", k:"live", approx:true},{l:"LiveMines 九格版", s:"2026-08", e:"2026-09", k:"live"}], m:["2026-03"]},
@@ -253,7 +254,7 @@
     el("text",{x:10,y:y+14,"font-size":13,"font-weight":600,fill:color},label);
     el("text",{x:10,y:y+32,"font-size":11.5,fill:"#777"},sub);
   };
-  lane(gTop,gH,"本職：遊戲數學","14 款上線；含 3 款帶領下屬",css("--job"));
+  lane(gTop,gH,"本職：遊戲數學","17 款上線（含 3 款衍生版）",css("--job"));
   lane(sTop,sH,"本職之外","原型 → 報備 → 同意 → 正式系統",css("--side"));
 
   const defs=el("defs",{}); const pat=el("pattern",{id:"hatch",width:6,height:6,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},null,defs);
@@ -283,7 +284,7 @@
         el("rect",a,null,g);
         if(it.multi && sg.cap) el("text",{x:xa,y: sg.cap==="up"? y-4 : y+barH+11,"font-size":10.5,fill:"#444"},sg.l,g);
       }
-      (it.launch||[]).forEach(L=>{ const lx=x0(L.m)+colW/2; el("rect",{x:lx-5,y:cy-5,width:10,height:10,rx:1.5,fill:"#fff",stroke:markColor,"stroke-width":2,transform:`rotate(45 ${lx} ${cy})`},null,g); });
+      (it.launch||[]).forEach(L=>{ const lx=x0(L.m)+colW/2; const r=L.dv?3.5:5; el("rect",{x:lx-r,y:cy-r,width:2*r,height:2*r,rx:1.2,fill:L.dv?markColor:"#fff",stroke:markColor,"stroke-width":2,transform:`rotate(45 ${lx} ${cy})`},null,g); if(L.dv) el("text",{x:lx+8,y:cy+4,"font-size":9.5,fill:"#666"},L.dv,g); });
       if(!it.multi){
         const t=el("text",{x:it.lx,"text-anchor":it.anchor,y:y+11,"font-size":11,fill: it.inside?"#fff":"#444"},it.n,g);
         if(it.inside && it.segs[0].k==="lead") t.setAttribute("fill","#1d3f66");
