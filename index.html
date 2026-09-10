@@ -47,6 +47,7 @@
   .item .st{font-size:11.5px;color:var(--c);white-space:nowrap;align-self:flex-start;margin-top:3px;border:1px solid var(--cs);background:var(--cb);border-radius:999px;padding:0 7px}
   .item.dead .st{color:var(--dead);border-color:#ddd;background:#f3f3f3}
   .note{font-size:12.5px;color:var(--ink3);margin-top:10px;padding:0 10px}
+  .grp{font-size:12px;font-weight:600;color:var(--c);margin:10px 10px 2px;letter-spacing:.5px}
   footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   body.img .links{display:none}
   .imgnote{display:none;font-size:13px;color:var(--ink2);text-align:right;line-height:1.6;white-space:nowrap}
@@ -116,14 +117,16 @@
 
     <div class="region" style="--c:var(--side);--cb:var(--side-bg);--cs:var(--side-soft)">
       <h3>本職之外，做成正式系統</h3>
-      <p class="tag">依時間順序 ｜ 從第一個月的提案到最後一個月的伺服器</p>
+      <p class="tag">兩條線 ｜ 風控從首月提案走到最後一個月的伺服器；數據基建把行為層、結果層、深挖三層補齊</p>
+      <p class="grp">風控：從提案到伺服器</p>
       <a class="item" href="#"><span><b>Slot 製作方案</b><small>2025/06 ・ 入職首月的四方案比較，水位系統的起點</small></span><span class="st">提案</span></a>
-      <a class="item" href="#"><span><b>BI 資料管線</b><small>2025/10 第一版 DEMO 未通過 → 2026/03 第二版通過並自動化上線，公司主要分析工具</small></span><span class="st">運作中</span></a>
-      <a class="item" href="#"><span><b>注單分析工具三代</b><small>六格版 → LLM 診斷版 → LiveMines 九格版，一個月迭代近 70 版</small></span><span class="st">運作中</span></a>
-      <a class="item" href="#"><span><b>CA 事件收集與行為鏈路</b><small>2026/06 ・ Go 收集服務 20k events/s、Cocos SDK、旅程分析頁</small></span><span class="st">已交接</span></a>
       <a class="item" href="#"><span><b>水位系統兩階段盲測</b><small>2026/07 ・ 七系統 882 組模擬、熵指標，再套真實賠率表二階盲測</small></span><span class="st">決策依據</span></a>
       <a class="item" href="#"><span><b>DELTA 水位決策伺服器</b><small>2026/08 ・ RD 提議由我實作；draw / settle、萬人百萬轉零錯誤</small></span><span class="st">已交接</span></a>
-      <a class="item dead" href="#"><span><b>未採用的兩個嘗試</b><small>錄製抽盤架構（2025/09）、Lark 心得擷取分析器（2025/10）</small></span><span class="st">未採用</span></a>
+      <p class="grp">數據基建三層</p>
+      <a class="item" href="#"><span><b>行為層：CA 事件收集與行為鏈路</b><small>2026/06 ・ 前端事件；Go 收集服務 20k events/s、Cocos SDK、旅程分析頁</small></span><span class="st">已交接</span></a>
+      <a class="item" href="#"><span><b>結果層：BI 資料管線</b><small>後端注單；2025/10 第一版 DEMO 未通過 → 2026/03 第二版通過並自動化上線</small></span><span class="st">運作中</span></a>
+      <a class="item" href="#"><span><b>深挖：注單分析工具三代</b><small>2026/06–09 ・ 六格版 → LLM 診斷串接 → LiveMines 九格版，一個月迭代近 70 版</small></span><span class="st">運作中</span></a>
+      <a class="item dead" href="#"><span><b>未採用的兩個嘗試</b><small>錄製抽盤架構（2025/10）、Lark 心得擷取分析器（2025/10）</small></span><span class="st">未採用</span></a>
     </div>
 
     <div class="region" style="--c:var(--team);--cb:var(--team-bg);--cs:var(--team-soft)">
