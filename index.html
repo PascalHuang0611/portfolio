@@ -120,6 +120,7 @@
       <span><i class="sw" style="height:3px;background:#c9d8ea"></i>交付開發中</span>
       <span><i style="display:inline-block;width:8px;height:8px;border:2px solid var(--job);border-radius:1.5px;transform:rotate(45deg);background:#fff"></i>上線</span>
       <span><i style="display:inline-block;width:5px;height:5px;border:1.6px solid var(--job);border-radius:1px;transform:rotate(45deg);background:#fff"></i>衍生版上線（小）</span>
+      <span><i style="display:inline-block;width:8px;height:8px;border:1.6px solid #8a8a8a;border-radius:50%;background:#fff"></i>下架</span>
       <span><i class="sw" style="background:repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px);border:1px solid #bbb"></i>完成設計、未上線或未採用</span>
       <span><i class="sw" style="background:var(--side)"></i>本職之外・成為正式系統</span>
       <span><i class="dot"></i>向主管報備並取得同意</span>
@@ -219,7 +220,7 @@
     {n:"LiveMines（視訊實體機台）", segs:[{l:"LiveMines｜V1–V14 迭代", d:"兩個月內與 PM 迭代 14 版玩法（7 層地圖碎片 → 雙寶箱 → 單球 JP → 閃電九宮格 + Cash Out），向高層提案", s:"2025-07", e:"2025-08", k:"solo"},{l:"物理賭具偏差修正", s:"2025-12", e:"2025-12", k:"solo"},{l:"風控系統", s:"2026-04", e:"2026-04", k:"solo"},{l:"人流系統", d:"上線前：以既有類似遊戲的注單拆出玩家行為特徵，合成玩家 DNA 做人流模擬，驗證三層風控（V14 FinalCheck）", s:"2026-05", e:"2026-05", k:"solo"},{l:"上線・注單回放", d:"上線後：改用正式注單做人流模擬與落球回放，作為之後調整數值或活動的決策依據；同期迭代注單分析儀表板", s:"2026-08", e:"2026-09", k:"solo"}], launch:[{m:"2026-08", l:"LiveMines 上線 2026/08/10"}]},
     {n:"Cash Bingo 系列", segs:[{l:"Cash Bingo", s:"2025-06", e:"2025-06", k:"solo"},{l:"重作模型", s:"2025-12", e:"2025-12", k:"solo"},{l:"Lucky Coins", s:"2026-04", e:"2026-04", k:"solo"},{l:"Apolaki（+ExBet，團隊成員製作）", s:"2026-07", e:"2026-07", k:"lead"}], launch:[{m:"2026-06", l:"Cash Bingo、Lucky Coins 上線 2026/06/17"},{m:"2026-09", l:"Apolaki 上線 2026/09/03"}]},
     {n:"Pula Puti",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], launch:[{m:"2025-12", l:"上線 2025/12/17"}]},
-    {n:"ColorRoll",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"}]},
+    {n:"ColorRoll",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"}], off:{m:"2026-06", l:"下架 2026/06/24"}},
     {n:"Drop Ball", segs:[{l:"Drop Ball｜V1–V4", d:"V1 閃電版、V2 金球版、V3 多金球版、V4 多金球 ExtraBet，四個玩法分支同月完成", s:"2025-07", e:"2025-07", k:"solo"},{l:"V5", d:"V5 ExtraBet 金球升級版（2025/09/16）", s:"2025-09", e:"2025-09", k:"solo"},{l:"V6 上線版", d:"V6 多金球 + JP 最終版（2025/11/14）", s:"2025-11", e:"2025-11", k:"solo"},{l:"Flash 調整", d:"Drop Ball Flash 上線前一週的參數調整", s:"2026-06", e:"2026-06", k:"solo"},{l:"", d:"Color Flash（Flash 換皮）上線前一週的參數調整", s:"2026-08", e:"2026-08", k:"solo"}], launch:[{m:"2026-02", l:"Drop Ball 上線 2026/02/09"},{m:"2026-06", l:"Drop Ball Flash（參數調整、畫面優化版）上線 2026/06/17", dv:"Flash"},{m:"2026-08", l:"Color Flash（Flash 換皮）上線 2026/08/20", dv:"Color Flash"}]},
     {n:"BingBing Run", segs:[{l:"BingBing Run", s:"2025-07", e:"2025-07", k:"solo"},{l:"Mega 調整", d:"BingBing Run Mega（多關卡版）上線前一週的參數調整", s:"2026-06", e:"2026-06", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"},{m:"2026-06", l:"BingBing Run Mega（多關卡衍生版）上線 2026/06/17", dv:"Mega"}]},
     {n:"Chicky Mines 系列", segs:[{l:"LuckyMines（暫緩）", d:"兩天完成：試算表 V3、數學說明、JSON、模擬器、模擬報表齊備後暫緩", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-01", k:"solo"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
@@ -257,6 +258,7 @@
     const last=it.segs[it.segs.length-1].e;
     let e=last; if(it.to && idx(it.to)>idx(e)) e=it.to;
     (it.launch||[]).forEach(L=>{ if(idx(L.m)>idx(e)) e=L.m; });
+    if(it.off && idx(it.off.m)>idx(e)) e=it.off.m;
     return {s:it.segs[0].s, e:e};
   }
   const lastLaunch = it => (it.launch&&it.launch.length)? it.launch[it.launch.length-1].m : null;
@@ -330,7 +332,7 @@
       const y = topY+8+P.tops[it.row]+(P.multi[it.row]?14:0), cy=y+barH/2;
       const g=el("g",{style:"cursor:pointer"});
       // 細線
-      const ex=extent(it), endX = lastLaunch(it)? x0(lastLaunch(it))+colW/2 : x1(ex.e);
+      const ex=extent(it), endX = it.off? x0(it.off.m)+colW/2 : (lastLaunch(it)? x0(lastLaunch(it))+colW/2 : x1(ex.e));
       const thin=(a,b)=>{ if(b-a>8) el("line",{x1:a,y1:cy,x2:b,y2:cy,stroke:thinColor,"stroke-width":2.5,"stroke-linecap":"round"},null,g); };
       if(!it.multi){
         const a = (it.lx!=null && !it.inside && it.anchor==="start") ? it.lx+est(it.n)+6 : x1(it.segs[0].e);
@@ -354,8 +356,9 @@
         const t=el("text",{x:it.lx,"text-anchor":it.anchor,y:y+11,"font-size":11,fill: it.inside?"#fff":"#444"},it.n,g);
         if(it.inside && it.segs[0].k==="lead") t.setAttribute("fill","#1d3f66");
       }
+      if(it.off){ const ox=x0(it.off.m)+colW/2; el("circle",{cx:ox,cy:cy,r:5,fill:"#fff",stroke:"#8a8a8a","stroke-width":1.6},null,g); el("path",{d:`M${ox-2.5} ${cy-2.5} L${ox+2.5} ${cy+2.5} M${ox+2.5} ${cy-2.5} L${ox-2.5} ${cy+2.5}`,stroke:"#8a8a8a","stroke-width":1.4,fill:"none"},null,g); }
       (it.m||[]).forEach(mm=>el("circle",{cx:x0(mm)+8,cy:cy,r:4.5,fill:"#fff",stroke:css("--side"),"stroke-width":2},null,g));
-      const tip=it.segs.map(sg=>sg.s+(sg.e!==sg.s?" – "+sg.e:"")+"　"+(sg.d||sg.l||"")+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（待確認）":"")).join("\n")+(it.launch||[]).map(L=>"\n◇ "+L.l).join("");
+      const tip=it.segs.map(sg=>sg.s+(sg.e!==sg.s?" – "+sg.e:"")+"　"+(sg.d||sg.l||"")+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（待確認）":"")).join("\n")+(it.launch||[]).map(L=>"\n◇ "+L.l).join("")+(it.off?"\n⊗ "+it.off.l:"");
       el("title",{},it.n+"\n"+tip,g);
     }
   };
@@ -371,7 +374,7 @@
     items.slice().sort((a,b)=>idx(a.s)-idx(b.s)).forEach(it=>{
       const li=document.createElement("li"); const k0=it.segs[0].k; if(k0==="dead") li.className="dead"; else if(k0==="lead") li.className="lead";
       const segs=it.segs.map(sg=>fmt(sg.s)+(sg.e!==sg.s?"–"+fmt(sg.e):"")+(sg.l&&it.segs.length>1?"（"+sg.l+"）":"")).join("、");
-      const lv=(it.launch||[]).map(L=>"◇ "+L.l).join("；");
+      const lv=(it.launch||[]).map(L=>"◇ "+L.l).join("；")+(it.off?"；⊗ "+it.off.l:"");
       li.innerHTML="<b>"+it.n+"</b><br><span class='m'>動手："+segs+"</span>"+(lv?"<br><span class='lv'>"+lv+"</span>":"");
       ol.appendChild(li);
     });
