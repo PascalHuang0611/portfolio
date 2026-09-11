@@ -99,7 +99,7 @@
 </style>
 </head>
 <body>
-<script>if(location.search.indexOf("img=1")>=0)document.body.classList.add("img");var mo=location.search.match(/only=(\d)/);if(mo)document.body.classList.add("only"+mo[1]);</script>
+<script>if(location.search.indexOf("img=1")>=0)document.body.classList.add("img");var mo=location.search.match(/only=(\d)/);if(mo)document.body.classList.add("only"+mo[1]);window.CODES=location.search.indexOf("codes=1")>=0;</script>
 <div class="wrap">
 
 <header>
@@ -264,6 +264,29 @@
     {m:"2026-04", t:"團隊 3 人"}, {m:"2026-09", t:"公司宣布解散"}, {m:"2026-11", t:"完成交接"}
   ];
 
+  // 代號模式（?codes=1）：對外附件用遊戲代號取代名稱
+  const CODE_MAP = [
+    ["BingBing Run Mega","TG139"],["Mega 調整","TG139 調整"],["Drop Ball Flash","TG126"],["Flash 調整","TG126 調整"],["Color Flash","TG126 換皮版"],
+    ["LiveMines（視訊實體機台）","TG001（視訊實體機台）"],["LiveMines","TG001"],
+    ["Cash Bingo 系列","TG106 系列"],["Cash Bingo","TG106"],["Lucky Coins","TG110"],["Apolaki","TG120"],
+    ["Pula Puti","TG102"],["Color Game","TG103"],["ColorRoll","TG103"],["Drop Ball","TG104"],["BingBing Run","TG105"],
+    ["LuckyMines","TG117 前身"],["Chicky Mines","TG117"],["Hi-Lo 第一版","TG112 前身"],["Pinoy Hi-Lo","TG112"],
+    ["Chicken Run","TG111"],["Piggy Crash","TG108"],["Pinoy Rush","TG114"],["Chicky Tower","TG113"],
+    ["BingoSlot","TG107"],["SlotBingo 錄製抽盤原型","TG1XX 錄製抽盤原型"],["SlotBingo 錄製抽盤","TG1XX 錄製抽盤"],["SlotBingo","TG1XX"],["Plinko 系列","TG1XX Plinko 系列"]
+  ];
+  const codify = t => { if(!window.CODES || typeof t!=="string") return t; for(const [a,b] of CODE_MAP) t=t.split(a).join(b); return t; };
+  if(window.CODES){
+    for(const arr of [games, side]) for(const it of arr){
+      it.n=codify(it.n);
+      for(const sg of it.segs){ sg.l=codify(sg.l); sg.d=codify(sg.d); }
+      (it.launch||[]).forEach(L=>{ L.l=codify(L.l); L.dv=codify(L.dv); });
+      if(it.off) it.off.l=codify(it.off.l);
+    }
+    // 案例卡與其他文字節點
+    const walker=document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(nd=>{ const v=codify(nd.nodeValue); if(v!==nd.nodeValue) nd.nodeValue=v; });
+  }
   const M0 = 2025*12+4;               // 2025-05
   const months = 19;                  // 到 2026-11
   const W = 1060, L = 210, R = 20, colW = (W-L-R)/months;
