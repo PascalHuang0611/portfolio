@@ -77,10 +77,25 @@
   .tlm .lv{color:var(--c);font-size:12.5px}
   @media (max-width:760px){.tl svg,.tl .legend{display:none !important}.tlm{display:block}}
   @media (max-width:860px){header{grid-template-columns:1fr}.links{text-align:left}.regions{grid-template-columns:1fr}}
+  body.only2 header,body.only3 header,body.only1 #sec2,body.only1 #sec3,body.only2 #sec1,body.only2 #sec3,body.only3 #sec1,body.only3 #sec2,body.only1 footer,body.only2 footer{display:none}
+  body.only2 .wrap,body.only3 .wrap{padding-top:24px}
+  body.only2 section,body.only3 section{margin-top:0}
+  @media print{
+    @page{size:1160px 1300px;margin:0}
+    html,body{background:#fff}
+    .wrap{max-width:none;padding:28px 40px 28px}
+    header{padding-bottom:18px}
+    section{margin-top:26px}
+    .pb{break-before:page;margin-top:0;padding-top:28px}
+    .links,.web-only{display:none}
+    .imgnote{display:block}
+    .tl{overflow:visible}
+    footer{margin-top:24px}
+  }
 </style>
 </head>
 <body>
-<script>if(location.search.indexOf("img=1")>=0)document.body.classList.add("img");</script>
+<script>if(location.search.indexOf("img=1")>=0)document.body.classList.add("img");var mo=location.search.match(/only=(\d)/);if(mo)document.body.classList.add("only"+mo[1]);</script>
 <div class="wrap">
 
 <header>
@@ -108,7 +123,7 @@
     </p>
 </header>
 
-<section>
+<section id="sec1">
   <h2>2025/05 – 2026/11 ｜ 特雷維科技有限公司</h2>
   <p class="sub">職稱機率工程師；公司未設部門主管職級，實際負責數值數據部門並帶領 1→3 人。公司於 2026/09 宣布解散，在職至 11 月完成交接。<br>上軌是本職，下軌是本職之外做出來、後來成為公司正式運作系統的東西。<span class="web-only">點任一條進入案例頁。</span></p>
   <div class="tl">
@@ -128,7 +143,7 @@
   </div>
 </section>
 
-<section>
+<section class="pb" id="sec2">
   <h2>案例</h2>
   <p class="sub">每個案例都用同一個結構呈現：當時的問題、為什麼沒有人負責、我先做了什麼、報備與決策、推行與結果、回頭看。</p>
   <div class="regions">
@@ -175,7 +190,7 @@
   </div>
 </section>
 
-<section>
+<section class="pb" id="sec3">
   <h2>2016/07 – 2025/05 ｜ 宇峻奧汀科技</h2>
   <p class="sub">九年博弈遊戲伺服器 C++ 開發與機率設計並行。這段沒有留下作品集素材，只列工作內容。</p>
   <div class="prior">
