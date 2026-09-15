@@ -108,7 +108,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.78</div>
+<div class="ver">v0.79</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -202,7 +202,12 @@ const G = [
   kan:[["倍率怎麼產生：先抽死亡點，還是逐關過關","兩種做法：一是先決定這一局的死亡倍率、玩家不知道、自己決定何時下車；二是關卡制，每一小段時間以高成功率進下一關直到失敗。同類型最紅的那一款，倍率分布看起來是第二種做出來的。要選哪一種、為什麼。"],["自動下車的倍率不在關卡表上，怎麼結算","關卡制的倍率是一張離散的表。玩家設定的自動下車倍率如果剛好不在表上，這一局算成功還是失敗、以哪個倍率結算，要定一條規則。"]],
   hrs:[["理解規則",2],["建模",2],["模擬器",2],["DEMO／配置器",4],["規則文件",2],["後續修改（最終賠率）",3]], hrsNote:"15 小時，其中 4 小時在 PM 配置器",
   deliv:["Piggy Crash 數學文件 V1、V2","PiggyCrash_MATH_V2.xlsx","TG108 Config JSON（附 MD5）","C++ 步進模擬器","PM 網頁配置器（含試玩）"], deliv_note:"V2 依業務需求調整最高倍率與目標 RTP；衍生 Pinoy Rush（2026/08/20）。"},
- {code:"TG114", n:"Pinoy Rush", k:"solo", type:"電子類 · Piggy Crash 衍生", work:"2026/03", launch:"2026/08/20", math:"同框架衍生", verify:"同 Piggy Crash 流程", hours:"—"},
+ {code:"TG114", n:"Pinoy Rush", alt:"", k:"dv", type:"電子類 · Piggy Crash 同框架，最高倍率 500 → 1000", work:"2026/03", launch:"2026/08/20", math:"Piggy Crash 框架直接延長關卡到 1000 倍，模型不改", verify:"同 Piggy Crash 流程；改版、驗證、報告共 1 小時", hours:1, feature:true, hasAfter:true,
+  sub:"電子類 · Piggy Crash 同框架衍生，最高倍率 500 → 1000 ｜ 獨立完成 ｜ 2026/03 → 2026/08/20 上線",
+  kv:[["核心數學","Piggy Crash 的關卡制框架直接沿用，把關卡延長到 1000 倍，常數期望值不變、模型一行不改。"],["驗證方式","同 Piggy Crash 流程：配置器重出參數、模擬器驗證、出報告。"],["特點","這一款是 Piggy Crash「關卡可無限延長不改模型」那句話的實證：改版、驢證、報告合計一小時。"]],
+  kan:[["最高倍率從 500 拉到 1000，模型要改什麼","業務要更高的最高倍率。若是先抽死亡點的做法，倍率分布整個要重算；關卡制的話要改多少。"]],
+  hrs:[["改版、驗證、報告",1]], hrsNote:"1 小時",
+  deliv:["TG114 Config JSON（附 MD5）","模擬報表"], deliv_note:"Piggy Crash 衍生；同期另有 Chicky Crash 同框架。"},
  {code:"TG111", n:"Chicken Run", k:"lead", type:"電子類 · 選路 crash", work:"2025/12–2026/02", launch:"2026/06/17", math:"團隊成員製作；審核抓到衝刺功能 RTP 漏算，接手修正後上線", verify:"審核與驗算", hours:"—"},
  {code:"TG112", n:"Pinoy Hi-Lo", k:"lead", type:"電子類 · 比大小", work:"2026/03–05；05、07 接手修正", launch:"2026/08/10", math:"團隊成員製作；抽牌條件機率誤寫為獨立事件，接手修正", verify:"審核與驗算；截斷賠率模擬報表", hours:"—"},
  {code:"TG113", n:"Chicky Tower", k:"solo", type:"電子類 · 九層塔 crash", work:"2026/01；2026/08 上線後修正", launch:"2026/06/17", math:"多層提現賠率結構", verify:"上線後持續稽核與參數修正", hours:"—"},
@@ -233,7 +238,7 @@ function headHTML(g){
     <div class="meta">${g.feature?g.sub:`${g.type} ｜ ${ROLE[g.k]} ｜ ${g.work} → ${g.launch}`}</div>${tabs}`;
 }
 function imgHTML(g){
-  if(!g.feature) return "";
+  if(!g.feature||!g.img) return "";
   return `<img src="${g.img}" alt="${g.n} 主畫面" title="${g.cap}" onerror="this.style.display='none';this.nextElementSibling.textContent='主畫面截圖補齊中'"><div class="cap" hidden></div>`;
 }
 function bodyHTML(g){
@@ -263,7 +268,7 @@ function footHTML(g){
 }
 function openAt(i){
   CUR=i; const g=VIEW[i]; mbox.className="box "+g.k+(g.feature?" feat":"");
-  mhead.innerHTML=headHTML(g); mimg.innerHTML=imgHTML(g); mmid.classList.toggle("nofig",!g.feature);
+  mhead.innerHTML=headHTML(g); mimg.innerHTML=imgHTML(g); mmid.classList.toggle("nofig",!g.feature||!g.img);
   mbody.innerHTML=bodyHTML(g); mbody.scrollTop=0; mfoot.innerHTML=footHTML(g); mpos.textContent=`${i+1} / ${VIEW.length}`;
   mhead.querySelectorAll(".tabs button").forEach(b=>b.onclick=function(){TAB=b.dataset.t; try{localStorage.setItem("pf_tab",TAB)}catch(e){} openAt(CUR);});
   document.querySelectorAll("#tbl tbody tr").forEach((tr,j)=>tr.classList.toggle("sel",j===i));
