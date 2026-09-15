@@ -76,9 +76,11 @@
   .box.lead .tabs button.on{background:var(--job-soft)} .box.dead .tabs button.on{background:#8a8a84}
   .mmid{display:grid;grid-template-columns:220px 1fr;gap:22px;flex:1 1 auto;min-height:0}
   .mmid.nofig{grid-template-columns:1fr}
-  .mimg{min-height:0;display:flex;flex-direction:column;align-items:center}
+  .mimg{min-height:0;display:flex;flex-direction:column;align-items:center;overflow:hidden}
   .mimg img{flex:1 1 auto;min-height:0;width:100%;object-fit:contain;object-position:top;border-radius:10px;border:1px solid var(--line);display:block}
   .mimg .cap{flex:0 0 auto;font-size:11.5px;color:var(--ink3);margin-top:4px;text-align:center}
+  .mimg .cap[hidden]{display:none}
+  .mimg .cap:not(:empty){display:block}
   .mscroll{min-height:0;height:100%;overflow:auto;padding-right:6px}
   .mfoot{flex:0 0 124px;height:124px;box-sizing:border-box;overflow:hidden;border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
   .mfoot .lg{min-height:44px}
@@ -105,7 +107,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.70</div>
+<div class="ver">v0.71</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -210,7 +212,7 @@ function headHTML(g){
 }
 function imgHTML(g){
   if(!g.feature) return "";
-  return `<img src="${g.img}" alt="${g.n} 主畫面" onerror="this.style.display='none';this.nextElementSibling.textContent='主畫面截圖補齊中'"><div class="cap">${g.cap}</div>`;
+  return `<img src="${g.img}" alt="${g.n} 主畫面" title="${g.cap}" onerror="this.style.display='none';this.nextElementSibling.textContent='主畫面截圖補齊中'"><div class="cap" hidden></div>`;
 }
 function bodyHTML(g){
   if(g.feature){
