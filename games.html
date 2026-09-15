@@ -108,7 +108,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.80</div>
+<div class="ver">v0.81</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -209,7 +209,13 @@ const G = [
   kan:[["最高倍率從 500 拉到 1000，模型要改什麼","業務要更高的最高倍率。若是先抽死亡點的做法，倍率分布整個要重算；關卡制的話要改多少。"]],
   hrs:[["改版、驗證、報告",1]], hrsNote:"1 小時",
   deliv:["TG114 Config JSON（附 MD5）","模擬報表"], deliv_note:"Piggy Crash 衍生；同期另有 Chicky Crash 同框架。"},
- {code:"TG111", n:"Chicken Run", k:"lead", type:"電子類 · 選路 crash", work:"2025/12–2026/02", launch:"2026/06/17", math:"團隊成員製作；審核抓到衝刺功能 RTP 漏算，接手修正後上線", verify:"審核與驗算", hours:"—"},
+ {code:"TG111", n:"Chicken Run", alt:"", k:"lead", type:"電子類 · 選路 crash（四難度、含衝刺與錢袋、JP 雙池）", work:"2025/12–2026/02（團隊成員製作、我審核）", launch:"2026/06/17", math:"四難度各不同關數、每難度多組 RTP 檔位；衝刺功能一次前進 1～3 步，其期望值必須納入模型", verify:"逐關驗算表與模擬器對照；每份設定檔附 MD5 與報表；審核時抓到衝刺 RTP 漏算，重做模型", hours:"—", feature:true, hasAfter:true,
+  img:"素材/遊戲總覽/TG111_ChickenRun/截圖/TG111_主畫面.png", cap:"主畫面",
+  sub:"電子類 · 選路 crash：四種難度、衝刺、錢袋倍率、JP 雙池 ｜ 帶團隊成員製作、我審核 ｜ 2025/12 設計 → 2026/06/17 上線",
+  kv:[["核心數學","選路 crash：每關單關成功率、累積過關率、雷率與賠率逐關對應，四種難度關數不同，每個難度再分多組 RTP 檔位，合計二十份設定檔各附 MD5 與報表。衝刺功能一次前進 1～3 步，等於跳過中間關卡的風險，它的機率分布必須納入每關的期望值。另有錢袋倍率與 JP 主副池。"],["驗證方式","團隊成員製作，我逐關審核驗算表、對照模擬器輸出；設定檔以 MD5 對齊 DevOps 流程。"],["特點","這是帶一位沒有經驗的團隊成員做的第一款。審核時發現第一版模型漏了衝刺對 RTP 的影響，整份重做，我陪著加了兩天班一起做完。"]],
+  kan:[["衝刺功能會讓 RTP 變高，第一版模型沒算進去","衝刺一次前進 1～3 步，玩家跳過了中間關卡的雷，過關率和賠率的對應就變了。第一版把衝刺當演出處理，沒有納入期望值，整體 RTP 會高於目標。這是在審核階段發現的，不是上線後。"],["帶一個沒有經驗的人做第一款，審核要審到哪一層","不能只看最後的 RTP 數字對不對，要看每一個機制的期望值有沒有被獨立算出來、有沒有被加總。"]],
+  hrsNote:"未記錄（團隊成員製作；審核與陪同重做的時間未計）",
+  deliv:["Chicken Run 數學文件（團隊成員）","Chicken Run_Math 試算表（對標市場同類產品）","20 份 config（四難度 × 多檔位，各附 MD5）","模擬報表"], deliv_note:"迭代：2026/01 模擬器 → 02 多組 RTP 檔位 → 03 賠率對標 → 04 JP 副池門檻調整。"},
  {code:"TG112", n:"Pinoy Hi-Lo", k:"lead", type:"電子類 · 比大小", work:"2026/03–05；05、07 接手修正", launch:"2026/08/10", math:"團隊成員製作；抽牌條件機率誤寫為獨立事件，接手修正", verify:"審核與驗算；截斷賠率模擬報表", hours:"—"},
  {code:"TG113", n:"Chicky Tower", k:"solo", type:"電子類 · 九層塔 crash", work:"2026/01；2026/08 上線後修正", launch:"2026/06/17", math:"多層提現賠率結構", verify:"上線後持續稽核與參數修正", hours:"—"},
  {code:"TG117", n:"Chicky Mines", k:"solo", type:"電子類 · 5×5 踩地雷", work:"2026/01（前身 LuckyMines 2025/07）", launch:"2026/06/17", math:"表裡機率雙層模型：顯示賠率隨鑽石上漲、真實勝率由目標 RTP 反推", verify:"C++ 模擬；名目 / 有效 RTP 分開驗", hours:"24（前身）"},
