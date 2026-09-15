@@ -59,6 +59,7 @@
   .deliv{font-size:13px;color:var(--ink2)}
   .deliv code{font-family:inherit;background:#f1f1ee;border-radius:4px;padding:0 5px}
   tbody tr{cursor:pointer}
+  .todo-tag{font-size:10.5px;color:var(--ink3);border:1px dashed #ccc;border-radius:999px;padding:0 6px;vertical-align:middle;white-space:nowrap}
   tbody tr:hover td{background:#f4f7fb}
   tbody tr.sel td{background:var(--job-bg)}
   .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 0}
@@ -107,7 +108,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.72</div>
+<div class="ver">v0.73</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -120,6 +121,7 @@
   <button data-f="lead">帶領團隊成員</button>
   <button data-f="dv">衍生版</button>
   <button data-f="dead">完成設計、未上線</button>
+  <button data-f="todo" style="margin-left:auto;border-style:dashed">待補</button>
 </div>
 
 <div class="tablewrap">
@@ -129,7 +131,7 @@
 </table>
 </div>
 
-<p class="hint">點任一列開啟該款的卡片；卡片分「概要」與「坎與回看」兩頁，坎公開版列問題、解法在完整版。已完成 Pula Puti Flash、Color Game、Lucky Drop Ball、BingBing Run、Cash Bingo，其餘依上線順序補齊。</p>
+<p class="hint">點任一列開啟該款的卡片；卡片分「概要」與「坎與回看」兩頁，坎公開版列問題、解法在完整版。完整卡片 <span id="donecount"></span>，其餘標「待補」、依上線順序補齊。</p>
 
 <div class="modal" id="modal" aria-modal="true" role="dialog">
   <div class="box" id="mbox">
@@ -258,16 +260,17 @@ document.addEventListener("keydown",e=>{ if(!modal.classList.contains("on")) ret
 document.getElementById("mprev").onclick=()=>openAt(Math.max(0,CUR-1));
 document.getElementById("mnext").onclick=()=>openAt(Math.min(VIEW.length-1,CUR+1));
 function render(f){
-  tb.innerHTML=""; VIEW=G.filter(g=>f==="all"||g.k===f);
+  tb.innerHTML=""; VIEW=G.filter(g=>f==="all"||(f==="todo"?!g.feature:g.k===f));
   VIEW.forEach((g,i)=>{
     const tr=document.createElement("tr");
-    tr.innerHTML=`<td class="n">${g.n}${g.alt?`<br><span class="m">${g.alt}</span>`:""}</td><td class="m">${g.type}</td><td class="m">${g.work}</td><td class="m">${g.launch}</td><td><span class="role ${g.k}">${ROLE[g.k]}</span></td><td>${g.math}</td><td class="m">${g.verify}</td><td class="m">${g.hours}${typeof g.hours==="number"?"h":""}</td>`;
+    tr.innerHTML=`<td class="n">${g.n}${g.feature?"":' <span class="todo-tag">待補</span>'}${g.alt?`<br><span class="m">${g.alt}</span>`:""}</td><td class="m">${g.type}</td><td class="m">${g.work}</td><td class="m">${g.launch}</td><td><span class="role ${g.k}">${ROLE[g.k]}</span></td><td>${g.math}</td><td class="m">${g.verify}</td><td class="m">${g.hours}${typeof g.hours==="number"?"h":""}</td>`;
     tr.addEventListener("click",()=>openAt(i));
     tb.appendChild(tr);
   });
 }
 document.querySelectorAll("#filters button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#filters button").forEach(x=>x.classList.remove("on"));b.classList.add("on");render(b.dataset.f);}));
 render("all");
+(function(){var d=G.filter(function(g){return g.feature}).length;var el=document.getElementById("donecount");if(el)el.textContent=d+" / "+G.length;})();
 </script>
 </body>
 </html>
