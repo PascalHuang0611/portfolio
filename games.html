@@ -41,6 +41,11 @@
   .card p{margin:0 0 6px;font-size:13.5px}
   .card .todo{font-size:12px;color:var(--ink3);margin-top:8px}
   .feature{grid-column:1/-1;display:grid;grid-template-columns:220px 1fr;gap:22px}
+  .feature>div:first-child{position:sticky;top:0;align-self:start}
+  .kt{display:flex;align-items:center;gap:10px;margin:10px 0 2px;font-size:12.5px;color:var(--ink2)}
+  .kt button{font:inherit;font-size:12.5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:2px 10px;cursor:pointer;color:var(--ink2)}
+  .kt .kthint{color:var(--ink3);font-size:11.5px}
+  .kanwrap[hidden]{display:none}
   .feature img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
   .feature .cap{font-size:11.5px;color:var(--ink3);margin-top:4px;text-align:center}
   .kv{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:13.5px;margin:8px 0 10px}
@@ -84,7 +89,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.62</div>
+<div class="ver">v0.63</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -174,6 +179,7 @@ const ROLE = {solo:"獨立完成", lead:"帶領團隊成員", dv:"衍生版", de
 const tb=document.querySelector("#tbl tbody");
 const modal=document.getElementById("modal"), mbox=document.getElementById("mbox"), mbody=document.getElementById("mbody"), mpos=document.getElementById("mpos");
 let VIEW=[], CUR=-1;
+let SHOWKAN=false; try{SHOWKAN=localStorage.getItem("pf_showkan")==="1"}catch(e){}
 function cardHTML(g){
   if(g.feature){
     const COL=["var(--s1)","var(--s2)","var(--s3)","var(--s4)","var(--s5)","var(--s6)","#c9c9c9"];
@@ -189,8 +195,11 @@ function cardHTML(g){
         <h3 style="margin:0;font-size:17px;font-weight:600">${g.n} <span style="font-weight:400;color:var(--ink2);font-size:13px">${g.alt||""} ｜ ${g.code}</span></h3>
         <div class="meta" style="font-size:12.5px;color:var(--ink2);margin:2px 0 8px">${g.sub}</div>
         <div class="kv">${kv}</div>
+        <div class="kt"><span>這款的坎 ${g.kan.length} 個${(PR.after||g.hasAfter)?"、上線後回看 1 則":""}</span><button class="kantoggle" type="button">${SHOWKAN?"收合":"展開"}</button><span class="kthint">${SHOWKAN?"":"開關套用全部遊戲，會記住"}</span></div>
+        <div class="kanwrap"${SHOWKAN?"":" hidden"}>
         ${kan}
         ${PR.after?`<div class="kan after"><b>上線後回看</b>${PR.after}</div>`:(g.hasAfter?`<div class="kan after more"><b>上線後回看</b>完整版</div>`:"")}
+        </div>
         <div><b style="font-size:13px;color:var(--ink2)">工時 ${g.hrsNote}</b> <span style="font-size:12px;color:var(--ink3)">自行粗估、時程自管</span><div class="bar">${bar}</div><div class="lg">${lg}</div></div>
         <p class="deliv" style="margin-top:10px">交付物：${deliv}；${g.deliv_note}</p>
         <p class="pubnote">解法、參數與上線後回看在完整版；數學文件、試算表與模擬報表公開版只列名稱。</p>
@@ -203,7 +212,7 @@ function cardHTML(g){
     <div class="todo">截圖與細節補齊中</div></div>`;
 }
 function openAt(i){
-  CUR=i; const g=VIEW[i]; mbox.className="box "+g.k; mbody.innerHTML=cardHTML(g); mpos.textContent=`${i+1} / ${VIEW.length}`;
+  CUR=i; const g=VIEW[i]; mbox.className="box "+g.k; mbody.innerHTML=cardHTML(g); const kb=mbody.querySelector(".kantoggle"); if(kb) kb.onclick=function(){SHOWKAN=!SHOWKAN; try{localStorage.setItem("pf_showkan",SHOWKAN?"1":"0")}catch(e){} openAt(CUR);}; mpos.textContent=`${i+1} / ${VIEW.length}`;
   document.querySelectorAll("#tbl tbody tr").forEach((tr,j)=>tr.classList.toggle("sel",j===i));
   modal.classList.add("on"); document.body.style.overflow="hidden";
 }
