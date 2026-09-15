@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>17 款遊戲總覽 ｜ 黃培昇</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1b1b1b; --ink2:#555; --ink3:#8a8a8a; --line:#e3e2de;
+    --job:#2f6fb5; --job-bg:#e9f1fb; --job-soft:#b9d2ee; --dead:#9a9a9a;
+    --s1:#2f6fb5; --s2:#4f8fd0; --s3:#7db0e0; --s4:#b9d2ee; --s5:#dbe7f5; --s6:#8a8a8a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;font-size:15px;line-height:1.7}
+  a{color:inherit}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 28px 60px}
+  .back{font-size:13.5px;color:var(--ink2);text-decoration:none}
+  .back:hover{color:var(--ink)}
+  h1{font-size:24px;margin:10px 0 4px;font-weight:600}
+  .sub{color:var(--ink2);margin:0 0 18px;font-size:14px;max-width:820px}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+  .filters button{font:inherit;font-size:13px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink2);cursor:pointer}
+  .filters button.on{background:var(--job);border-color:var(--job);color:#fff}
+  .tablewrap{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:900px}
+  th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+  th{font-size:12.5px;color:var(--ink2);font-weight:600;background:#fafaf8;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td.n{font-weight:500;white-space:nowrap}
+  td.m{color:var(--ink2);font-size:12.5px}
+  .role{font-size:11.5px;border-radius:999px;padding:0 7px;white-space:nowrap;border:1px solid var(--job-soft);background:var(--job-bg);color:var(--job)}
+  .role.lead{background:#f1f5fa;color:#1d3f66}
+  .role.dead{background:#f3f3f3;border-color:#ddd;color:var(--dead)}
+  .role.dv{background:#fff;color:var(--ink2);border-color:var(--line)}
+  h2{font-size:19px;margin:36px 0 4px;font-weight:600}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px 12px;border-top:4px solid var(--job)}
+  .card.lead{border-top-color:var(--job-soft)} .card.dead{border-top-color:#bbb}
+  .card h3{margin:0;font-size:15.5px;font-weight:600}
+  .card .meta{font-size:12.5px;color:var(--ink2);margin:2px 0 8px}
+  .card p{margin:0 0 6px;font-size:13.5px}
+  .card .todo{font-size:12px;color:var(--ink3);margin-top:8px}
+  .feature{grid-column:1/-1;display:grid;grid-template-columns:220px 1fr;gap:22px}
+  .feature img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+  .feature .cap{font-size:11.5px;color:var(--ink3);margin-top:4px;text-align:center}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:13.5px;margin:8px 0 10px}
+  .kv b{color:var(--ink2);font-weight:600;white-space:nowrap}
+  .kan .sol{margin:6px 0 0}
+  .kan .sol b{display:inline;margin-right:6px;font-weight:600}
+  .kan .more{color:var(--ink3);font-size:12.5px}
+  .kan.after.more b{display:inline;margin-right:6px}
+  .kan.after{border-left-color:#8a8a84;background:#f6f6f3}
+  .kan{background:#fafaf8;border-left:3px solid var(--job);padding:8px 12px;border-radius:0 8px 8px 0;margin:10px 0;font-size:13.5px}
+  .kan b{display:block;margin-bottom:2px}
+  .bar{display:flex;height:14px;border-radius:4px;overflow:hidden;margin:6px 0 4px;border:1px solid var(--line)}
+  .bar span{display:block;height:100%}
+  .lg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--ink2)}
+  .lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+  .deliv{font-size:13px;color:var(--ink2)}
+  .deliv code{font-family:inherit;background:#f1f1ee;border-radius:4px;padding:0 5px}
+  tbody tr{cursor:pointer}
+  tbody tr:hover td{background:#f4f7fb}
+  tbody tr.sel td{background:var(--job-bg)}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 0}
+  .modal{position:fixed;inset:0;background:rgba(20,20,20,.45);display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto;z-index:50}
+  .modal.on{display:flex}
+  .modal .box{background:var(--card);border-radius:14px;max-width:1040px;width:100%;padding:18px 22px 16px;border-top:4px solid var(--job);position:relative;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  .modal .box.lead{border-top-color:var(--job-soft)} .modal .box.dead{border-top-color:#bbb}
+  .modal .x{position:absolute;top:10px;right:14px;border:0;background:transparent;font-size:22px;line-height:1;cursor:pointer;color:var(--ink2)}
+  .modal .nav{display:flex;justify-content:space-between;margin-top:12px;font-size:13px}
+  .modal .nav button{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 12px;cursor:pointer;color:var(--ink2)}
+  .feature{display:grid;grid-template-columns:220px 1fr;gap:22px}
+  .feature img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+  .feature .cap{font-size:11.5px;color:var(--ink3);margin-top:4px;text-align:center}
+  .compact h3{margin:0;font-size:16px;font-weight:600}
+  .compact .meta{font-size:12.5px;color:var(--ink2);margin:2px 0 8px}
+  .compact p{margin:0 0 6px;font-size:13.5px}
+  .compact .todo{font-size:12px;color:var(--ink3);margin-top:8px}
+  @media (max-width:900px){.feature{grid-template-columns:1fr}.feature img{max-width:240px;margin:0 auto}}
+  .pubnote{font-size:11.5px;color:var(--ink3);margin:4px 0 0}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  @media (max-width:900px){.cards{grid-template-columns:1fr}.feature{grid-template-columns:1fr}.feature img{max-width:240px;margin:0 auto}}
+  .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<div class="ver">v0.61</div>
+<div class="wrap">
+<a class="back" href="index.html">← 回首頁</a>
+<h1>17 款遊戲總覽</h1>
+<p class="sub">17 款上線（含 3 款衍生版）加 5 款完成設計但未上線。每款核心數學約一週完成，之後跟到上線。表格看全貌，點任一列看那一款怎麼做、怎麼驗、花了多少小時。工時皆為自行粗估，時程自管、未納入專案排程。公開版不放實際 RTP、機率表與參數。</p>
+
+<div class="filters" id="filters">
+  <button data-f="all" class="on">全部</button>
+  <button data-f="solo">獨立完成</button>
+  <button data-f="lead">帶領團隊成員</button>
+  <button data-f="dv">衍生版</button>
+  <button data-f="dead">完成設計、未上線</button>
+</div>
+
+<div class="tablewrap">
+<table id="tbl">
+  <thead><tr><th>遊戲</th><th>類型</th><th>動手月份</th><th>上線</th><th>角色</th><th>核心數學</th><th>驗證方式</th><th>工時</th></tr></thead>
+  <tbody></tbody>
+</table>
+</div>
+
+<p class="hint">點任一列開啟該款的卡片；每個坎公開版列問題、解法在完整版。已完成 Pula Puti Flash、Color Game、Lucky Drop Ball、BingBing Run，其餘依上線順序補齊。</p>
+
+<div class="modal" id="modal" aria-modal="true" role="dialog">
+  <div class="box" id="mbox">
+    <button class="x" id="mclose" aria-label="關閉">×</button>
+    <div id="mbody"></div>
+    <div class="nav"><button id="mprev">← 上一款</button><span id="mpos" style="color:var(--ink3)"></span><button id="mnext">下一款 →</button></div>
+  </div>
+</div>
+
+<footer>
+  <span>公開版 ｜ 遊戲畫面為對外公開的產品畫面；不含任何實際參數與玩家資料。</span>
+  <span>最後更新 2026/09</span>
+</footer>
+</div>
+
+<script src="dist-interview/private.js"></script>
+<script>
+// k: solo 獨立 / lead 帶領團隊成員 / dv 衍生版 / dead 完成設計未上線
+const G = [
+ {code:"TG102", n:"Pula Puti Flash", alt:"PulaPuti", k:"solo", type:"電子類 · 紅白落球 + 閃電額外賠率", work:"2025/07（小迭代五版）", launch:"2025/12/17（17 款中第一款）", math:"紅白與三紅三白兩類押注 RTP 差距大；整體目標 RTP 以平台實體 Pula Puti 的歷史押注金額比例加權", verify:"C++ 模擬、每日 RTP 分布；理論值與模擬值對照", hours:21, feature:true,
+  img:"素材/遊戲總覽/TG102_PulaPuti/截圖/TG102_主畫面.png", cap:"主畫面：紅白棋盤落球區、Pula / Puti 與 Triple 押注區、Jackpot", sub:"電子類 · 紅白落球，押紅白或三紅三白，閃電額外賠率 ｜ 獨立完成 ｜ 2025/07 設計 → 2025/12/17 上線，17 款中第一款",
+  kv:[["核心數學","紅白與三紅三白兩類押注的 RTP 天生差距大，加上閃電額外賠率後差距不變；整體目標 RTP 以平台實體 Pula Puti 的歷史押注金額比例加權設計。"],["驗證方式","C++ 模擬、每日 RTP 分布；理論值與模擬值對照。"],["特點","演出與數學邏輯脫鉤：每局都有閃電演出，是否命中由機率層決定、再對落球點；真實觸發藏在演出裡。"]],
+  kan:[["演出要每局都有，數學不能跟著改","原設計閃電先以機率出現、再看落球點是否命中；PM 認為機率出現不夠吸引，要求每局都有閃電演出，但 RTP 不能動。"],["兩類押注 RTP 差距大，整體 RTP 用什麼加權","紅白單押與三紅三白兩類押注的 RTP 天生差距大，PM 認為玩家不會只押紅白；整體目標 RTP 要用什麼比例加權，加權依據從哪裡來。"]], hasAfter:true,
+  hrs:[["理解規則",1],["建模",3],["模擬器",3],["驗證與模擬",2],["規則文件",2],["DEMO 網頁 ×2",6],["開發時修改",4]], hrsNote:"21 小時（含兩個 DEMO 網頁）",
+  deliv:["數學文件","試算表","config.json","C++ 模擬器","模擬報表","DEMO 網頁、掛機 DEMO"], deliv_note:"上線後小迭代五版，皆為參數格式微調。"},
+ {code:"TG103", n:"Color Game", alt:"ColorRoll", k:"solo", type:"電子類 · 三色骰押六色 + JP 二級玩法", work:"2025/07（小迭代至 09）", launch:"2026/02/09；2026/06/24 下架", math:"主池派彩、副池為鑰匙的雙池 JP；JP 中獎率隨押注對門檻的倍數放大，格權重由目標機率反推", verify:"Excel 建模 + JSON 產生器；C++ 六策略各十億局，驗證 JP 派彩趨近抽水率", hours:30, feature:true,
+  img:"素材/遊戲總覽/TG103_ColorRoll/截圖/TG103_主畫面.png", cap:"主畫面：三色骰、六色押注區、Color Jackpot 解鎖門檻", sub:"電子類 · 三色骰押六色，三同色觸發 JP 二級玩法 ｜ 獨立完成 ｜ 2025/07 設計 → 2026/02/09 上線 → 2026/06/24 下架",
+  kv:[["核心數學","主池派彩、副池為隱藏鑰匙的雙池 JP，達門檻才啟動；JP 中獎率隨「總押注 ÷ 門檻」等比放大，格權重由目標機率反推。"],["驗證方式","Excel 建模含 JSON 產生器與權重反推；C++ 模擬器六種押注策略各十億局，驗證 JP 實際派彩趨近抽水率。"],["特點","JP 的 RTP 定義為抽水率，期望值不隨玩家行為漂移；多人同局第一人中 JP 後副池歸零。"]],
+  kan:[["中 JP 全拿，怎麼讓大小注公平","PM 要能控制發出的獎金額，所以派彩走主池、副池當鑰匙，達門檻才開 JP；PM 又希望中 JP 可以全拿。若轉輪上的 JP 中獎率固定，押小注的人就佔優勢。"]],
+  hrs:[["理解規則",2],["建模",6],["模擬器",6],["驗證與模擬",8],["規則文件",4],["開發時修改",4]], hrsNote:"30 小時（V1 11h ＋ 追加 JP 的 V2 19h）",
+  deliv:["數學原理與規則解析 V3.2","ColorWheels_Math_V3.2.xlsx","config.json","C++ 模擬器","模擬報表"], deliv_note:"上線後小迭代五次（2025/07/21 – 09/09）。"},
+ {code:"TG001", n:"LiveMines", k:"solo", type:"視訊實體機台 · 九宮格踩地雷", work:"2025/07–08、12；2026/04、05、08–09", launch:"2026/08/10", math:"實體落球分布不可控，RTP 調節放在可控變數；三層風控", verify:"C++/Go 十億局、三跑同種子；真實注單萃取 DNA、沙盤回放；GLI 送審", hours:"201.5+"},
+ {code:"TG104", n:"Lucky Drop Ball", alt:"Drop Ball / ColorDrop", k:"solo", type:"電子類 · 六色三球 + 金球 + JP 轉盤，標準／Extra Bet 雙模式", work:"2025/07（V1–V4）、09/16（V5）、11/14（V6）", launch:"2026/02/09；衍生 Flash 06/17、Color Flash 08/20", math:"五個玩法分支演進到雙模式 Extra Bet；金球 superset 規則；JP 門檻封印狀態的 RTP 差 0.02% 判定可忽略", verify:"C++ OpenMP 雙軌模擬器：Stateful 真實獎池 + Theoretical 共同亂數法比較兩模式", hours:58.5, feature:true,
+  img:"素材/遊戲總覽/TG104_DropBall/截圖/TG104_主畫面.png", cap:"主畫面：六色押注區、三球落球與獎勵轉盤", sub:"電子類 · 六色三球押色，三同色進 12 格獎勵轉盤，金球加倍；標準與付費升級 Extra Bet 雙模式 ｜ 獨立完成 ｜ 2025/07 設計 → 2025/11 最終版 → 2026/02/09 上線",
+  kv:[["核心數學","六色三球押色，中一球、兩球淨賠；三同色觸發獎勵轉盤，轉盤帶主副池門檻 JP。五個玩法分支（閃電 → 金球 → 多金球 → 多金球 Extra Bet → Extra Bet 金球升級）演進到雙模式：標準與付費升級的 Extra Bet，兩模式 RTP 對齊，付費升級不吃 RTP、只換波動結構。"],["驗證方式","C++ OpenMP 雙軌模擬器。Stateful 版跑真實獎池累積與門檻；Theoretical 版讓兩模式共用同一組落球、押注、轉盤結果（共同亂數法），消除波動、精確比較 Extra Bet 的效果。RTP 拆四段（基礎／轉盤／金球／水池）對照試算表。"],["特點","同賽果多人場，一局裡同時有標準與 Extra Bet 玩家。金球規則保證 Extra Bet 的金球必定包含標準模式的金球，演出才成立「升級」。"]],
+  kan:[["同一場裡兩種模式的金球，演出怎麼不打架","同賽果多人場，一局同時產生標準與 Extra Bet 兩份結果。金球若各自獨立抽，可能標準是 1 號球變金、Extra Bet 是 2、3 號球變金，畫面上 Extra Bet 不是「升級」而是另一組結果，演出無法成立。"],["JP 門檻沒到時，RTP 是另一個數字","轉盤有主副池門檻，門檻未達前 JP 格從轉盤移除、其權重由其他獎項瓜分，所以「JP 封印狀態」的實際 RTP 與試算表（不設門檻條件）並不相同。要不要為此維護兩套參數。"]],
+  hrs:[["閃電版（含前人模型自我驗證 6h）",20],["金球版",11],["多金球版",7.5],["多金球 Extra Bet",9],["Extra Bet 金球升級版（進開發）",11]], hrsNote:"58.5 小時，五個玩法分支合計，不含開發期修改",
+  deliv:["Lucky Drop Ball 說明文件 V6.2","DropBallColor_Math_V6.3.xlsx","config.json","C++ OpenMP 雙軌模擬器","STATEFUL / THEORETICAL 模擬報表"], deliv_note:"玩法分支切換由 PM 提想法、我提落地方案；閃電版階段多花 6 小時找出前人數學模型的錯誤。上線後衍生 Drop Ball Flash 與 Color Flash。"},
+ {code:"TG105", n:"BingBing Run", alt:"Chicky Run", k:"solo", type:"電子類 · 十層左右選路 crash + 金幣 + 個人寶箱 + 三級 JP", work:"2025/07（小迭代至 10 月）", launch:"2026/02/09；衍生 Mega 06/17", math:"多層提現結構、四段 RTP 預算；JP 改為按比例派彩，三種回補方案模擬後選同步回補；動態權重保大注公平", verify:"C++ 多執行緒模擬器 V19，逐策略（第 n 層提現 × 含／不含金幣）報告存活、金幣、寶箱、JP 分布", hours:40, feature:true,
+  img:"素材/遊戲總覽/TG105_BingBingRun/截圖/TG105_主畫面.png", cap:"主畫面：十層左右選路、隨時提現、金幣與寶箱、三級 JP", sub:"電子類 · 十層左右二選一、隨時提現、失敗歸零；付費金幣玩法、個人寶箱、三級雙池 JP ｜ 獨立完成 ｜ 2025/07 設計 → 2026/02/09 上線",
+  kv:[["核心數學","每層過關賠率倍增、隨時可提現的 crash 結構；總 RTP 拆成主遊戲、金幣、寶箱、JP 四段預算分配。第五層起把主遊戲目標 RTP 下調，差額拿去養個人寶箱。三級 JP 採雙池：主池派彩、副池為門檻開關，派彩按比例而非全拿。"],["驗證方式","C++ 多執行緒模擬器，每種策略（第 n 層提現 × 含／不含金幣）各跑數十億局，輸出存活表、金幣、寶箱、JP 分布，與試算表逐段對照。找 JP 機制花了 20 小時，是整款工時的一半。"],["特點","動態權重：JP 中獎權重隨押注對門檻的倍數放大，押大注的人中 JP 機率等比變高，每個注額的期望值一致；主池派出多少比例、副池就回補同樣比例，彩池長期維持在健康狀態。"]],
+  kan:[["JP 改成按比例派彩，彩池怎麼不失控","之前幾款的 JP 都是中了全拿，這款要按比例派。派出之後副池怎麼回補主池，才能讓兩個池長期穩定、獎項不可預測、也不出現副池補不出來的邊界。"],["大注小注怎麼公平","JP 中獎權重若固定，押小注的人佔便宜；要讓每個注額的期望值一致。"],["PM 要玩家撐到第五層","需求是讓玩家有動力走到第五層。用什麼數學結構給第五層一個獎勵，又不動整體 RTP。"]], hasAfter:true,
+  hrs:[["理解規則",1],["建模",3],["找 JP 機制最佳模型",20],["模擬器",3],["驗證與模擬",2],["規則文件",2],["DEMO 網頁",3],["開發期修改",6]], hrsNote:"40 小時，其中一半在找 JP 機制",
+  deliv:["Chicky Run 遊戲數學原理與規則解析（12 格）","ChickyRun_MATH_V3.xlsx","config.json","C++ 多執行緒模擬器 V19","模擬報表"], deliv_note:"上線後小迭代至 2025/10；2026/06/17 衍生 BingBing Run Mega。"},
+ {code:"TG106", n:"Cash Bingo", k:"solo", type:"電子類 · 四軸數字拼接老虎機", work:"2025/06；2025/12 重作模型", launch:"2026/06/17", math:"Bet 級距各一張全排列權重表", verify:"MD5 版控、自架 Go 測試伺服器交叉比對", hours:54},
+ {code:"TG110", n:"Lucky Coins", k:"solo", type:"電子類 · Cash Bingo 同架構", work:"2026/04", launch:"2026/06/17", math:"Cash Bingo 小改參數", verify:"同 Cash Bingo 流程", hours:"—"},
+ {code:"TG120", n:"Apolaki", k:"lead", type:"電子類 · Cash Bingo + ExBet", work:"2026/07", launch:"2026/09/03", math:"加 ExBet：第四軸不出空白、提升特殊符號機率", verify:"團隊成員製作、我審核", hours:"—"},
+ {code:"TG108", n:"Piggy Crash", k:"solo", type:"電子類 · 620 關離散階梯 crash", work:"2026/01", launch:"2026/06/17", math:"常數期望值系統；PM 網頁配置器", verify:"配置器即時驗算 + 模擬", hours:"—"},
+ {code:"TG114", n:"Pinoy Rush", k:"solo", type:"電子類 · Piggy Crash 衍生", work:"2026/03", launch:"2026/08/20", math:"同框架衍生", verify:"同 Piggy Crash 流程", hours:"—"},
+ {code:"TG111", n:"Chicken Run", k:"lead", type:"電子類 · 選路 crash", work:"2025/12–2026/02", launch:"2026/06/17", math:"團隊成員製作；審核抓到衝刺功能 RTP 漏算，接手修正後上線", verify:"審核與驗算", hours:"—"},
+ {code:"TG112", n:"Pinoy Hi-Lo", k:"lead", type:"電子類 · 比大小", work:"2026/03–05；05、07 接手修正", launch:"2026/08/10", math:"團隊成員製作；抽牌條件機率誤寫為獨立事件，接手修正", verify:"審核與驗算；截斷賠率模擬報表", hours:"—"},
+ {code:"TG113", n:"Chicky Tower", k:"solo", type:"電子類 · 九層塔 crash", work:"2026/01；2026/08 上線後修正", launch:"2026/06/17", math:"多層提現賠率結構", verify:"上線後持續稽核與參數修正", hours:"—"},
+ {code:"TG117", n:"Chicky Mines", k:"solo", type:"電子類 · 5×5 踩地雷", work:"2026/01（前身 LuckyMines 2025/07）", launch:"2026/06/17", math:"表裡機率雙層模型：顯示賠率隨鑽石上漲、真實勝率由目標 RTP 反推", verify:"C++ 模擬；名目 / 有效 RTP 分開驗", hours:"24（前身）"},
+ {code:"—", n:"BingBing Run Mega", k:"dv", type:"衍生版 · 多關卡", work:"2026/06", launch:"2026/06/17", math:"上線前一週參數調整", verify:"—", hours:"—"},
+ {code:"—", n:"Drop Ball Flash", k:"dv", type:"衍生版 · 參數調整、畫面優化", work:"2026/06", launch:"2026/06/17", math:"上線前一週參數調整", verify:"—", hours:"—"},
+ {code:"—", n:"Color Flash", k:"dv", type:"衍生版 · Drop Ball Flash 換皮", work:"2026/08", launch:"2026/08/20", math:"上線前一週參數調整", verify:"—", hours:"—"},
+ {code:"TG107", n:"BingoSlot", k:"dead", type:"逆向生成引擎", work:"2025/11–12", launch:"未上線", math:"結果導向：先抽獎金再生成盤面；K-Grow、零超發、損耗補償", verify:"SDK 封裝 C API 供 Go 整合，模擬數據測試", hours:252},
+ {code:"—", n:"SlotBingo 錄製抽盤", k:"dead", type:"錄盤架構原型", work:"2025/10", launch:"未單獨採用；2026/09 併入派彩決策系統", math:"離線海量生成 + 線上權重抽樣", verify:"數學 / 後端雙重驗證", hours:62},
+ {code:"—", n:"LuckyMines", k:"dead", type:"電子類 · 踩地雷 JP", work:"2025/07", launch:"暫緩 → Chicky Mines", math:"推敲 JP 系統規則、建模", verify:"模擬器 + 驗證", hours:24},
+ {code:"—", n:"Hi-Lo 第一版", k:"dead", type:"電子類 · 比大小", work:"2025/07", launch:"未通過 → Pinoy Hi-Lo", math:"建模", verify:"模擬器 + 驗證", hours:12},
+ {code:"—", n:"Plinko 系列", k:"dead", type:"電子類 · 三變體", work:"2026/03", launch:"未上線", math:"純 Plinko、分裂、免費球", verify:"—", hours:"—"},
+];
+const ROLE = {solo:"獨立完成", lead:"帶領團隊成員", dv:"衍生版", dead:"未上線"};
+
+const tb=document.querySelector("#tbl tbody");
+const modal=document.getElementById("modal"), mbox=document.getElementById("mbox"), mbody=document.getElementById("mbody"), mpos=document.getElementById("mpos");
+let VIEW=[], CUR=-1;
+function cardHTML(g){
+  if(g.feature){
+    const COL=["var(--s1)","var(--s2)","var(--s3)","var(--s4)","var(--s5)","var(--s6)","#c9c9c9"];
+    const tot=g.hrs.reduce((a,b)=>a+b[1],0);
+    const bar=g.hrs.map((h,i)=>`<span style="width:${(h[1]/tot*100).toFixed(1)}%;background:${COL[i%COL.length]}" title="${h[0]} ${h[1]}h"></span>`).join("");
+    const lg=g.hrs.map((h,i)=>`<span><i style="background:${COL[i%COL.length]}"></i>${h[0]} ${h[1]}</span>`).join("");
+    const kv=g.kv.map(([k,v])=>`<b>${k}</b><span>${v}</span>`).join("");
+    const PR=(window.PRIV||{})[g.code]||{};const kan=g.kan.map(([t,b],i)=>`<div class="kan"><b>這款的坎：${t}</b>${b}${PR.sol&&PR.sol[i]?`<p class="sol"><b>解法</b>${PR.sol[i]}</p>`:`<p class="sol more">解法：完整版</p>`}</div>`).join("");
+    const deliv=g.deliv.map(d=>`<code>${d}</code>`).join(" ");
+    return `<div class="feature">
+      <div><img src="${g.img}" alt="${g.n} 主畫面" onerror="this.style.display='none';this.nextElementSibling.textContent='主畫面截圖補齊中'"><div class="cap">${g.cap}</div></div>
+      <div>
+        <h3 style="margin:0;font-size:17px;font-weight:600">${g.n} <span style="font-weight:400;color:var(--ink2);font-size:13px">${g.alt||""} ｜ ${g.code}</span></h3>
+        <div class="meta" style="font-size:12.5px;color:var(--ink2);margin:2px 0 8px">${g.sub}</div>
+        <div class="kv">${kv}</div>
+        ${kan}
+        ${PR.after?`<div class="kan after"><b>上線後回看</b>${PR.after}</div>`:(g.hasAfter?`<div class="kan after more"><b>上線後回看</b>完整版</div>`:"")}
+        <div><b style="font-size:13px;color:var(--ink2)">工時 ${g.hrsNote}</b> <span style="font-size:12px;color:var(--ink3)">自行粗估、時程自管</span><div class="bar">${bar}</div><div class="lg">${lg}</div></div>
+        <p class="deliv" style="margin-top:10px">交付物：${deliv}；${g.deliv_note}</p>
+        <p class="pubnote">解法、參數與上線後回看在完整版；數學文件、試算表與模擬報表公開版只列名稱。</p>
+      </div></div>`;
+  }
+  return `<div class="compact"><h3>${g.n} <span style="font-weight:400;color:var(--ink2);font-size:12.5px">${g.code!=="—"?g.code:""}</span></h3>
+    <div class="meta">${g.type} ｜ ${ROLE[g.k]} ｜ ${g.work} → ${g.launch}</div>
+    <p>${g.math}</p><p style="color:var(--ink2);font-size:13px">${g.verify}</p>
+    ${typeof g.hours==="number"?`<p style="color:var(--ink2);font-size:13px">工時 ${g.hours}h <span style="color:var(--ink3);font-size:12px">自行粗估、時程自管</span></p>`:""}
+    <div class="todo">截圖與細節補齊中</div></div>`;
+}
+function openAt(i){
+  CUR=i; const g=VIEW[i]; mbox.className="box "+g.k; mbody.innerHTML=cardHTML(g); mpos.textContent=`${i+1} / ${VIEW.length}`;
+  document.querySelectorAll("#tbl tbody tr").forEach((tr,j)=>tr.classList.toggle("sel",j===i));
+  modal.classList.add("on"); document.body.style.overflow="hidden";
+}
+function closeM(){ modal.classList.remove("on"); document.body.style.overflow=""; }
+document.getElementById("mclose").onclick=closeM;
+modal.addEventListener("click",e=>{ if(e.target===modal) closeM(); });
+document.addEventListener("keydown",e=>{ if(!modal.classList.contains("on")) return; if(e.key==="Escape") closeM(); if(e.key==="ArrowRight") openAt(Math.min(VIEW.length-1,CUR+1)); if(e.key==="ArrowLeft") openAt(Math.max(0,CUR-1)); });
+document.getElementById("mprev").onclick=()=>openAt(Math.max(0,CUR-1));
+document.getElementById("mnext").onclick=()=>openAt(Math.min(VIEW.length-1,CUR+1));
+function render(f){
+  tb.innerHTML=""; VIEW=G.filter(g=>f==="all"||g.k===f);
+  VIEW.forEach((g,i)=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td class="n">${g.n}${g.alt?`<br><span class="m">${g.alt}</span>`:""}</td><td class="m">${g.type}</td><td class="m">${g.work}</td><td class="m">${g.launch}</td><td><span class="role ${g.k}">${ROLE[g.k]}</span></td><td>${g.math}</td><td class="m">${g.verify}</td><td class="m">${g.hours}${typeof g.hours==="number"?"h":""}</td>`;
+    tr.addEventListener("click",()=>openAt(i));
+    tb.appendChild(tr);
+  });
+}
+document.querySelectorAll("#filters button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#filters button").forEach(x=>x.classList.remove("on"));b.classList.add("on");render(b.dataset.f);}));
+render("all");
+</script>
+</body>
+</html>

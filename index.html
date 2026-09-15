@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>黃培昇 ｜ 作品集</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1b1b1b; --ink2:#555; --ink3:#8a8a8a; --line:#e3e2de;
+    --job:#2f6fb5; --job-bg:#e9f1fb; --job-soft:#b9d2ee;
+    --side:#1f8a7a; --side-bg:#e6f4f1; --side-soft:#a9d9d0;
+    --team:#b5761a; --team-bg:#fbf1e1; --team-soft:#ecd2a3;
+    --dead:#9a9a9a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;font-size:15px;line-height:1.7}
+  a{color:inherit}
+  .wrap{max-width:1100px;margin:0 auto;padding:40px 28px 60px}
+  header{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;padding-bottom:28px;border-bottom:1px solid var(--line)}
+  h1{font-size:30px;margin:0;letter-spacing:1px;font-weight:600}
+  .role{color:var(--ink2);margin:2px 0 14px;font-size:15px}
+  .punch{margin:0 0 10px;max-width:860px;font-size:17px;font-weight:600;line-height:1.6;white-space:nowrap}
+  @media (max-width:1000px){.punch{white-space:normal}}
+  .pos{margin:0;max-width:760px;font-size:15.5px}
+  .method{grid-column:1/-1;margin:4px 0 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13.5px;color:var(--ink2)}
+  .method .k{font-weight:600;color:var(--ink)}
+  .step{background:var(--side-bg);color:var(--side);border:1px solid var(--side-soft);border-radius:999px;padding:1px 10px;font-weight:500}
+  .arrow{color:var(--ink3)}
+  .links{display:flex;flex-direction:column;gap:6px;font-size:13.5px;text-align:right;white-space:nowrap}
+  .links a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--line)}
+  .links a:hover{color:var(--ink)}
+  section{margin-top:40px}
+  h2{font-size:19px;margin:0 0 4px;font-weight:600}
+  .sub{color:var(--ink2);margin:0 0 18px;font-size:14px}
+  .tl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 18px 10px;overflow-x:auto}
+  svg text{font-family:inherit}
+  .legend{display:flex;flex-wrap:wrap;gap:14px 22px;font-size:12.5px;color:var(--ink2);margin-top:10px;padding:0 4px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:22px;height:10px;border-radius:3px;display:inline-block}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--side)}
+  .regions{display:grid;grid-template-columns:3fr 2fr;gap:18px}
+  .region.wide{grid-column:1/-1}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  @media (max-width:860px){.cols2{grid-template-columns:1fr}}
+  .region{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 12px;border-top:4px solid var(--c)}
+  .region h3{margin:0;font-size:16px;font-weight:600}
+  .region .tag{font-size:12.5px;color:var(--ink2);margin:2px 0 12px}
+  .item{display:flex;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:8px;text-decoration:none;color:inherit;border:1px solid transparent}
+  .item:hover{background:var(--cb);border-color:var(--cs)}
+  .item b{font-weight:500;font-size:14.5px}
+  .item small{display:block;color:var(--ink2);font-size:12.5px;line-height:1.4}
+  .item .st{font-size:11.5px;color:var(--c);white-space:nowrap;align-self:flex-start;margin-top:3px;border:1px solid var(--cs);background:var(--cb);border-radius:999px;padding:0 7px}
+  .item.dead .st{color:var(--dead);border-color:#ddd;background:#f3f3f3}
+  .note{font-size:12.5px;color:var(--ink3);margin-top:10px;padding:0 10px}
+  .docs{display:flex;flex-wrap:wrap;gap:4px 12px;margin:-4px 10px 8px;font-size:12px;align-items:baseline}
+  .docs .lbl{color:var(--ink3);font-size:11.5px}
+  .docs a{color:var(--c);text-decoration:none;border-bottom:1px dotted var(--cs)}
+  .docs a:hover{border-bottom-style:solid}
+  .docs a.off{color:var(--ink2);border-bottom:none;cursor:default;pointer-events:none}
+  .docs .note{color:var(--ink3);font-size:11.5px;flex-basis:100%;margin-top:-2px}
+  .grp{font-size:12px;font-weight:600;color:var(--c);margin:10px 10px 2px;letter-spacing:.5px}
+  .prior{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px 14px;border-top:4px solid #8a8a8a}
+  .prior h3{margin:0;font-size:16px;font-weight:600}
+  .prior .tag{font-size:12.5px;color:var(--ink2);margin:2px 0 12px}
+  .prior .cols{display:grid;grid-template-columns:1fr 1fr;gap:6px 28px}
+  .prior h4{margin:6px 0 2px;font-size:13px;color:var(--ink2);font-weight:600}
+  .prior ul{margin:0;padding-left:18px;font-size:14px}
+  .prior li{margin:0 0 3px}
+  .prior .jp{margin:12px 0 0;padding-top:10px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--ink2)}
+  @media (max-width:860px){.prior .cols{grid-template-columns:1fr}}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  body.img .links,body.img .web-only{display:none}
+  .imgnote{display:none;font-size:13px;color:var(--ink2);text-align:right;line-height:1.6;white-space:nowrap}
+  body.img .imgnote{display:block}
+  .tlm{display:none}
+  .tlm h4{margin:12px 0 4px;font-size:13.5px;font-weight:600}
+  .tlm ol{list-style:none;margin:0;padding:0 0 0 12px;border-left:2px solid var(--line)}
+  .tlm li{position:relative;padding:0 0 10px 12px;font-size:13.5px;line-height:1.5}
+  .tlm li::before{content:"";position:absolute;left:-17px;top:6px;width:8px;height:8px;border-radius:2px;background:var(--c)}
+  .tlm li.dead::before{background:repeating-linear-gradient(45deg,#ccc 0 2px,#fff 2px 4px);border:1px solid #bbb}
+  .tlm li.lead::before{background:var(--job-soft)}
+  .tlm .m{color:var(--ink2);font-size:12.5px}
+  .tlm .lv{color:var(--c);font-size:12.5px}
+  @media (max-width:760px){.tl svg,.tl .legend{display:none !important}.tlm{display:block}}
+  @media (max-width:860px){header{grid-template-columns:1fr}.links{text-align:left}.regions{grid-template-columns:1fr}}
+  body.only0 #sec1,body.only0 #sec2,body.only0 #sec3,body.only0 footer,
+  body.only1 header,body.only1 #sec2,body.only1 #sec3,body.only1 footer,
+  body.only2 header,body.only2 #sec1,body.only2 #sec3,body.only2 footer,
+  body.only3 header,body.only3 #sec1,body.only3 #sec2{display:none}
+  body.only0 header{border-bottom:none;padding-bottom:8px}
+  body.only1 .wrap,body.only2 .wrap,body.only3 .wrap{padding-top:24px}
+  body.only1 section,body.only2 section,body.only3 section{margin-top:0}
+  @media print{
+    @page{size:1160px 1300px;margin:0}
+    html,body{background:#fff}
+    .wrap{max-width:none;padding:28px 40px 28px}
+    header{padding-bottom:18px}
+    section{margin-top:26px}
+    .pb{break-before:page;margin-top:0;padding-top:28px}
+    .links,.web-only{display:none}
+    .imgnote{display:block}
+    .tl{overflow:visible}
+    footer{margin-top:24px}
+  }
+  .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<script>if(location.search.indexOf("img=1")>=0)document.body.classList.add("img");var mo=location.search.match(/only=(\d)/);if(mo)document.body.classList.add("only"+mo[1]);window.CODES=location.search.indexOf("codes=1")>=0;document.addEventListener("DOMContentLoaded",function(){var local=location.protocol==="file:";document.querySelectorAll(".docs").forEach(function(d){var n=d.querySelector(".note");if(local){if(n)n.textContent="本機開啟中，點文件名稱直接開";var a=d.previousElementSibling,f=d.querySelector("a");if(a&&a.classList.contains("item")&&f){a.href=f.href;a.target="_blank";}}else{d.querySelectorAll("a").forEach(function(x){x.removeAttribute("href");x.removeAttribute("target");x.classList.add("off");});}});});</script>
+<div class="ver">v0.61</div>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>黃培昇 <span style="font-weight:400;color:var(--ink2);font-size:20px">Pascal Huang</span></h1>
+    <p class="role">機率工程師 ／ 遊戲後端工程師 ｜ 桃園 ｜ 2026/11 起可到職</p>
+    <p class="punch">我解兩種問題：讓遊戲數學上線前算得準、上線後對得上；把公司缺的基礎設施做成正式系統。</p>
+    <p class="pos">遊戲數值設計與伺服器工程師。十一年遊戲業資歷，其中九年遊戲後端 C++ 與機率設計並行，近一年半從零建立數值數據部門，交付 17 款上線遊戲的數學模型（含 3 款衍生版），並將派彩決策系統從提案、兩階段盲測勝出一路做到 Go 伺服器實作與交接。所有數學先建模、再模擬、再與伺服器交叉比對；所有伺服器先把邊界切乾淨再寫。</p>
+  </div>
+  <p class="imgnote">各案例公開版只列標題與文件名稱<br>a4568245682@gmail.com</p>
+  <nav class="links">
+    <a href="#">履歷 PDF</a>
+    <a href="mailto:a4568245682@gmail.com">a4568245682@gmail.com</a>
+  </nav>
+  <p class="method">
+      <span class="k">職務範圍：遊戲數學設計</span>
+      <span class="arrow">｜</span>
+      <span>本職之外：</span>
+      <span class="step">看見缺口</span><span class="arrow">→</span>
+      <span class="step">跟同事確認痛點</span><span class="arrow">→</span>
+      <span class="step">做出原型</span><span class="arrow">→</span>
+      <span class="step">向主管報備並取得同意</span><span class="arrow">→</span>
+      <span class="step">成為正式系統</span><span class="arrow">→</span>
+      <span class="step">附文件交接</span>
+    </p>
+</header>
+
+<section id="sec1">
+  <h2>2025/05 – 2026/11 ｜ 特雷維科技有限公司</h2>
+  <p class="sub">職稱機率工程師；公司未設部門主管職級，實際負責數值數據部門並帶領 1→3 人。公司於 2026/09 宣布解散，在職至 11 月完成交接。<br>上軌是本職，下軌是本職之外做出來、後來成為公司正式運作系統的東西。<span class="web-only">點任一條進入案例頁。</span></p>
+  <div class="tl">
+    <svg id="timeline" viewBox="0 0 1060 10" style="width:100%;min-width:760px;display:block" role="img" aria-label="雙軌時間軸"></svg>
+    <div class="tlm" id="tlm"></div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--job)"></i>本職・獨立完成</span>
+      <span><i class="sw" style="background:var(--job-soft)"></i>本職・帶領團隊成員完成</span>
+      <span><i class="sw" style="height:3px;background:#c9d8ea"></i>交付開發中</span>
+      <span><i style="display:inline-block;width:8px;height:8px;border:2px solid var(--job);border-radius:1.5px;transform:rotate(45deg);background:#fff"></i>上線</span>
+      <span><i style="display:inline-block;width:5px;height:5px;border:1.6px solid var(--job);border-radius:1px;transform:rotate(45deg);background:#fff"></i>衍生版上線（小）</span>
+      <span><i style="display:inline-block;width:8px;height:8px;border:1.6px solid #8a8a8a;border-radius:50%;background:#fff"></i>下架</span>
+      <span><i class="sw" style="background:repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px);border:1px solid #bbb"></i>完成設計、未上線或未採用</span>
+      <span><i class="sw" style="background:var(--side)"></i>本職之外・成為正式系統</span>
+      <span><i class="dot"></i>向主管報備並取得同意</span>
+    </div>
+  </div>
+</section>
+
+<section class="pb" id="sec2">
+  <h2>案例</h2>
+  <p class="sub">每個案例都用同一個結構呈現：當時的問題、為什麼沒有人負責、我先做了什麼、報備與決策、推行與結果、回頭看。</p>
+  <div class="regions">
+
+    <div class="region" style="--c:var(--job);--cb:var(--job-bg);--cs:var(--job-soft)">
+      <h3>本職：遊戲數學</h3>
+      <p class="tag">17 款上線（含 3 款衍生版）｜ 視訊實體機台 1、電子類 16 ｜ 其中 3 款帶領團隊成員完成</p>
+      <a class="item" href="games.html"><span><b>17 款遊戲總覽</b><small>每款核心數學約一週完成、之後跟到上線：類型、動手月份、我的角色、怎麼驗證；含未上線與暫緩的</small></span><span class="st">總覽</span></a>
+      <a class="item" href="#"><span><b>LiveMines</b><small>實體落球不照理論分布走，風控只能放在可控的變數上；以真實注單回放驗證三層風控；GLI 送審回覆兩項數學質疑（最佳策略 RTP 認定、信賴區間算法）後通過</small></span><span class="st">深挖</span></a>
+      <a class="item" href="#"><span><b>BingoSlot 逆向生成引擎</b><small>PM 提案的玩法用正向機率模型做不出來，只能結果導向：先抽獎金、再生成對應盤面；把數學反過來寫，零超發、損耗補償</small></span><span class="st">深挖</span></a>
+      <a class="item" href="#"><span><b>數值設計方法論</b><small>為什麼一款遊戲數學一週能做完、上線後還對得上：八個階段與建模 → 模擬 → 交叉比對 → 回放的驗證鏈</small></span><span class="st">文章</span></a>
+    </div>
+
+    <div class="region" style="--c:var(--team);--cb:var(--team-bg);--cs:var(--team-soft)">
+      <h3>部門與帶人</h3>
+      <p class="tag">2025/11 – 2026/09 ｜ 帶領 1 → 3 人</p>
+      <a class="item" href="#"><span><b>從零建立數值數據部門</b><small>公司原本沒有數值、也沒有數據的人與文件；從零定交付標準、知識庫、MD5 版控，帶領 1→3 人</small></span><span class="st">流程</span></a>
+      <a class="item" href="#"><span><b>招募與面試</b><small>沒有人知道怎麼面機率工程師與數據分析師；寫 JD 與面試腳本，把實戰題變成考題，例如刻意不給 Schema、看候選人會不會主動要</small></span><span class="st">文件</span></a>
+      <a class="item" href="#"><span><b>入職指引與試用期評核</b><small>新人沒有驗收標準；用 PM 的真實需求當考題，審核時抓到兩個數學錯誤</small></span><span class="st">流程</span></a>
+    </div>
+
+    <div class="region wide" style="--c:var(--side);--cb:var(--side-bg);--cs:var(--side-soft)">
+      <h3>本職之外，做成正式系統</h3>
+      <p class="tag">兩條線 ｜ 派彩決策從首月提案走到最後一個月的伺服器；數據基建把行為層、結果層、深挖三層補齊</p>
+      <div class="cols2">
+      <div>
+      <p class="grp">派彩決策：從提案到伺服器</p>
+      <a class="item" href="#"><span><b>Slot 製作方案</b><small>公司要轉做 Slot，還沒有自己的數學方法；入職首月比較四種做法，派彩決策系統從這裡開始</small></span><span class="st">提案</span></a>
+      <a class="item" href="#"><span><b>SlotBingo 錄製抽盤</b><small>四種做法之一先做成原型，沒有被單獨採用；一年後成為派彩決策系統接入第二款遊戲的選盤機制</small></span><span class="st">併入派彩決策系統</span></a>
+      <a class="item" href="#"><span><b>數值系統兩階段盲測</b><small>七套數值系統各說各話，沒人能判斷；882 組模擬加資訊熵量化「會不會被玩家猜到」，讓 PM 自己比出結論，勝出兩套</small></span><span class="st">決策依據</span></a>
+      <a class="item" href="#"><span><b>派彩決策伺服器</b><small>老虎機最怕派彩失控；派彩決策系統以獎池水位決定每一轉該付多少，提了十三個月才在盲測勝出，RD 沒有這類遊戲後端經驗、評估風險高；兩週寫出參照實作，萬人百萬轉零錯誤後交接</small></span><span class="st">已交接</span></a>
+      <div class="docs"><span class="lbl">交接文件</span><a href="dist-interview/docs/dl_readme.html" target="_blank">README</a><a href="dist-interview/docs/dl_spec.html" target="_blank">技術規格書 V8.0</a><a href="dist-interview/docs/dl_qa.html" target="_blank">QA 講解</a><a href="dist-interview/docs/dl_load.html" target="_blank">壓測報告</a><span class="note">涉及公司系統細節，公開版只列文件名稱</span></div>
+      </div>
+      <div>
+      <p class="grp">數據基建三層</p>
+      <a class="item" href="#"><span><b>行為層：CA 事件收集與行為鏈路</b><small>想知道玩家在哪一步離開，GA 給不了這個粒度；自建前端 Cocos 事件 SDK 與 Go 收集服務，20k events/s 佇列零累積，加上行為旅程分析頁</small></span><span class="st">運作中</span></a>
+      <div class="docs"><span class="lbl">交接文件</span><a href="dist-interview/docs/ca_readme.html" target="_blank">README</a><a href="dist-interview/docs/ca_sdk.html" target="_blank">前端 SDK 指南</a><a href="dist-interview/docs/ca_handover.html" target="_blank">後端／維運交接</a><a href="dist-interview/docs/ca_qa.html" target="_blank">QA 欄位說明</a><span class="note">涉及公司系統細節，公開版只列文件名稱</span></div>
+      <a class="item" href="#"><span><b>結果層：BI 資料管線</b><small>公司沒有數據分析，報表靠人手整理；第一版 DEMO 未通過，半年後第二版通過並自動化上線，成為主要分析工具</small></span><span class="st">運作中</span></a>
+      <a class="item" href="#"><span><b>深挖：注單分析工具三代</b><small>上線後 PM 每週要決策，手上只有原始注單；做成單檔儀表板，分群、House 決策面板、落球卡方檢定與漏斗，PM 每週靠它下決定</small></span><span class="st">運作中</span></a>
+      <a class="item dead" href="#"><span><b>未採用的嘗試</b><small>Lark 心得擷取分析器：群組心得自動擷取加 LLM 結構化，做完了但沒被採用</small></span><span class="st">未採用</span></a>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="pb" id="sec3">
+  <h2>2016/07 – 2025/05 ｜ 宇峻奧汀科技</h2>
+  <p class="sub">九年遊戲伺服器 C++ 開發與機率設計並行。這段沒有留下作品集素材，只列工作內容。</p>
+  <div class="prior">
+    <h3>資深程式設計師 → 機率工程師</h3>
+    <p class="tag">多媒體傳播業，500 人以上 ｜ 九年考績皆最高等級，含一次 S 級</p>
+    <div class="cols">
+      <div>
+        <h4>伺服器（C++）</h4>
+        <ul>
+          <li>遊戲伺服器端開發：賽馬、老虎機、捕魚機、收集系統、成就系統、遊戲內活動</li>
+          <li>負責專案中兩個最具挑戰性的大型移植：全新遊戲類型與複雜活動功能，需同時掌握來源與目標項目的架構</li>
+          <li>老虎機演算法革新（類背包問題），部分系統記憶體用量降低 90% 以上</li>
+          <li>多人捕魚：路徑演算法、路徑編輯器與多人同步（C# / Unity 客戶端）</li>
+        </ul>
+      </div>
+      <div>
+        <h4>機率與數值</h4>
+        <ul>
+          <li>機率公式設計與驗算：象棋麻將、捕魚機整體機率設計；賽馬公式驗算並修正數值錯誤</li>
+          <li>專案缺乏數值專才時獨立開發近十款數值計算輔助工具；自動生成滾輪帶工具（輸入 Hit Rate / RTP 產出滾輪表）</li>
+          <li>參與三項新活動設計，兩項儲值活動位居專案活動營收第一、第二</li>
+          <li>率先導入 AI 輔助開發並推動團隊採用，活動付費比連續提升 50%、30%，獲 S 級考績</li>
+        </ul>
+      </div>
+    </div>
+    <p class="jp">更早：2015/05 – 2016/05 日本北海道 エウクレイア System Designer，遊戲系統、關卡、數值與 UI 設計，導入 Live2D 開發環境。2013/04 – 2015/03 日本工学院専門学校 ゲームクリエイター科。2012 下半年 – 2013/03 日本語言學校。2011/12 – 2012 中 兼職並申請日本學校。2010/07 – 2011/11 兵役。2006/09 – 2010/06 逢甲大學資訊工程學系。</p>
+  </div>
+</section>
+
+<footer>
+  <span>公開版 ｜ 截圖一律使用合成資料，不含任何上線遊戲的實際參數與玩家資料。</span>
+  <span>最後更新 2026/09</span>
+</footer>
+</div>
+
+<script>
+(function(){
+  // 三層畫法：segs = 實際動手的月份（實心短塊）；細線 = 第一塊到 launch / to（交付 RD 開發、等待上線）；launch = 上線月旗標。
+  // k: solo 獨立 / lead 帶領 / dead 完成設計未上線 / live 正式系統。approx:true = 月份待確認（橘色虛框）。
+  // 多段列：每段的 l 為說明文字，畫在塊的上方（撞到就改畫下方）；第一段的 l 應含遊戲名。
+  const games = [
+    {n:"LiveMines（視訊實體機台）", segs:[{l:"LiveMines｜V1–V14 迭代", d:"兩個月內與 PM 迭代 14 版玩法（7 層地圖碎片 → 雙寶箱 → 單球 JP → 閃電九宮格 + Cash Out），向高層提案", s:"2025-07", e:"2025-08", k:"solo"},{l:"實體道具偏差修正", s:"2025-12", e:"2025-12", k:"solo"},{l:"風控系統", s:"2026-04", e:"2026-04", k:"solo"},{l:"人流系統", d:"上線前：以既有類似遊戲的注單拆出玩家行為特徵，合成玩家 DNA 做人流模擬，驗證三層風控（V14 FinalCheck）", s:"2026-05", e:"2026-05", k:"solo"},{l:"上線・注單回放", d:"上線後：改用正式注單做人流模擬與落球回放，作為之後調整數值或活動的決策依據；同期迭代注單分析儀表板", s:"2026-08", e:"2026-09", k:"solo"}], launch:[{m:"2026-08", l:"LiveMines 上線 2026/08/10"}]},
+    {n:"Cash Bingo 系列", segs:[{l:"Cash Bingo", s:"2025-06", e:"2025-06", k:"solo"},{l:"重作模型", s:"2025-12", e:"2025-12", k:"solo"},{l:"Lucky Coins", s:"2026-04", e:"2026-04", k:"solo"},{l:"Apolaki（+ExBet，團隊成員製作）", s:"2026-07", e:"2026-07", k:"lead"}], launch:[{m:"2026-06", l:"Cash Bingo、Lucky Coins 上線 2026/06/17"},{m:"2026-09", l:"Apolaki 上線 2026/09/03"}]},
+    {n:"Pula Puti Flash",   segs:[{s:"2025-07", e:"2025-07", k:"solo"}], launch:[{m:"2025-12", l:"上線 2025/12/17"}]},
+    {n:"ColorRoll",         segs:[{s:"2025-07", e:"2025-07", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"}], off:{m:"2026-06", l:"下架 2026/06/24"}},
+    {n:"Drop Ball", segs:[{l:"Drop Ball｜V1–V4", d:"V1 閃電版、V2 金球版、V3 多金球版、V4 多金球 ExtraBet，四個玩法分支同月完成", s:"2025-07", e:"2025-07", k:"solo"},{l:"V5", d:"V5 ExtraBet 金球升級版（2025/09/16）", s:"2025-09", e:"2025-09", k:"solo"},{l:"V6 上線版", d:"V6 多金球 + JP 最終版（2025/11/14）", s:"2025-11", e:"2025-11", k:"solo"},{l:"Flash 調整", d:"Drop Ball Flash 上線前一週的參數調整", s:"2026-06", e:"2026-06", k:"solo"},{l:"", d:"Color Flash（Flash 換皮）上線前一週的參數調整", s:"2026-08", e:"2026-08", k:"solo"}], launch:[{m:"2026-02", l:"Drop Ball 上線 2026/02/09"},{m:"2026-06", l:"Drop Ball Flash（參數調整、畫面優化版）上線 2026/06/17", dv:"Flash"},{m:"2026-08", l:"Color Flash（Flash 換皮）上線 2026/08/20", dv:"Color Flash"}]},
+    {n:"BingBing Run", segs:[{l:"BingBing Run", s:"2025-07", e:"2025-07", k:"solo"},{l:"Mega 調整", d:"BingBing Run Mega（多關卡版）上線前一週的參數調整", s:"2026-06", e:"2026-06", k:"solo"}], launch:[{m:"2026-02", l:"上線 2026/02/09"},{m:"2026-06", l:"BingBing Run Mega（多關卡衍生版）上線 2026/06/17", dv:"Mega"}]},
+    {n:"Chicky Mines 系列", segs:[{l:"LuckyMines（暫緩）", d:"兩天完成：試算表 V3、數學說明、JSON、模擬器、模擬報表齊備後暫緩", s:"2025-07", e:"2025-07", k:"dead"},{l:"Chicky Mines", s:"2026-01", e:"2026-01", k:"solo"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
+    {n:"Pinoy Hi-Lo 系列",  segs:[{l:"Hi-Lo 第一版（未通過）", s:"2025-07", e:"2025-07", k:"dead"},{l:"Pinoy Hi-Lo（團隊成員製作、我審核）", s:"2026-03", e:"2026-05", k:"lead"},{l:"接手修正", d:"成員離職後接手，2026/05 與 2026/07 各修正一次", s:"2026-05", e:"2026-05", k:"solo"},{l:"", d:"第二次修正（QA 回報條件機率問題）", s:"2026-07", e:"2026-07", k:"solo"}], launch:[{m:"2026-08", l:"上線 2026/08/10"}]},
+    {n:"BingoSlot 逆向生成（未上線）", segs:[{d:"PM 提案的玩法只能用結果導向做：先抽獎金再生成盤面的逆向生成引擎，K-Grow、零超發、損耗補償，封裝 C API SDK 供 Go 整合。與下軌的 SlotBingo 錄製抽盤是兩個不同專案", s:"2025-11", e:"2025-12", k:"dead"}]},
+    {n:"Piggy Crash 系列",  segs:[{l:"Piggy Crash", s:"2026-01", e:"2026-01", k:"solo"},{l:"Pinoy Rush（衍生）", s:"2026-03", e:"2026-03", k:"solo"}], launch:[{m:"2026-06", l:"Piggy Crash 上線 2026/06/17"},{m:"2026-08", l:"Pinoy Rush 上線 2026/08/20"}]},
+    {n:"Chicky Tower",      segs:[{l:"Chicky Tower", s:"2026-01", e:"2026-01", k:"solo"},{l:"上線後稽核修正", s:"2026-08", e:"2026-08", k:"solo"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
+    {n:"Chicken Run（團隊成員製作、我審核）", segs:[{s:"2025-12", e:"2026-02", k:"lead"}], launch:[{m:"2026-06", l:"上線 2026/06/17"}]},
+    {n:"Plinko 系列（三變體，未上線）", segs:[{s:"2026-03", e:"2026-03", k:"dead"}]},
+  ];
+  const side = [
+    {n:"Slot 製作方案",        segs:[{s:"2025-06", e:"2025-06", k:"live"}], m:["2025-06"]},
+    {n:"SlotBingo 錄製抽盤（派彩決策系統的子分支）", segs:[{l:"SlotBingo 錄製抽盤原型", d:"Slot 製作方案的方案三：離線海量生成盤面 + 容器化 + 線上權重抽樣。原型未單獨採用。與上軌的 BingoSlot 逆向生成是兩個不同專案", s:"2025-10", e:"2025-10", k:"dead"},{l:"接入派彩決策系統（第二款遊戲）", d:"經主管同意，以錄盤選盤 + 倍率制作為派彩決策系統接入的第二款遊戲，證明派彩決策系統接新遊戲不需改動；錄盤負責遊戲端選盤面、派彩決策系統負責決定該付多少", s:"2026-09", e:"2026-09", k:"live"}], m:["2026-09"]},
+    {n:"BI 資料管線", segs:[{l:"BI 資料管線｜第一版 DEMO（未通過）", d:"第一版 Power BI DEMO 提案，未通過", s:"2025-10", e:"2025-10", k:"dead"},{l:"第二版 DEMO 通過、自動化上線", d:"第二版 DEMO 提案通過，CronJob → SharePoint → Power Query → DAX 自動化上線，成為公司主要分析工具", s:"2026-03", e:"2026-03", k:"live"}], m:["2026-03"], launch:[{m:"2026-03", l:"自動化上線 2026/03"}]},
+    {n:"Lark 心得擷取（未採用）", segs:[{s:"2025-10", e:"2025-10", k:"dead"}]},
+    {n:"注單分析工具三代", segs:[{s:"2026-06", e:"2026-09", k:"live", d:"2026/06–09 持續演化：六格版 → LLM 診斷串接（中途的 AI 分析 side）→ LiveMines 九格版，隨 PM 每週需求持續迭代"}], m:["2026-06"]},
+    {n:"CA 事件收集與行為鏈路", segs:[{d:"GA 埋點平替：定義前端事件協定並做 Cocos SDK 給前端接入；Go 收集服務（佇列 + 批次寫入、冪等、優雅關機）壓測 20k events/s；PostgreSQL schema；行為旅程分析頁", s:"2026-06", e:"2026-07", k:"live"}], m:["2026-06"]},
+    {n:"數值系統兩階段盲測", segs:[{d:"七套數值系統盲測（882 組模擬、資訊熵）→ 五套系統以真實賠率表二階盲測 → 勝出兩套，雙池派彩決策系統是其一", s:"2026-07", e:"2026-08", k:"live"}], m:["2026-07"]},
+    {n:"派彩決策伺服器", segs:[{s:"2026-08", e:"2026-09", k:"live"}], m:["2026-08"]},
+  ];
+  const events = [
+    {m:"2025-05", t:"入職"}, {m:"2025-07", t:"提前轉正・全公司數值分享"}, {m:"2025-12", t:"年度最佳員工"},
+    {m:"2026-04", t:"團隊 3 人"}, {m:"2026-09", t:"公司宣布解散"}, {m:"2026-11", t:"完成交接"}
+  ];
+
+  // 代號模式（?codes=1）：對外附件用遊戲代號取代名稱
+  const CODE_MAP = [
+    ["BingBing Run Mega","TG139"],["Mega 調整","TG139 調整"],["Drop Ball Flash","TG126"],["Flash 調整","TG126 調整"],["Color Flash","TG126 換皮版"],
+    ["LiveMines（視訊實體機台）","TG001（視訊實體機台）"],["LiveMines","TG001"],
+    ["Cash Bingo 系列","TG106 系列"],["Cash Bingo","TG106"],["Lucky Coins","TG110"],["Apolaki","TG120"],
+    ["Pula Puti Flash","TG102"],["Pula Puti","TG102"],["Color Game","TG103"],["ColorRoll","TG103"],["Drop Ball","TG104"],["BingBing Run","TG105"],
+    ["LuckyMines","TG117 前身"],["Chicky Mines","TG117"],["Hi-Lo 第一版","TG112 前身"],["Pinoy Hi-Lo","TG112"],
+    ["Chicken Run","TG111"],["Piggy Crash","TG108"],["Pinoy Rush","TG114"],["Chicky Tower","TG113"],
+    ["BingoSlot","TG107"],["SlotBingo 錄製抽盤原型","TG1XX 錄製抽盤原型"],["SlotBingo 錄製抽盤","TG1XX 錄製抽盤"],["SlotBingo","TG1XX"],["Plinko 系列","TG1XX Plinko 系列"]
+  ];
+  const codify = t => { if(!window.CODES || typeof t!=="string") return t; for(const [a,b] of CODE_MAP) t=t.split(a).join(b); return t; };
+  if(window.CODES){
+    for(const arr of [games, side]) for(const it of arr){
+      it.n=codify(it.n);
+      for(const sg of it.segs){ sg.l=codify(sg.l); sg.d=codify(sg.d); }
+      (it.launch||[]).forEach(L=>{ L.l=codify(L.l); L.dv=codify(L.dv); });
+      if(it.off) it.off.l=codify(it.off.l);
+    }
+    // 案例卡與其他文字節點
+    const walker=document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(nd=>{ const v=codify(nd.nodeValue); if(v!==nd.nodeValue) nd.nodeValue=v; });
+  }
+  const M0 = 2025*12+4;               // 2025-05
+  const months = 19;                  // 到 2026-11
+  const W = 1060, L = 210, R = 20, colW = (W-L-R)/months;
+  const barH = 14, ROW1 = 22, ROW2 = 46;   // 單段列高 / 多段列高（上下留字）
+  const idx = ym => { const [y,m]=ym.split("-").map(Number); return y*12+(m-1)-M0; };
+  const x0 = ym => L + idx(ym)*colW, x1 = ym => L + (idx(ym)+1)*colW;
+  const est = (n,f=11) => [...n].reduce((w,c)=>w+(c.charCodeAt(0)>255?f:f*0.56),0);
+
+  function extent(it){
+    const last=it.segs[it.segs.length-1].e;
+    let e=last; if(it.to && idx(it.to)>idx(e)) e=it.to;
+    (it.launch||[]).forEach(L=>{ if(idx(L.m)>idx(e)) e=L.m; });
+    if(it.off && idx(it.off.m)>idx(e)) e=it.off.m;
+    return {s:it.segs[0].s, e:e};
+  }
+  const lastLaunch = it => (it.launch&&it.launch.length)? it.launch[it.launch.length-1].m : null;
+  const firstLaunch = it => (it.launch&&it.launch.length)? it.launch[0].m : null;
+  function place(it){
+    const ex=extent(it); it.s=ex.s; it.e=ex.e; it.multi=it.segs.length>1;
+    const xa=x0(it.s), xb=x1(it.e), pad=(it.m?12:0);
+    const sg0=it.segs[0], b0=x1(sg0.e), a0=x0(sg0.s);
+    if(!it.multi){
+      const tw=est(it.n);
+      if(b0-a0 > tw+12+pad){ it.lx=a0+6+pad; it.anchor="start"; it.inside=true; it.left=xa; it.right=xb; }
+      else if(b0+6+tw <= (firstLaunch(it)?x0(firstLaunch(it))-8:W-R)){ it.lx=b0+6; it.anchor="start"; it.inside=false; it.left=xa; it.right=Math.max(xb,b0+6+tw); }
+      else { it.lx=a0-6; it.anchor="end"; it.inside=false; it.left=a0-6-tw; it.right=xb; }
+      return;
+    }
+    // 多段：說明文字放塊上方，與前一個同層文字相撞就改放下方，再撞就省略（tooltip 仍有）
+    it.left=xa; it.right=xb;
+    let endUp=-1e9, endDn=-1e9;
+    it.segs.forEach(sg=>{
+      if(!sg.l){ sg.cap=null; return; }
+      const cx=x0(sg.s), tw=est(sg.l,10.5), cend=cx+tw;
+      if(cx>=endUp+8){ sg.cap="up"; endUp=cend; }
+      else if(cx>=endDn+8){ sg.cap="dn"; endDn=cend; }
+      else { sg.cap=null; return; }
+      it.right=Math.max(it.right,cend);
+    });
+  }
+  function pack(items){
+    items.forEach(place);
+    items.sort((a,b)=> idx(a.s)-idx(b.s) || (idx(b.e)-idx(b.s))-(idx(a.e)-idx(a.s)));
+    const rows=[]; const rowMulti=[];
+    for(const it of items){
+      let r=rows.findIndex((end,i)=>end+10<it.left && rowMulti[i]===it.multi);
+      if(r<0){r=rows.length;rows.push(-1e9);rowMulti.push(it.multi);}
+      rows[r]=it.right; it.row=r;
+    }
+    // 列頂位置：多段列較高
+    const tops=[]; let y=0; for(let i=0;i<rows.length;i++){ tops.push(y); y+= rowMulti[i]?ROW2:ROW1; }
+    return {tops, h:y, multi:rowMulti};
+  }
+  const G = pack(games), S = pack(side);
+  const top = 34, laneGap = 26;
+  const gTop = top, gH = G.h + 12;
+  const sTop = gTop + gH + laneGap, sH = S.h + 12;
+  const H = sTop + sH + 30;
+
+  const svg = document.getElementById("timeline");
+  svg.setAttribute("viewBox", "0 0 "+W+" "+H);
+  const NS="http://www.w3.org/2000/svg";
+  const el=(t,a,txt,parent)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;(parent||svg).appendChild(e);return e;};
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+  for(let i=0;i<=months;i++){
+    const x=L+i*colW, y=M0+i, yy=Math.floor(y/12), mm=y%12+1;
+    el("line",{x1:x,y1:top-6,x2:x,y2:H-22,stroke:"#eeeeea","stroke-width":1});
+    if(i<months && (mm===1||mm===4||mm===7||mm===10)) el("text",{x:x+3,y:top-12,"font-size":11,fill:"#8a8a8a"}, mm===1? yy+"/01" : (mm<10?"0":"")+mm);
+  }
+  const lane=(y,h,label,sub,color)=>{
+    el("rect",{x:0,y:y-4,width:W,height:h,rx:8,fill:"#fafaf8"});
+    el("text",{x:10,y:y+14,"font-size":13,"font-weight":600,fill:color},label);
+    el("text",{x:10,y:y+32,"font-size":11.5,fill:"#777"},sub);
+  };
+  lane(gTop,gH,"本職：遊戲數學","17 款上線（含 3 款衍生版）",css("--job"));
+  lane(sTop,sH,"本職之外","缺口→痛點→原型→報備同意→正式系統→交接",css("--side"));
+
+  const defs=el("defs",{}); const pat=el("pattern",{id:"hatch",width:6,height:6,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},null,defs);
+  el("rect",{width:3,height:6,fill:"#cfcfcf"},null,pat);
+
+  const drawBars=(items,P,topY,colors,thinColor,markColor)=>{
+    for(const it of items){
+      const y = topY+8+P.tops[it.row]+(P.multi[it.row]?14:0), cy=y+barH/2;
+      const g=el("g",{style:"cursor:pointer"});
+      // 細線
+      const ex=extent(it), endX = it.off? x0(it.off.m)+colW/2 : (lastLaunch(it)? x0(lastLaunch(it))+colW/2 : x1(ex.e));
+      const thin=(a,b)=>{ if(b-a>8) el("line",{x1:a,y1:cy,x2:b,y2:cy,stroke:thinColor,"stroke-width":2.5,"stroke-linecap":"round"},null,g); };
+      if(!it.multi){
+        const a = (it.lx!=null && !it.inside && it.anchor==="start") ? it.lx+est(it.n)+6 : x1(it.segs[0].e);
+        if(endX > x1(it.segs[0].e)+2) thin(a,endX);
+      } else {
+        for(let i=0;i<it.segs.length;i++){
+          const a=x1(it.segs[i].e), b= i+1<it.segs.length ? x0(it.segs[i+1].s) : endX;
+          thin(a,b);
+        }
+      }
+      for(const sg of it.segs){
+        const xa=x0(sg.s), xb=x1(sg.e);
+        const a={x:xa,y:y,width:Math.max(xb-xa,6),height:barH,rx:3,fill: sg.k==="dead"?"url(#hatch)":colors[sg.k]};
+        if(sg.k==="dead"){a.stroke="#bbb";a["stroke-width"]=1;}
+        if(sg.approx){a.stroke="#e0552b";a["stroke-width"]=1.2;a["stroke-dasharray"]="3 2";}
+        el("rect",a,null,g);
+        if(it.multi && sg.cap) el("text",{x:xa,y: sg.cap==="up"? y-4 : y+barH+11,"font-size":10.5,fill:"#444"},sg.l,g);
+      }
+      (it.launch||[]).forEach(L=>{ const lx=x0(L.m)+colW/2; const r=L.dv?3.5:5; el("rect",{x:lx-r,y:cy-r,width:2*r,height:2*r,rx:1.2,fill:"#fff",stroke:markColor,"stroke-width":L.dv?1.6:2,transform:`rotate(45 ${lx} ${cy})`},null,g); const onSeg=it.segs.some(sg=>idx(sg.s)<=idx(L.m)&&idx(L.m)<=idx(sg.e)); if(L.dv && !onSeg) el("text",{x:lx+8,y:cy+4,"font-size":9.5,fill:"#666"},L.dv,g); });
+      if(!it.multi){
+        const t=el("text",{x:it.lx,"text-anchor":it.anchor,y:y+11,"font-size":11,fill: it.inside?"#fff":"#444"},it.n,g);
+        if(it.inside && it.segs[0].k==="lead") t.setAttribute("fill","#1d3f66");
+      }
+      if(it.off){ const ox=x0(it.off.m)+colW/2; el("circle",{cx:ox,cy:cy,r:5,fill:"#fff",stroke:"#8a8a8a","stroke-width":1.6},null,g); el("path",{d:`M${ox-2.5} ${cy-2.5} L${ox+2.5} ${cy+2.5} M${ox+2.5} ${cy-2.5} L${ox-2.5} ${cy+2.5}`,stroke:"#8a8a8a","stroke-width":1.4,fill:"none"},null,g); }
+      (it.m||[]).forEach(mm=>el("circle",{cx:x0(mm)+8,cy:cy,r:4.5,fill:"#fff",stroke:css("--side"),"stroke-width":2},null,g));
+      const tip=it.segs.map(sg=>sg.s+(sg.e!==sg.s?" – "+sg.e:"")+"　"+(sg.d||sg.l||"")+(sg.k==="dead"?"（未上線）":"")+(sg.approx?"（待確認）":"")).join("\n")+(it.launch||[]).map(L=>"\n◇ "+L.l).join("")+(it.off?"\n⊗ "+it.off.l:"");
+      el("title",{},it.n+"\n"+tip,g);
+    }
+  };
+  drawBars(games,G,gTop,{solo:css("--job"),lead:css("--job-soft")},"#d7e3f2",css("--job"));
+  drawBars(side,S,sTop,{live:css("--side")},"#cfe8e3",css("--side"));
+
+  // 窄螢幕：同一份資料改成直式清單
+  const fmt = ym => ym.replace("-","/");
+  const mob = document.getElementById("tlm");
+  const block=(title,items,color)=>{
+    const h=document.createElement("h4"); h.textContent=title; h.style.color=color; mob.appendChild(h);
+    const ol=document.createElement("ol"); ol.style.setProperty("--c",color);
+    items.slice().sort((a,b)=>idx(a.s)-idx(b.s)).forEach(it=>{
+      const li=document.createElement("li"); const k0=it.segs[0].k; if(k0==="dead") li.className="dead"; else if(k0==="lead") li.className="lead";
+      const segs=it.segs.map(sg=>fmt(sg.s)+(sg.e!==sg.s?"–"+fmt(sg.e):"")+(sg.l&&it.segs.length>1?"（"+sg.l+"）":"")).join("、");
+      const lv=(it.launch||[]).map(L=>"◇ "+L.l).join("；")+(it.off?"；⊗ "+it.off.l:"");
+      li.innerHTML="<b>"+it.n+"</b><br><span class='m'>動手："+segs+"</span>"+(lv?"<br><span class='lv'>"+lv+"</span>":"");
+      ol.appendChild(li);
+    });
+    mob.appendChild(ol);
+  };
+  block("本職：遊戲數學（17 款上線，含 3 款衍生版）",games,css("--job"));
+  block("本職之外：看見缺口 → 確認痛點 → 原型 → 報備並取得同意 → 正式系統 → 交接",side,css("--side"));
+
+  const ay=H-14;
+  el("line",{x1:L,y1:ay-6,x2:W-R,y2:ay-6,stroke:"#ccc","stroke-width":1});
+  events.forEach(ev=>{const x=x0(ev.m)+colW/2;el("circle",{cx:x,cy:ay-6,r:3.5,fill:"#444"});el("text",{x:x,y:ay+8,"font-size":10.5,fill:"#666","text-anchor":"middle"},ev.t);});
+})();
+</script>
+</body>
+</html>
