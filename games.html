@@ -59,9 +59,19 @@
   .deliv{font-size:13px;color:var(--ink2)}
   .deliv code{font-family:inherit;background:#f1f1ee;border-radius:4px;padding:0 5px}
   tbody tr{cursor:pointer}
+  tbody tr.grp-row{cursor:default}
+  tbody tr.grp-row td{padding:14px 10px 6px;border-bottom:1px solid var(--line);background:#fff!important;font-size:12.5px;color:var(--ink2)}
+  tbody tr.grp-row td b{font-size:13.5px;color:var(--ink);margin-right:8px;padding-left:8px;border-left:3px solid var(--gc,#bbb)}
+  tbody tr.f-live td{background:#f4f8fc}   tbody tr.f-live{--gc:#3b73b9}
+  tbody tr.f-slot td{background:#fbf6ee}   tbody tr.f-slot{--gc:#c3893a}
+  tbody tr.f-chicky td{background:#f3f9f3} tbody tr.f-chicky{--gc:#4e9a5b}
+  tbody tr.f-ball td{background:#fcf4f7}   tbody tr.f-ball{--gc:#c25b86}
+  tbody tr.f-crash td{background:#f6f4fb}  tbody tr.f-crash{--gc:#7a62b8}
+  tbody tr.f-poker td{background:#f8f8f0}  tbody tr.f-poker{--gc:#8f8a3c}
+  tbody tr.f-engine td{background:#f5f5f5} tbody tr.f-engine{--gc:#8a8a84}
+  tbody tr[data-i]:hover td{filter:brightness(.965)}
   .todo-tag{font-size:10.5px;color:var(--ink3);border:1px dashed #ccc;border-radius:999px;padding:0 6px;vertical-align:middle;white-space:nowrap}
-  tbody tr:hover td{background:#f4f7fb}
-  tbody tr.sel td{background:var(--job-bg)}
+  tbody tr.sel td{background:var(--job-bg)!important}
   .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 0}
   .modal{position:fixed;inset:0;background:rgba(20,20,20,.45);display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto;z-index:50}
   .modal.on{display:flex}
@@ -109,12 +119,12 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.94</div>
+<div class="ver">v0.95</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
 <h1>17 款遊戲總覽</h1>
-<p class="sub">17 款上線（含 3 款衍生版）加 5 款完成設計但未上線。每款核心數學約一週完成，之後跟到上線。表格看全貌，點任一列看那一款怎麼做、怎麼驗、花了多少小時。工時皆為自行粗估，時程自管、未納入專案排程。公開版不放實際 RTP、機率表與參數。</p>
+<p class="sub">17 款上線（含 3 款衍生版）加 5 款完成設計但未上線。每款核心數學約一週完成，之後跟到上線。表格依系列分組、依重要性排序，點任一列看那一款怎麼做、怎麼驗、花了多少小時。工時皆為自行粗估，時程自管、未納入專案排程。公開版不放實際 RTP、機率表與參數。</p>
 
 <div class="filters" id="filters">
   <button data-f="all" class="on">全部</button>
@@ -309,7 +319,7 @@ function openAt(i){
   mhead.innerHTML=headHTML(g); mimg.innerHTML=imgHTML(g); mmid.classList.toggle("nofig",!g.feature);
   mbody.innerHTML=bodyHTML(g); mbody.scrollTop=0; mfoot.innerHTML=footHTML(g); mpos.textContent=`${i+1} / ${VIEW.length}`;
   mhead.querySelectorAll(".tabs button").forEach(b=>b.onclick=function(){TAB=b.dataset.t; try{localStorage.setItem("pf_tab",TAB)}catch(e){} openAt(CUR);});
-  document.querySelectorAll("#tbl tbody tr").forEach((tr,j)=>tr.classList.toggle("sel",j===i));
+  document.querySelectorAll("#tbl tbody tr[data-i]").forEach(tr=>tr.classList.toggle("sel",Number(tr.dataset.i)===i));
   modal.classList.add("on"); document.body.style.overflow="hidden";
 }
 function closeM(){ modal.classList.remove("on"); document.body.style.overflow=""; }
@@ -318,10 +328,30 @@ modal.addEventListener("click",e=>{ if(e.target===modal) closeM(); });
 document.addEventListener("keydown",e=>{ if(!modal.classList.contains("on")) return; if(e.key==="Escape") closeM(); if(e.key==="ArrowRight") openAt(Math.min(VIEW.length-1,CUR+1)); if(e.key==="ArrowLeft") openAt(Math.max(0,CUR-1)); });
 document.getElementById("mprev").onclick=()=>openAt(Math.max(0,CUR-1));
 document.getElementById("mnext").onclick=()=>openAt(Math.min(VIEW.length-1,CUR+1));
+const FAM=[
+ {id:"live",  label:"視訊實體機台", desc:"實體落球、GLI 送審、三層風控",            names:["LiveMines"]},
+ {id:"slot",  label:"老虎機系列",   desc:"Cash Bingo 一家三款，可互相對照的實驗",     names:["Cash Bingo","Lucky Coins","Apolaki"]},
+ {id:"chicky",label:"選路 crash 系列", desc:"左右選路、金幣、寶箱、多級 JP；含帶人作品與前身", names:["BingBing Run","BingBing Run Mega","Chicky Tower","Chicky Mines","Chicken Run","LuckyMines"]},
+ {id:"ball",  label:"落球與色彩系列", desc:"紅白落球、六色三球、三色骰；含換皮衍生",     names:["Lucky Drop Ball","Drop Ball Flash","Color Flash","Pula Puti Flash","Color Game"]},
+ {id:"crash", label:"關卡制 crash",  desc:"離散關卡取代連續曲線，一個框架多款",         names:["Piggy Crash","Pinoy Rush"]},
+ {id:"poker", label:"撲克",         desc:"高低牌；帶人作品與第一版",                   names:["Pinoy Hi-Lo","Hi-Lo 第一版"]},
+ {id:"engine",label:"老虎機引擎與未上線", desc:"結果導向逆向生成、錄製抽盤、Plinko",     names:["BingoSlot","SlotBingo 錄製抽盤","Plinko 系列"]},
+];
+function famOf(g){ for(const f of FAM){ const i=f.names.indexOf(g.n); if(i>=0) return [f,i]; } return [FAM[FAM.length-1],99]; }
 function render(f){
-  tb.innerHTML=""; VIEW=G.filter(g=>f==="all"||(f==="todo"?!g.feature:g.k===f));
+  tb.innerHTML="";
+  const list=G.filter(g=>f==="all"||(f==="todo"?!g.feature:g.k===f));
+  list.sort((a,b)=>{ const [fa,ia]=famOf(a),[fb,ib]=famOf(b); const da=FAM.indexOf(fa)-FAM.indexOf(fb); return da!==0?da:ia-ib; });
+  VIEW=list;
+  let lastFam=null;
   VIEW.forEach((g,i)=>{
-    const tr=document.createElement("tr");
+    const [fam]=famOf(g);
+    if(fam!==lastFam){
+      const h=document.createElement("tr"); h.className="grp-row f-"+fam.id;
+      h.innerHTML=`<td colspan="8"><b>${fam.label}</b><span>${fam.desc}</span></td>`;
+      tb.appendChild(h); lastFam=fam;
+    }
+    const tr=document.createElement("tr"); tr.className="f-"+fam.id; tr.dataset.i=i;
     tr.innerHTML=`<td class="n">${g.n}${g.feature?"":' <span class="todo-tag">待補</span>'}${g.alt?`<br><span class="m">${g.alt}</span>`:""}</td><td class="m">${g.type}</td><td class="m">${g.work}</td><td class="m">${g.launch}</td><td><span class="role ${g.k}">${ROLE[g.k]}</span></td><td>${g.math}</td><td class="m">${g.verify}</td><td class="m">${g.hours}${typeof g.hours==="number"?"h":""}</td>`;
     tr.addEventListener("click",()=>openAt(i));
     tb.appendChild(tr);
