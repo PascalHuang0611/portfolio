@@ -108,7 +108,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.75</div>
+<div class="ver">v0.76</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -196,7 +196,12 @@ const G = [
   kan:[["ExBet 拿掉特色軸的空符號後，整體怎麼平衡","付費升級要讓玩家感覺特色軸「每次都有東西」，等於把特色軸的空符號移除、其他符號機率重分配，同時整體 RTP 要以升級成本為分母對齊標準模式。"]],
   hrsNote:"未記錄（團隊成員製作）",
   deliv:["Apolaki 數學文件（團隊成員）","ExBet 權重表","config.json（附 MD5）"], deliv_note:"與 Cash Bingo、Lucky Coins 同架構。"},
- {code:"TG108", n:"Piggy Crash", k:"solo", type:"電子類 · 620 關離散階梯 crash", work:"2026/01", launch:"2026/06/17", math:"常數期望值系統；PM 網頁配置器", verify:"配置器即時驗算 + 模擬", hours:"—"},
+ {code:"TG108", n:"Piggy Crash", alt:"Crash-Step-Ladder", k:"solo", type:"電子類 · 關卡制 crash（豬豬吃食物演出），最高 500 倍", work:"2026/01（V1）、2026/03（V2）", launch:"2026/06/17；衍生 Pinoy Rush 08/20", math:"以離散關卡取代連續 crash 曲線：每一小段時間以高成功率進下一關，直到失敗；任何一關下車的期望值相同（常數期望值）；關卡可無限延長而不改模型", verify:"C++ 步進模擬器多種下車策略對照；給 PM 的網頁配置器即時試算與倍率曲線", hours:"—", feature:true, hasAfter:true,
+  img:"素材/遊戲總覽/TG108_PiggyCrash/截圖/TG108_主畫面.png", cap:"主畫面", sub:"電子類 · 傳統 crash 玩法、豬豬吃食物演出，關卡制、最高 500 倍 ｜ 獨立完成 ｜ 2026/01 設計 → 2026/06/17 上線",
+  kv:[["核心數學","傳統 crash 玩法。倍率不是先抽一個死亡點，而是關卡制：每一小段時間以高成功率進下一關、直到失敗，倍率隨關卡累積。任何一關下車的期望值都一樣（常數期望值系統），沒有「只抓低倍」或「永遠追高」的策略優勢；關卡數可以無限延長而不需要改數學模型。"],["驗證方式","C++ 步進模擬器跑多種下車策略（固定倍率、永不下車、隨機區間）對照期望值是否一致；Excel 建模。另做一個給 PM 的網頁配置器：自行設定各區間機率、即時試算、倍率曲線圖、內建試玩、一鍵輸出 JSON。"],["特點","一款遊戲的框架，衍生出 Pinoy Rush 等同型遊戲，只換演出與參數。"]],
+  kan:[["倍率怎麼產生：先抽死亡點，還是逐關過關","兩種做法：一是先決定這一局的死亡倍率、玩家不知道、自己決定何時下車；二是關卡制，每一小段時間以高成功率進下一關直到失敗。同類型最紅的那一款，倍率分布看起來是第二種做出來的。要選哪一種、為什麼。"],["自動下車的倍率不在關卡表上，怎麼結算","關卡制的倍率是一張離散的表。玩家設定的自動下車倍率如果剛好不在表上，這一局算成功還是失敗、以哪個倍率結算，要定一條規則。"]],
+  hrsNote:"未記錄",
+  deliv:["Piggy Crash 數學文件 V1、V2","PiggyCrash_MATH_V2.xlsx","TG108 Config JSON（附 MD5）","C++ 步進模擬器","PM 網頁配置器（含試玩）"], deliv_note:"V2 依業務需求調整最高倍率與目標 RTP；衍生 Pinoy Rush（2026/08/20）。"},
  {code:"TG114", n:"Pinoy Rush", k:"solo", type:"電子類 · Piggy Crash 衍生", work:"2026/03", launch:"2026/08/20", math:"同框架衍生", verify:"同 Piggy Crash 流程", hours:"—"},
  {code:"TG111", n:"Chicken Run", k:"lead", type:"電子類 · 選路 crash", work:"2025/12–2026/02", launch:"2026/06/17", math:"團隊成員製作；審核抓到衝刺功能 RTP 漏算，接手修正後上線", verify:"審核與驗算", hours:"—"},
  {code:"TG112", n:"Pinoy Hi-Lo", k:"lead", type:"電子類 · 比大小", work:"2026/03–05；05、07 接手修正", launch:"2026/08/10", math:"團隊成員製作；抽牌條件機率誤寫為獨立事件，接手修正", verify:"審核與驗算；截斷賠率模擬報表", hours:"—"},
