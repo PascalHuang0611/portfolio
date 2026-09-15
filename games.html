@@ -89,7 +89,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.63</div>
+<div class="ver">v0.64</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -179,7 +179,7 @@ const ROLE = {solo:"獨立完成", lead:"帶領團隊成員", dv:"衍生版", de
 const tb=document.querySelector("#tbl tbody");
 const modal=document.getElementById("modal"), mbox=document.getElementById("mbox"), mbody=document.getElementById("mbody"), mpos=document.getElementById("mpos");
 let VIEW=[], CUR=-1;
-let SHOWKAN=false; try{SHOWKAN=localStorage.getItem("pf_showkan")==="1"}catch(e){}
+let SHOWKAN=true; try{SHOWKAN=localStorage.getItem("pf_showkan")!=="0"}catch(e){}
 function cardHTML(g){
   if(g.feature){
     const COL=["var(--s1)","var(--s2)","var(--s3)","var(--s4)","var(--s5)","var(--s6)","#c9c9c9"];
@@ -195,7 +195,7 @@ function cardHTML(g){
         <h3 style="margin:0;font-size:17px;font-weight:600">${g.n} <span style="font-weight:400;color:var(--ink2);font-size:13px">${g.alt||""} ｜ ${g.code}</span></h3>
         <div class="meta" style="font-size:12.5px;color:var(--ink2);margin:2px 0 8px">${g.sub}</div>
         <div class="kv">${kv}</div>
-        <div class="kt"><span>這款的坎 ${g.kan.length} 個${(PR.after||g.hasAfter)?"、上線後回看 1 則":""}</span><button class="kantoggle" type="button">${SHOWKAN?"收合":"展開"}</button><span class="kthint">${SHOWKAN?"":"開關套用全部遊戲，會記住"}</span></div>
+        <div class="kt"><span>這款的坎 ${g.kan.length} 個${(PR.after||g.hasAfter)?"、上線後回看 1 則":""}</span><button class="kantoggle" type="button">${SHOWKAN?"收合":"展開"}</button></div>
         <div class="kanwrap"${SHOWKAN?"":" hidden"}>
         ${kan}
         ${PR.after?`<div class="kan after"><b>上線後回看</b>${PR.after}</div>`:(g.hasAfter?`<div class="kan after more"><b>上線後回看</b>完整版</div>`:"")}
