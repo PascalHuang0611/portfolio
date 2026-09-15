@@ -108,7 +108,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.74</div>
+<div class="ver">v0.75</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -184,11 +184,11 @@ const G = [
   kan:[["調一個指標、另一個就掉","傳統轉軸做法下，PM 想提升某個指標，常常提升了 A、B 就不達標：拉高 Hit Rate 某個符號就難以出現；為了對準目標 RTP 會出現很多空盤，PM 認為空盤多美術表現不好看；PM 還希望某一軸不要出現某個符號。轉軸符號機率這個模型本身表達不了這些要求。"],["正式伺服器還沒好，體感怎麼先驗","開發進度嚴重落後，等正式伺服器完成再調體感會沒有時間。另一方面公司後端用 Go，我是 C++ 出身。"]],
   hrs:[["首版 V1 全流程",14],["V2 建模與模擬",4],["V2 驗證與模擬",4],["V2 規則文件",2],["填表工具",8],["填表",16],["DEMO 網頁",3],["Go 測試伺服器",3]], hrsNote:"54 小時（V1 14 ＋ V2 40），V2 有 24 小時在填表與填表工具",
   deliv:["數學文件 V1（2025/06）、V2（2025/12）","各 Bet 級距權重表","config.json（附 MD5）","C++ 模擬器","MathematicalWeightSolver","Go 測試伺服器 DEMO"], deliv_note:"衍生 Lucky Coins（2026/06/17）與 Apolaki（2026/09/03，帶團隊成員製作）沿用同架構。"},
- {code:"TG110", n:"Lucky Coins", alt:"LuckyCoin", k:"solo", type:"電子類 · Cash Bingo 同架構、小改參數；上線後一次迭代", work:"2026/04；上線後一次迭代", launch:"2026/06/17（Perya／Arcade 類別）", math:"沿用排列組合權重模型與填表工具；上線後大幅提高最低注額的命中率，以改版前後各七天對照，Cash Bingo 維持原狀當對照組", verify:"同 Cash Bingo 流程；改版效果以上線數據前後對照", hours:"—", feature:true, hasAfter:true,
+ {code:"TG110", n:"Lucky Coins", alt:"LuckyCoin", k:"solo", type:"電子類 · Cash Bingo 同架構、小改參數；上線後一次迭代", work:"2026/04；上線後一次迭代", launch:"2026/06/17（Perya／Arcade 類別）", math:"沿用排列組合權重模型與填表工具；上線後大幅提高最低注額的命中率，以改版前後各七天對照，Cash Bingo 維持原狀當對照組", verify:"同 Cash Bingo 流程；改版效果以上線數據前後對照", hours:2, feature:true, hasAfter:true,
   img:"素材/遊戲總覽/TG110_LuckyCoins/截圖/TG110_主畫面.png", cap:"主畫面", sub:"電子類 · Cash Bingo 同架構、小改參數 ｜ 獨立完成 ｜ 2026/04 設計 → 2026/06/17 上線（Perya／Arcade 類別）",
   kv:[["核心數學","沿用 Cash Bingo 的排列組合權重模型與填表工具，只改參數。上線後一次迭代：大幅提高最低注額的命中率，其餘注額不動；Cash Bingo 維持原狀當對照組，追蹤改版前後各七天。"],["驗證方式","同 Cash Bingo 流程。改版效果以上線數據前後對照，只看被改動的那個注額。"],["特點","同架構三款（Cash Bingo、Lucky Coins、Apolaki）形成一組可互相對照的實驗：一款不動、一款改命中率、一款加 ExBet。"]],
   kan:[["最低注額的命中率拉高，玩家會更留下來嗎","PM 希望最低注額的玩家不要那麼快輸光，決定大幅拉高該注額的命中率。命中率、起伏感、期待感三者互相牽制，這一步會換到什麼、失去什麼，要用上線數據回答。"]],
-  hrsNote:"未記錄（沿用 Cash Bingo 架構，僅改參數）",
+  hrs:[["改表名稱與小改參數",2]], hrsNote:"2 小時，改表名稱與小改內容參數",
   deliv:["參數表（沿用 Cash Bingo 權重模型）","config.json（附 MD5）","改版前後七天對照數據"], deliv_note:"與 Cash Bingo、Apolaki 同架構。"},
  {code:"TG120", n:"Apolaki", alt:"", k:"lead", type:"電子類 · Cash Bingo 架構 + ExBet", work:"2026/07（團隊成員製作、我審核）", launch:"2026/09/03（Slot 類別）", math:"在 Cash Bingo 架構上追加 ExBet：付費升級後第四軸（特色軸）不再出現空符號，特色軸其他符號出現率同步提高；權重模型與填表工具沿用", verify:"同 Cash Bingo 流程；團隊成員製作、我審核", hours:"—", feature:true, hasAfter:true,
   img:"素材/遊戲總覽/TG120_Apolaki/截圖/TG120_主畫面.png", cap:"主畫面", sub:"電子類 · Cash Bingo 架構 + ExBet ｜ 帶團隊成員製作、我審核 ｜ 2026/07 設計 → 2026/09/03 上線（Slot 類別）",
