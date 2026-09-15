@@ -69,9 +69,12 @@
   .mhead{flex:0 0 auto;padding-right:28px}
   .mhead h3{margin:0;font-size:17px;font-weight:600}
   .mhead .meta{font-size:12.5px;color:var(--ink2);margin:2px 0 8px}
-  .tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin:0 0 12px}
-  .tabs button{font:inherit;font-size:13px;border:0;background:transparent;padding:6px 12px;cursor:pointer;color:var(--ink2);border-bottom:2px solid transparent;margin-bottom:-1px}
-  .tabs button.on{color:var(--ink);border-bottom-color:var(--job);font-weight:600}
+  .tabs{display:inline-flex;gap:3px;background:#e9e9e4;border-radius:999px;padding:3px;margin:4px 0 12px}
+  .tabs button{font:inherit;font-size:13px;border:0;background:transparent;padding:5px 16px;cursor:pointer;color:var(--ink2);border-radius:999px;transition:background .15s,color .15s}
+  .tabs button:hover{color:var(--ink)}
+  .tabs button.on{background:var(--job);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+  .tabs button.on span{color:rgba(255,255,255,.75)!important}
+  .box.lead .tabs button.on{background:var(--job-soft)} .box.dead .tabs button.on{background:#8a8a84}
   .mscroll{flex:1 1 auto;min-height:0;overflow:auto;padding-right:6px}
   .modal .nav{flex:0 0 auto}
   .modal .box.lead{border-top-color:var(--job-soft)} .modal .box.dead{border-top-color:#bbb}
@@ -93,7 +96,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.66</div>
+<div class="ver">v0.67</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
