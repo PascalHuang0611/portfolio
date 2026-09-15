@@ -81,7 +81,7 @@
   .compact .meta{font-size:12.5px;color:var(--ink2);margin:2px 0 8px}
   .compact p{margin:0 0 6px;font-size:13.5px}
   .compact .todo{font-size:12px;color:var(--ink3);margin-top:8px}
-  @media (max-width:900px){.feature{grid-template-columns:1fr}.feature img{max-width:240px;margin:0 auto}}
+  @media (max-width:900px){.feature{grid-template-columns:1fr}.feature img{max-width:240px;margin:0 auto}.feature>div:first-child{position:static}}
   .pubnote{font-size:11.5px;color:var(--ink3);margin:4px 0 0}
   footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   @media (max-width:900px){.cards{grid-template-columns:1fr}.feature{grid-template-columns:1fr}.feature img{max-width:240px;margin:0 auto}}
@@ -89,7 +89,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.64</div>
+<div class="ver">v0.65</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
