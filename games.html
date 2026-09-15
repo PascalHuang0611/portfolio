@@ -108,7 +108,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.86</div>
+<div class="ver">v0.87</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -262,7 +262,8 @@ function imgHTML(g){
 function bodyHTML(g){
   if(g.feature){
     const PR=priv(g);
-    if(TAB==="kan"){
+    const hasKanTab=(g.kan&&g.kan.length>0)||PR.after||g.hasAfter;
+    if(TAB==="kan"&&hasKanTab){
       const kan=g.kan.map(([t,b],i)=>`<div class="kan"><b>這款的坎：${t}</b>${b}${PR.sol&&PR.sol[i]?`<p class="sol"><b>解法</b>${PR.sol[i]}</p>`:`<p class="sol more">解法：完整版</p>`}</div>`).join("");
       const after=PR.after?`<div class="kan after"><b>上線後回看</b>${PR.after}</div>`:(g.hasAfter?`<div class="kan after more"><b>上線後回看</b>完整版</div>`:"");
       return `${kan}${after}<p class="pubnote">解法與上線後回看在完整版。</p>`;
