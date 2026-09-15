@@ -107,7 +107,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.71</div>
+<div class="ver">v0.72</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -129,7 +129,7 @@
 </table>
 </div>
 
-<p class="hint">點任一列開啟該款的卡片；卡片分「概要」與「坎與回看」兩頁，坎公開版列問題、解法在完整版。已完成 Pula Puti Flash、Color Game、Lucky Drop Ball、BingBing Run，其餘依上線順序補齊。</p>
+<p class="hint">點任一列開啟該款的卡片；卡片分「概要」與「坎與回看」兩頁，坎公開版列問題、解法在完整版。已完成 Pula Puti Flash、Color Game、Lucky Drop Ball、BingBing Run、Cash Bingo，其餘依上線順序補齊。</p>
 
 <div class="modal" id="modal" aria-modal="true" role="dialog">
   <div class="box" id="mbox">
@@ -176,7 +176,12 @@ const G = [
   kan:[["JP 改成按比例派彩，彩池怎麼不失控","之前幾款的 JP 都是中了全拿，這款要按比例派。派出之後副池怎麼回補主池，才能讓兩個池長期穩定、獎項不可預測、也不出現副池補不出來的邊界。"],["大注小注怎麼公平","JP 中獎權重若固定，押小注的人佔便宜；要讓每個注額的期望值一致。"],["PM 要玩家撐到第五層","需求是讓玩家有動力走到第五層。用什麼數學結構給第五層一個獎勵，又不動整體 RTP。"]], hasAfter:true,
   hrs:[["理解規則",1],["建模",3],["找 JP 機制最佳模型",20],["模擬器",3],["驗證與模擬",2],["規則文件",2],["DEMO 網頁",3],["開發期修改",6]], hrsNote:"40 小時，其中一半在找 JP 機制",
   deliv:["Chicky Run 遊戲數學原理與規則解析（12 格）","ChickyRun_MATH_V3.xlsx","config.json","C++ 多執行緒模擬器 V19","模擬報表"], deliv_note:"上線後小迭代至 2025/10；2026/06/17 衍生 BingBing Run Mega。"},
- {code:"TG106", n:"Cash Bingo", k:"solo", type:"電子類 · 四軸數字拼接老虎機", work:"2025/06；2025/12 重作模型", launch:"2026/06/17", math:"Bet 級距各一張全排列權重表", verify:"MD5 版控、自架 Go 測試伺服器交叉比對", hours:54},
+ {code:"TG106", n:"Cash Bingo", alt:"CashBingo", k:"solo", type:"電子類 · 四軸數字拼接老虎機 + 特色玩法，Bet 級距各一張權重表", work:"2025/06 首版；2025/12 重作模型", launch:"2026/06/17；衍生 Lucky Coins 06/17、Apolaki 09/03", math:"首版為傳統轉軸符號機率模型；重作改以整張盤面的排列組合為單位配置權重，各指標可分別對準", verify:"Excel 建模、C++ 模擬；設定檔附 MD5 校驗；自架 Go 測試伺服器在正式伺服器完成前先驗體感", hours:54, feature:true,
+  img:"素材/遊戲總覽/TG106_CashBingo/截圖/TG106_主畫面.png", cap:"主畫面：四軸數字拼接、特色玩法入口", sub:"電子類 · 四軸數字拼接老虎機，Bet 級距各一張權重表 ｜ 獨立完成 ｜ 2025/06 首版 → 2025/12 重作模型 → 2026/06/17 上線",
+  kv:[["核心數學","首版用傳統轉軸做法：定義每一軸每個符號的出現機率，推 RTP、Hit Rate、Win Rate 與特色玩法 RTP 占比。2025/12 重作：改以整張盤面的排列組合為單位、每個組合一個出現權重，各指標可分別對準，「某一軸不出某符號」這類限制也能直接寫進模型。"],["驗證方式","Excel 建模與 C++ 模擬對照；設定檔附 MD5 校驗，避免多版本錯置。正式伺服器完成前，自己用 Go 寫了一台測試伺服器把數學接上去先驗體感、先調參數。"],["特點","重作版的填表工時 16 小時，另花 8 小時做填表工具；之後同架構的 Lucky Coins、Apolaki 直接沿用同一套流程。"]],
+  kan:[["調一個指標、另一個就掉","傳統轉軸做法下，PM 想提升某個指標，常常提升了 A、B 就不達標：拉高 Hit Rate 某個符號就難以出現；為了對準目標 RTP 會出現很多空盤，PM 認為空盤多美術表現不好看；PM 還希望某一軸不要出現某個符號。轉軸符號機率這個模型本身表達不了這些要求。"],["正式伺服器還沒好，體感怎麼先驗","開發進度嚴重落後，等正式伺服器完成再調體感會沒有時間。另一方面公司後端用 Go，我是 C++ 出身。"]],
+  hrs:[["首版 V1 全流程",14],["V2 建模與模擬",4],["V2 驗證與模擬",4],["V2 規則文件",2],["填表工具",8],["填表",16],["DEMO 網頁",3],["Go 測試伺服器",3]], hrsNote:"54 小時（V1 14 ＋ V2 40），V2 有 24 小時在填表與填表工具",
+  deliv:["數學文件 V1（2025/06）、V2（2025/12）","各 Bet 級距權重表","config.json（附 MD5）","C++ 模擬器","MathematicalWeightSolver","Go 測試伺服器 DEMO"], deliv_note:"衍生 Lucky Coins（2026/06/17）與 Apolaki（2026/09/03，帶團隊成員製作）沿用同架構。"},
  {code:"TG110", n:"Lucky Coins", k:"solo", type:"電子類 · Cash Bingo 同架構", work:"2026/04", launch:"2026/06/17", math:"Cash Bingo 小改參數", verify:"同 Cash Bingo 流程", hours:"—"},
  {code:"TG120", n:"Apolaki", k:"lead", type:"電子類 · Cash Bingo + ExBet", work:"2026/07", launch:"2026/09/03", math:"加 ExBet：第四軸不出空白、提升特殊符號機率", verify:"團隊成員製作、我審核", hours:"—"},
  {code:"TG108", n:"Piggy Crash", k:"solo", type:"電子類 · 620 關離散階梯 crash", work:"2026/01", launch:"2026/06/17", math:"常數期望值系統；PM 網頁配置器", verify:"配置器即時驗算 + 模擬", hours:"—"},
