@@ -108,7 +108,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.79</div>
+<div class="ver">v0.80</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -203,6 +203,7 @@ const G = [
   hrs:[["理解規則",2],["建模",2],["模擬器",2],["DEMO／配置器",4],["規則文件",2],["後續修改（最終賠率）",3]], hrsNote:"15 小時，其中 4 小時在 PM 配置器",
   deliv:["Piggy Crash 數學文件 V1、V2","PiggyCrash_MATH_V2.xlsx","TG108 Config JSON（附 MD5）","C++ 步進模擬器","PM 網頁配置器（含試玩）"], deliv_note:"V2 依業務需求調整最高倍率與目標 RTP；衍生 Pinoy Rush（2026/08/20）。"},
  {code:"TG114", n:"Pinoy Rush", alt:"", k:"dv", type:"電子類 · Piggy Crash 同框架，最高倍率 500 → 1000", work:"2026/03", launch:"2026/08/20", math:"Piggy Crash 框架直接延長關卡到 1000 倍，模型不改", verify:"同 Piggy Crash 流程；改版、驗證、報告共 1 小時", hours:1, feature:true, hasAfter:true,
+  img:"素材/遊戲總覽/TG114_PinoyRush/截圖/TG114_主畫面.png", cap:"主畫面",
   sub:"電子類 · Piggy Crash 同框架衍生，最高倍率 500 → 1000 ｜ 獨立完成 ｜ 2026/03 → 2026/08/20 上線",
   kv:[["核心數學","Piggy Crash 的關卡制框架直接沿用，把關卡延長到 1000 倍，常數期望值不變、模型一行不改。"],["驗證方式","同 Piggy Crash 流程：配置器重出參數、模擬器驗證、出報告。"],["特點","這一款是 Piggy Crash「關卡可無限延長不改模型」那句話的實證：改版、驢證、報告合計一小時。"]],
   kan:[["最高倍率從 500 拉到 1000，模型要改什麼","業務要更高的最高倍率。若是先抽死亡點的做法，倍率分布整個要重算；關卡制的話要改多少。"]],
