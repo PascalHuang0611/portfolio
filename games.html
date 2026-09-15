@@ -109,7 +109,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.93</div>
+<div class="ver">v0.94</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -226,8 +226,20 @@ const G = [
   deliv:["Pinoy Hi-Lo 數學文件（團隊成員）","模擬器（接手重寫）","config.json（附 MD5，對齊 DevOps）","模擬報表（含賠率截斷版）"], deliv_note:"前身 Hi-Lo 第一版（2025/07，未通過）；修正：2026/05 設定檔與截斷賠率報表、2026/07 回合狀態延續。"},
  {code:"TG113", n:"Chicky Tower", k:"solo", type:"電子類 · 九層塔 crash", work:"2026/01；2026/08 上線後修正", launch:"2026/06/17", math:"多層提現賠率結構", verify:"上線後持續稽核與參數修正", hours:"—"},
  {code:"TG117", n:"Chicky Mines", k:"solo", type:"電子類 · 5×5 踩地雷", work:"2026/01（前身 LuckyMines 2025/07）", launch:"2026/06/17", math:"表裡機率雙層模型：顯示賠率隨鑽石上漲、真實勝率由目標 RTP 反推", verify:"C++ 模擬；名目 / 有效 RTP 分開驗", hours:"24（前身）"},
- {code:"—", n:"BingBing Run Mega", k:"dv", type:"衍生版 · 多關卡", work:"2026/06", launch:"2026/06/17", math:"上線前一週參數調整", verify:"—", hours:"—"},
- {code:"—", n:"Drop Ball Flash", k:"dv", type:"衍生版 · 參數調整、畫面優化", work:"2026/06", launch:"2026/06/17", math:"上線前一週參數調整", verify:"—", hours:"—"},
+ {code:"TG139", n:"BingBing Run Mega", alt:"", k:"dv", type:"衍生版 · BingBing Run 關卡延伸版", work:"2026/06", launch:"2026/06/17", math:"BingBing Run 同模型，關卡數延伸以壓低波動（CV）；演出未隨之調整", verify:"改參數、跑驗證、出報表，共 2 小時", hours:2, feature:true, hasAfter:true,
+  img:"素材/遊戲總覽/TG139_BingBingRunMega/截圖/TG139_主畫面.png", cap:"主畫面",
+  sub:"衍生版 · BingBing Run 的關卡延伸版 ｜ 獨立完成 ｜ 2026/06 → 2026/06/17 上線",
+  kv:[["核心數學","BingBing Run 的模型不改，把關卡數延伸。目的是解決原版關卡太少、單局波動（CV）太大的問題：關卡多、每關成功率高，同樣的總賠率下波動就小。"],["驗證方式","同 BingBing Run 流程：改參數、模擬器驗證、出報表，合計兩小時。"],["特點","關卡延伸後每關的實際成功率遠高於原版，但因為時程，畫面演出沒有跟著改。"]],
+  kan:[["關卡延伸後，畫面上的成功率和實際的成功率對不上","演出還是左右二選一，玩家看到的是「一半一半」；實際每關成功率遠高於一半。一般的設計方向是相反的：看起來好中、實際沒那麼好中。這一版是看起來難中、實際好中，對產品是劣勢。"]],
+  hrs:[["改參數、驗證、報表",2]], hrsNote:"2 小時",
+  deliv:["TG139 config（附 MD5）","模擬報表"], deliv_note:"BingBing Run 衍生。"},
+ {code:"TG126", n:"Drop Ball Flash", alt:"", k:"dv", type:"衍生版 · Lucky Drop Ball 換皮：落球區色塊改為撲克牌符號，金球出現率調整", work:"2026/06", launch:"2026/06/17", math:"Lucky Drop Ball 同模型；金球出現率調整；押注區由顏色改為撲克牌符號，數學不變", verify:"改參數、跑驢證、出報表，共 2 小時", hours:2, feature:true,
+  img:"素材/遊戲總覽/TG126_DropBallFlash/截圖/TG126_主畫面.png", cap:"主畫面",
+  sub:"衍生版 · Lucky Drop Ball 換皮，撲克牌符號版 ｜ 獨立完成 ｜ 2026/06 → 2026/06/17 上線",
+  kv:[["核心數學","Lucky Drop Ball 的模型不改，兩個變動：金球出現率調整；落球區的顏色押注改成撲克牌符號。符號只是表皮，機率結構一樣。"],["驗證方式","同 Lucky Drop Ball 流程：改參數、模擬器驗證、出報表，合計兩小時。"],["特點","PM 的假設是傳統玩家熟悉牌，用撲克牌符號會比顏色更親民，這一版就是用同一套數學去測這個假設。"]],
+  kan:[["同一套數學換一層皮，能測出什麼","PM 想知道「押注區用撲克牌符號會不會比顏色更親民」。數學完全一樣，差別只在表皮，所以上線後的差異可以直接歸因到表皮，這是這一版的價值。"]],
+  hrs:[["改參數、驗證、報表",2]], hrsNote:"2 小時",
+  deliv:["TG126 config（附 MD5）","模擬報表"], deliv_note:"Lucky Drop Ball 衍生；2026/08/20 再衍生 Color Flash。"},
  {code:"—", n:"Color Flash", k:"dv", type:"衍生版 · Drop Ball Flash 換皮", work:"2026/08", launch:"2026/08/20", math:"上線前一週參數調整", verify:"—", hours:"—"},
  {code:"TG107", n:"BingoSlot", k:"dead", type:"逆向生成引擎", work:"2025/11–12", launch:"未上線", math:"結果導向：先抽獎金再生成盤面；K-Grow、零超發、損耗補償", verify:"SDK 封裝 C API 供 Go 整合，模擬數據測試", hours:252},
  {code:"—", n:"SlotBingo 錄製抽盤", k:"dead", type:"錄盤架構原型", work:"2025/10", launch:"未單獨採用；2026/09 併入派彩決策系統", math:"離線海量生成 + 線上權重抽樣", verify:"數學 / 後端雙重驗證", hours:62},
