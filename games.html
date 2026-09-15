@@ -63,7 +63,7 @@
   tbody tr.sel td{background:var(--job-bg)}
   .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 0}
   .modal{position:fixed;inset:0;background:rgba(20,20,20,.45);display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto;z-index:50}
-  @media (max-width:900px){.modal{padding:16px 8px}.modal .box{max-height:calc(100vh - 32px);padding:14px 14px 10px}}
+  @media (max-width:900px){.modal{padding:16px 8px}.modal .box{max-height:calc(100vh - 32px);padding:14px 14px 10px}.box.feat{height:calc(100vh - 32px)}.mmid{grid-template-columns:1fr;grid-template-rows:auto 1fr}.mimg img{width:auto;max-height:150px;margin:0 auto}}
   .modal.on{display:flex}
   .modal .box{background:var(--card);border-radius:14px;max-width:1040px;width:100%;padding:16px 22px 12px;border-top:4px solid var(--job);position:relative;box-shadow:0 20px 60px rgba(0,0,0,.25);display:flex;flex-direction:column;max-height:calc(100vh - 80px)}
   .mhead{flex:0 0 auto;padding-right:28px}
@@ -75,7 +75,14 @@
   .tabs button.on{background:var(--job);color:#fff;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.18)}
   .tabs button.on span{color:rgba(255,255,255,.75)!important}
   .box.lead .tabs button.on{background:var(--job-soft)} .box.dead .tabs button.on{background:#8a8a84}
-  .mscroll{flex:1 1 auto;min-height:0;overflow:auto;padding-right:6px}
+  .mmid{display:grid;grid-template-columns:220px 1fr;gap:22px;flex:1 1 auto;min-height:0}
+  .mmid.nofig{grid-template-columns:1fr}
+  .mimg img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+  .mimg .cap{font-size:11.5px;color:var(--ink3);margin-top:4px;text-align:center}
+  .mscroll{min-height:0;height:100%;overflow:auto;padding-right:6px}
+  .mfoot{flex:0 0 auto;border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
+  .mfoot:empty{display:none}
+  .box.feat{height:min(720px,calc(100vh - 80px))}
   .modal .nav{flex:0 0 auto}
   .modal .box.lead{border-top-color:var(--job-soft)} .modal .box.dead{border-top-color:#bbb}
   .modal .x{position:absolute;top:10px;right:14px;border:0;background:transparent;font-size:22px;line-height:1;cursor:pointer;color:var(--ink2)}
@@ -96,7 +103,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v0.67</div>
+<div class="ver">v0.68</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -124,7 +131,8 @@
   <div class="box" id="mbox">
     <button class="x" id="mclose" aria-label="關閉">×</button>
     <div class="mhead" id="mhead"></div>
-    <div class="mscroll" id="mbody"></div>
+    <div class="mmid" id="mmid"><div class="mimg" id="mimg"></div><div class="mscroll" id="mbody"></div></div>
+    <div class="mfoot" id="mfoot"></div>
     <div class="nav"><button id="mprev">← 上一款</button><span id="mpos" style="color:var(--ink3)"></span><button id="mnext">下一款 →</button></div>
   </div>
 </div>
@@ -188,44 +196,49 @@ const tb=document.querySelector("#tbl tbody");
 const modal=document.getElementById("modal"), mbox=document.getElementById("mbox"), mbody=document.getElementById("mbody"), mpos=document.getElementById("mpos");
 let VIEW=[], CUR=-1;
 let TAB="ov"; try{TAB=localStorage.getItem("pf_tab")||"ov"}catch(e){}
-const mhead=document.getElementById("mhead");
+const mhead=document.getElementById("mhead"), mmid=document.getElementById("mmid"), mimg=document.getElementById("mimg"), mfoot=document.getElementById("mfoot");
+const COL=["var(--s1)","var(--s2)","var(--s3)","var(--s4)","var(--s5)","var(--s6)","#c9c9c9"];
+function priv(g){ return (window.PRIV||{})[g.code]||{}; }
 function headHTML(g){
-  const PR=(window.PRIV||{})[g.code]||{};
+  const PR=priv(g);
   const nK=g.kan?g.kan.length:0, nA=(PR.after||g.hasAfter)?1:0;
   const tabs=g.feature?`<div class="tabs"><button data-t="ov" class="${TAB==="ov"?"on":""}">概要</button><button data-t="kan" class="${TAB==="kan"?"on":""}">坎與回看 <span style="color:var(--ink3);font-weight:400">${nK}${nA?"+"+nA:""}</span></button></div>`:"";
   return `<h3>${g.n} <span style="font-weight:400;color:var(--ink2);font-size:13px">${g.alt||""} ｜ ${g.code!=="—"?g.code:""}</span></h3>
     <div class="meta">${g.feature?g.sub:`${g.type} ｜ ${ROLE[g.k]} ｜ ${g.work} → ${g.launch}`}</div>${tabs}`;
 }
-function cardHTML(g){
+function imgHTML(g){
+  if(!g.feature) return "";
+  return `<img src="${g.img}" alt="${g.n} 主畫面" onerror="this.style.display='none';this.nextElementSibling.textContent='主畫面截圖補齊中'"><div class="cap">${g.cap}</div>`;
+}
+function bodyHTML(g){
   if(g.feature){
-    const COL=["var(--s1)","var(--s2)","var(--s3)","var(--s4)","var(--s5)","var(--s6)","#c9c9c9"];
-    const PR=(window.PRIV||{})[g.code]||{};
-    const imgCol=`<div><img src="${g.img}" alt="${g.n} 主畫面" onerror="this.style.display='none';this.nextElementSibling.textContent='主畫面截圖補齊中'"><div class="cap">${g.cap}</div></div>`;
+    const PR=priv(g);
     if(TAB==="kan"){
       const kan=g.kan.map(([t,b],i)=>`<div class="kan"><b>這款的坎：${t}</b>${b}${PR.sol&&PR.sol[i]?`<p class="sol"><b>解法</b>${PR.sol[i]}</p>`:`<p class="sol more">解法：完整版</p>`}</div>`).join("");
       const after=PR.after?`<div class="kan after"><b>上線後回看</b>${PR.after}</div>`:(g.hasAfter?`<div class="kan after more"><b>上線後回看</b>完整版</div>`:"");
-      return `<div class="feature">${imgCol}<div>${kan}${after}<p class="pubnote">解法與上線後回看在完整版。</p></div></div>`;
+      return `${kan}${after}<p class="pubnote">解法與上線後回看在完整版。</p>`;
     }
-    const tot=g.hrs.reduce((a,b)=>a+b[1],0);
-    const bar=g.hrs.map((h,i)=>`<span style="width:${(h[1]/tot*100).toFixed(1)}%;background:${COL[i%COL.length]}" title="${h[0]} ${h[1]}h"></span>`).join("");
-    const lg=g.hrs.map((h,i)=>`<span><i style="background:${COL[i%COL.length]}"></i>${h[0]} ${h[1]}</span>`).join("");
     const kv=g.kv.map(([k,v])=>`<b>${k}</b><span>${v}</span>`).join("");
-    const deliv=g.deliv.map(d=>`<code>${d}</code>`).join(" ");
-    return `<div class="feature">${imgCol}<div>
-        <div class="kv">${kv}</div>
-        <div style="margin-top:10px"><b style="font-size:13px;color:var(--ink2)">工時 ${g.hrsNote}</b> <span style="font-size:12px;color:var(--ink3)">自行粗估、時程自管</span><div class="bar">${bar}</div><div class="lg">${lg}</div></div>
-        <p class="deliv" style="margin-top:10px">交付物：${deliv}；${g.deliv_note}</p>
-        <p class="pubnote">數學文件、試算表與模擬報表公開版只列名稱。</p>
-      </div></div>`;
+    return `<div class="kv">${kv}</div><p class="pubnote">數學文件、試算表與模擬報表公開版只列名稱。</p>`;
   }
   return `<div class="compact">
     <p>${g.math}</p><p style="color:var(--ink2);font-size:13px">${g.verify}</p>
     ${typeof g.hours==="number"?`<p style="color:var(--ink2);font-size:13px">工時 ${g.hours}h <span style="color:var(--ink3);font-size:12px">自行粗估、時程自管</span></p>`:""}
     <div class="todo">截圖與細節補齊中</div></div>`;
 }
+function footHTML(g){
+  if(!g.feature) return "";
+  const tot=g.hrs.reduce((a,b)=>a+b[1],0);
+  const bar=g.hrs.map((h,i)=>`<span style="width:${(h[1]/tot*100).toFixed(1)}%;background:${COL[i%COL.length]}" title="${h[0]} ${h[1]}h"></span>`).join("");
+  const lg=g.hrs.map((h,i)=>`<span><i style="background:${COL[i%COL.length]}"></i>${h[0]} ${h[1]}</span>`).join("");
+  const deliv=g.deliv.map(d=>`<code>${d}</code>`).join(" ");
+  return `<div><b style="font-size:13px;color:var(--ink2)">工時 ${g.hrsNote}</b> <span style="font-size:12px;color:var(--ink3)">自行粗估、時程自管</span><div class="bar">${bar}</div><div class="lg">${lg}</div></div>
+    <p class="deliv" style="margin-top:8px">交付物：${deliv}；${g.deliv_note}</p>`;
+}
 function openAt(i){
-  CUR=i; const g=VIEW[i]; mbox.className="box "+g.k;
-  mhead.innerHTML=headHTML(g); mbody.innerHTML=cardHTML(g); mbody.scrollTop=0; mpos.textContent=`${i+1} / ${VIEW.length}`;
+  CUR=i; const g=VIEW[i]; mbox.className="box "+g.k+(g.feature?" feat":"");
+  mhead.innerHTML=headHTML(g); mimg.innerHTML=imgHTML(g); mmid.classList.toggle("nofig",!g.feature);
+  mbody.innerHTML=bodyHTML(g); mbody.scrollTop=0; mfoot.innerHTML=footHTML(g); mpos.textContent=`${i+1} / ${VIEW.length}`;
   mhead.querySelectorAll(".tabs button").forEach(b=>b.onclick=function(){TAB=b.dataset.t; try{localStorage.setItem("pf_tab",TAB)}catch(e){} openAt(CUR);});
   document.querySelectorAll("#tbl tbody tr").forEach((tr,j)=>tr.classList.toggle("sel",j===i));
   modal.classList.add("on"); document.body.style.overflow="hidden";
