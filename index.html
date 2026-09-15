@@ -107,7 +107,7 @@
 </head>
 <body>
 <script>if(location.search.indexOf("img=1")>=0)document.body.classList.add("img");var mo=location.search.match(/only=(\d)/);if(mo)document.body.classList.add("only"+mo[1]);window.CODES=location.search.indexOf("codes=1")>=0;document.addEventListener("DOMContentLoaded",function(){var local=location.protocol==="file:";document.querySelectorAll(".docs").forEach(function(d){var n=d.querySelector(".note");if(local){if(n)n.textContent="本機開啟中，點文件名稱直接開";var a=d.previousElementSibling,f=d.querySelector("a");if(a&&a.classList.contains("item")&&f){a.href=f.href;a.target="_blank";}}else{d.querySelectorAll("a").forEach(function(x){x.removeAttribute("href");x.removeAttribute("target");x.classList.add("off");});}});});</script>
-<div class="ver">v0.95</div>
+<div class="ver">v0.96</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 
@@ -351,7 +351,33 @@
     const tops=[]; let y=0; for(let i=0;i<rows.length;i++){ tops.push(y); y+= rowMulti[i]?ROW2:ROW1; }
     return {tops, h:y, multi:rowMulti};
   }
-  const G = pack(games), S = pack(side);
+  // 系列分組：同系列的列相鄰、各自一塊淺底板（顏色與總覽表一致）
+  const FAMT=[
+    {id:"live",  tint:"#f4f8fc", names:["LiveMines（視訊實體機台）"]},
+    {id:"slot",  tint:"#fbf6ee", names:["Cash Bingo 系列"]},
+    {id:"chicky",tint:"#f3f9f3", names:["BingBing Run","Chicky Tower","Chicky Mines 系列","Chicken Run（團隊成員製作、我審核）"]},
+    {id:"ball",  tint:"#fcf4f7", names:["Drop Ball","Pula Puti Flash","ColorRoll"]},
+    {id:"crash", tint:"#f6f4fb", names:["Piggy Crash 系列"]},
+    {id:"poker", tint:"#f8f8f0", names:["Pinoy Hi-Lo 系列"]},
+    {id:"engine",tint:"#f5f5f5", names:["BingoSlot 逆向生成（未上線）","Plinko 系列（三變體，未上線）"]},
+  ];
+  function packGroups(items){
+    const GAPF=10, bands=[], tops=[], multi=[]; let y=0;
+    const rest=items.slice();
+    FAMT.forEach((f,fi)=>{
+      const its=rest.filter(it=>f.names.includes(it.n)); if(!its.length) return;
+      its.forEach(it=>{ rest.splice(rest.indexOf(it),1); it._f=fi; });
+      const p=pack(its); const base=tops.length;
+      its.forEach(it=>{ it.row+=base; });
+      p.tops.forEach((t,i)=>{ tops.push(y+t); multi.push(p.multi[i]); });
+      bands.push({y:y, h:p.h, tint:f.tint});
+      y+=p.h+GAPF;
+    });
+    if(rest.length){ const p=pack(rest); const base=tops.length; rest.forEach(it=>{ it.row+=base; it._f=99; }); p.tops.forEach((t,i)=>{ tops.push(y+t); multi.push(p.multi[i]); }); y+=p.h; }
+    else y-=GAPF;
+    return {tops, h:y, multi, bands};
+  }
+  const G = packGroups(games), S = pack(side);
   const top = 34, laneGap = 26;
   const gTop = top, gH = G.h + 12;
   const sTop = gTop + gH + laneGap, sH = S.h + 12;
@@ -368,13 +394,15 @@
     el("line",{x1:x,y1:top-6,x2:x,y2:H-22,stroke:"#eeeeea","stroke-width":1});
     if(i<months && (mm===1||mm===4||mm===7||mm===10)) el("text",{x:x+3,y:top-12,"font-size":11,fill:"#8a8a8a"}, mm===1? yy+"/01" : (mm<10?"0":"")+mm);
   }
-  const lane=(y,h,label,sub,color)=>{
-    el("rect",{x:0,y:y-4,width:W,height:h,rx:8,fill:"#fafaf8"});
+  const laneRect=(y,h)=>el("rect",{x:0,y:y-4,width:W,height:h,rx:8,fill:"#fafaf8"});
+  const laneText=(y,label,sub,color)=>{
     el("text",{x:10,y:y+14,"font-size":13,"font-weight":600,fill:color},label);
     el("text",{x:10,y:y+32,"font-size":11.5,fill:"#777"},sub);
   };
-  lane(gTop,gH,"本職：遊戲數學","17 款上線（含 3 款衍生版）",css("--job"));
-  lane(sTop,sH,"本職之外","缺口→痛點→原型→報備同意→正式系統→交接",css("--side"));
+  laneRect(gTop,gH);
+  G.bands.forEach(b=>el("rect",{x:4,y:gTop+8+b.y-3,width:W-8,height:b.h+6,rx:6,fill:b.tint}));
+  laneText(gTop,"本職：遊戲數學","17 款上線（含 3 款衍生版）",css("--job"));
+  laneRect(sTop,sH); laneText(sTop,"本職之外","缺口→痛點→原型→報備同意→正式系統→交接",css("--side"));
 
   const defs=el("defs",{}); const pat=el("pattern",{id:"hatch",width:6,height:6,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},null,defs);
   el("rect",{width:3,height:6,fill:"#cfcfcf"},null,pat);
@@ -423,7 +451,7 @@
   const block=(title,items,color)=>{
     const h=document.createElement("h4"); h.textContent=title; h.style.color=color; mob.appendChild(h);
     const ol=document.createElement("ol"); ol.style.setProperty("--c",color);
-    items.slice().sort((a,b)=>idx(a.s)-idx(b.s)).forEach(it=>{
+    items.slice().sort((a,b)=>((a._f==null?99:a._f)-(b._f==null?99:b._f))||(idx(a.s)-idx(b.s))).forEach(it=>{
       const li=document.createElement("li"); const k0=it.segs[0].k; if(k0==="dead") li.className="dead"; else if(k0==="lead") li.className="lead";
       const segs=it.segs.map(sg=>fmt(sg.s)+(sg.e!==sg.s?"–"+fmt(sg.e):"")+(sg.l&&it.segs.length>1?"（"+sg.l+"）":"")).join("、");
       const lv=(it.launch||[]).map(L=>"◇ "+L.l).join("；")+(it.off?"；⊗ "+it.off.l:"");
