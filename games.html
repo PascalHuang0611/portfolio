@@ -80,6 +80,7 @@
   .mimg{min-height:0;display:flex;flex-direction:column;align-items:center;overflow:hidden}
   .mimg img{flex:1 1 auto;min-height:0;width:100%;object-fit:contain;object-position:top;border-radius:10px;border:1px solid var(--line);display:block}
   .mimg .cap{flex:0 0 auto;font-size:11.5px;color:var(--ink3);margin-top:4px;text-align:center}
+  .mimg .ph{width:100%;flex:1 1 auto;min-height:0;max-height:100%;aspect-ratio:9/16;border:1px dashed #cfcfca;border-radius:10px;background:#fafaf8;display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:12px;letter-spacing:.5px}
   .mimg .cap[hidden]{display:none}
   .mimg .cap:not(:empty){display:block}
   .mscroll{min-height:0;height:100%;overflow:auto;padding-right:6px}
@@ -104,11 +105,11 @@
   footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   @media (max-width:900px){.cards{grid-template-columns:1fr}.feature{grid-template-columns:1fr}.feature img{max-width:240px;margin:0 auto}}
   .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
-  @media (max-width:900px){.modal{padding:16px 8px}.modal .box{max-height:calc(100vh - 32px);padding:14px 14px 10px}.box.feat{height:auto}.mmid{grid-template-columns:1fr;grid-template-rows:auto minmax(180px,1fr)}.mimg img{width:auto;max-width:100%;max-height:120px;flex:0 0 auto}.mfoot{flex:0 0 auto;height:auto;overflow:visible}.mfoot .lg{min-height:0}}
+  @media (max-width:900px){.modal{padding:16px 8px}.modal .box{max-height:calc(100vh - 32px);padding:14px 14px 10px}.box.feat{height:auto}.mmid{grid-template-columns:1fr;grid-template-rows:auto minmax(180px,1fr)}.mimg img{width:auto;max-width:100%;max-height:120px;flex:0 0 auto}.mimg .ph{aspect-ratio:auto;height:60px;flex:0 0 auto}.mfoot{flex:0 0 auto;height:auto;overflow:visible}.mfoot .lg{min-height:0}}
 </style>
 </head>
 <body>
-<div class="ver">v0.90</div>
+<div class="ver">v0.91</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -256,8 +257,9 @@ function headHTML(g){
     <div class="meta">${g.feature?g.sub:`${g.type} ｜ ${ROLE[g.k]} ｜ ${g.work} → ${g.launch}`}</div>${tabs}`;
 }
 function imgHTML(g){
-  if(!g.feature||!g.img) return "";
-  return `<img src="${g.img}" alt="${g.n} 主畫面" title="${g.cap}" onerror="this.style.display='none';this.nextElementSibling.textContent='主畫面截圖補齊中'"><div class="cap" hidden></div>`;
+  if(!g.feature) return "";
+  if(!g.img) return `<div class="ph">主畫面截圖待補</div>`;
+  return `<img src="${g.img}" alt="${g.n} 主畫面" title="${g.cap||''}" onerror="this.outerHTML='<div class=ph>主畫面截圖待補</div>'">`;
 }
 function bodyHTML(g){
   if(g.feature){
@@ -287,7 +289,7 @@ function footHTML(g){
 }
 function openAt(i){
   CUR=i; const g=VIEW[i]; mbox.className="box "+g.k+(g.feature?" feat":"");
-  mhead.innerHTML=headHTML(g); mimg.innerHTML=imgHTML(g); mmid.classList.toggle("nofig",!g.feature||!g.img);
+  mhead.innerHTML=headHTML(g); mimg.innerHTML=imgHTML(g); mmid.classList.toggle("nofig",!g.feature);
   mbody.innerHTML=bodyHTML(g); mbody.scrollTop=0; mfoot.innerHTML=footHTML(g); mpos.textContent=`${i+1} / ${VIEW.length}`;
   mhead.querySelectorAll(".tabs button").forEach(b=>b.onclick=function(){TAB=b.dataset.t; try{localStorage.setItem("pf_tab",TAB)}catch(e){} openAt(CUR);});
   document.querySelectorAll("#tbl tbody tr").forEach((tr,j)=>tr.classList.toggle("sel",j===i));
