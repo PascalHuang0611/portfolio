@@ -121,7 +121,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v1.05</div>
+<div class="ver">v1.06</div>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -271,7 +271,12 @@ const G = [
   hrs:[["建立設定檔",0.5]], hrsNote:"0.5 小時",
   deliv:["Color Flash 設定檔（附 MD5）"], deliv_note:"Drop Ball Flash（TG126）衍生；TG126 本身衍生自 Lucky Drop Ball。"},
  {code:"TG107", n:"BingoSlot", k:"dead", type:"逆向生成引擎", work:"2025/11–12", launch:"未上線", math:"結果導向：先抽獎金再生成盤面；K-Grow、零超發、損耗補償", verify:"SDK 封裝 C API 供 Go 整合，模擬數據測試", hours:252},
- {code:"—", n:"SlotBingo 錄製抽盤", k:"dead", type:"錄盤架構原型", work:"2025/10", launch:"未單獨採用；2026/09 併入派彩決策系統", math:"離線海量生成 + 線上權重抽樣", verify:"數學 / 後端雙重驗證", hours:62},
+ {code:"—", pk:"SLOTBINGO", n:"SlotBingo 錄製抽盤", k:"dead", type:"錄盤架構原型 · Slot 製作方案的方案三", work:"2025/09–10", launch:"案子停止；2026/09 錄盤機制併入派彩決策系統", math:"離線大量錄製完整結果、依條件分進容器，線上只依權重表抽一筆播放；改權重表就能調 RTP 與體感", verify:"離線抽樣驗證權重表；伺服器抽中後獨立重算分數比對（數學／後端雙重驗證）", hours:62, feature:true, hasAfter:true,
+  sub:"錄盤架構原型 · 5×5 Way Game ｜ 獨立完成 ｜ 2025/09 規格書 V2.0 → 案子停止；一年後錄盤機制併入派彩決策系統",
+  kv:[["核心數學","入職首月「Slot 製作方案」四個做法裡的方案三。長期方向是方案四的水位系統，但當時還沒開發，所以先用錄盤：C++ 模擬器離線大量生成完整的遊戲結果，依遊戲模式、Scatter 數量、總贏分區間與盤面類型分進 47 個容器；線上伺服器不算牌，只依權重表從容器抽一筆完整結果給前端播放。RTP、波動與體感都由權重表決定。"],["驗證方式","兩道。離線：抽樣驗證權重表算出的 RTP 與命中分布跟模擬一致。線上：伺服器抽中一筆紀錄後，用自己獨立寫的計分邏輯重算一次，跟錄製時存下的分數比對，不一致就警報——等於數學和後端之間一直在做交叉程式碼審查。"],["特點","PM 或營運改權重表，幾分鐘內就能改 RTP 與體感，不用重新開發、重新驗證。遊戲本體是 5×5 Way Game，含 Free Game、Respin 與 BINGO 圖案獎；Demo 做到第三版，可切換多套設定檔直接比較體感。"]],
+  kan:[["想調的體感，傳統做法調不動","公司的 Slot 有三個問題：大獎太早出現、高連線不夠、每調一次體感都要改參數再重跑驗證，成本很高。要找一種調體感不必重做數學的做法。"],["長期方案還沒有，先交哪一個","四個方案裡長期方向是方案四的水位系統，但當時還沒開發。要先交一個能現場展示、之後又不會白做的原型。"]],
+  hrs:[["理解規則",2],["建模",4],["錄製功能 MVP",24],["抽盤功能 MVP",16],["Demo 網頁",8],["Demo 伺服器",8]], hrsNote:"62 小時，三分之二在錄製與抽盤兩個 MVP",
+  deliv:["5×5 WayGame 錄製抽盤系統 數學暨技術規格書 V2.0（2025/09/15）","SlotBingo_Math_Test.xlsx","C++ 錄盤模擬器","抽盤伺服器（C++ 內建 HTTP）","Demo V2／V3","多套設定檔（FG／混合／隨機／堆疊）"], deliv_note:"Slot 製作方案的方案三；錄盤機制 2026/09 併入派彩決策系統。"},
  {code:"—", pk:"LUCKYMINES", n:"LuckyMines", alt:"Mines Jackpot", k:"dead", type:"電子類 · 5×5 踩地雷 + 共享彩池 JP 轉輪", work:"2025/07", launch:"暫緩 → 2026 以新機制重做為 Chicky Mines（06/17 上線）", math:"超幾何分布算累積成功率反推賠率；門檻前後雙 RTP，差額拿去資助 JP（RTP 置換）；JP 轉輪：共享彩池、貢獻率、保底回填、MINI 與 JP 獨立疊加、動態權重、平衡器反推 MINI 機率", verify:"Excel 建模（含 JSON 產生）＋ C++ 模擬器，每種雷數各一份報表，含共享彩池的灌水、派彩與回填", hours:24, feature:true, hasAfter:true,
   sub:"電子類 · 5×5 踩地雷，選雷數、逐格翻開累積賠率、隨時兌現；達門檻進 JP 轉輪 ｜ 獨立完成 ｜ 2025/07/23 文件 → 暫緩 → 2026 重做為 Chicky Mines",
   kv:[["核心數學","基礎遊戲：翻開 k 格的累積成功率用超幾何分布（無放回抽樣）算，賠率 = 基礎 RTP ÷ 累積成功率。雙 RTP：翻開格數達 JP 門檻前用較高的基礎 RTP，達門檻後調降，中間的差額就是 JP 系統的資金來源，JP 不是額外補貼，是 RTP 置換。JP 轉輪：所有雷數、所有注額共用一個彩池，每注按貢獻率注資、開獎後低於保底自動回填；MINI 與 JP 輪盤是兩個獨立事件可以疊加；三大獎權重隨注額對基礎注額的倍數放大；平衡器反推 MINI 機率，讓 JP 系統的總 RTP 鎖在目標值。"],["驗證方式","Excel 分析表統一設定參數、內建反推公式、一鍵產生 config.json；C++ 模擬器讀同一份 config 跑數百億局，忠實執行共享彩池的灌水、派彩、保底回填與動態權重，每種雷數各出一份報表（RTP 拆分、波動係數、疊加中獎率）加彩池財務總覽。"],["特點","24 小時裡有 8 小時在推敲市場同類產品的 JP 系統規則。這一版暫緩後，半年後同一題加上彩鑽與聚寶盆兩個新機制重做為 Chicky Mines，2026/06/17 上線。跟 Hi-Lo 第一版一樣：基礎玩法等價的版本沒過，加了新機制的版本才過。"]],
