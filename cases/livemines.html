@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiveMines：實體落球的數學與風控 ｜ 黃培昇</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1b1b1b; --ink2:#555; --ink3:#8a8a8a; --line:#e3e2de;
+    --job:#2f6fb5; --job-bg:#e9f1fb; --job-soft:#b9d2ee;
+    --side:#1f8a7a; --side-bg:#e6f4f1; --side-soft:#a9d9d0;
+    --no:#b5452f; --no-bg:#fbeeea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;font-size:15.5px;line-height:1.8}
+  a{color:inherit}
+  .wrap{max-width:860px;margin:0 auto;padding:32px 24px 72px}
+  .back{font-size:13.5px;color:var(--ink2);text-decoration:none}
+  .back:hover{color:var(--ink)}
+  .kicker{margin:18px 0 0;font-size:12.5px;color:var(--job);font-weight:600;letter-spacing:.5px}
+  h1{font-size:28px;margin:2px 0 6px;font-weight:600;line-height:1.35}
+  .lede{font-size:16.5px;margin:10px 0 18px;color:var(--ink)}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
+  .facts div{padding:10px 14px;border-left:1px solid var(--line)}
+  .facts div:first-child{border-left:none}
+  .facts b{display:block;font-size:12px;color:var(--ink3);font-weight:500}
+  .facts span{font-size:14px}
+  @media (max-width:640px){.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){border-left:none}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+  section{margin-top:40px}
+  h2{font-size:19px;margin:0 0 10px;font-weight:600;display:flex;gap:10px;align-items:baseline}
+  h2 .no{font-size:13px;color:var(--job);font-weight:600;font-variant-numeric:tabular-nums}
+  p{margin:0 0 12px}
+  .fig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;margin:14px 0 16px}
+  .fig svg{display:block;width:100%;height:auto}
+  .fig figcaption,.cap{font-size:12.5px;color:var(--ink3);margin-top:6px}
+  .cmp{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:12px 0 16px}
+  .cmp th,.cmp td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  .cmp th{font-size:12.5px;color:var(--ink2);background:#fafaf8;font-weight:600}
+  .cmp tr:last-child td{border-bottom:none}
+  .cmp td:first-child{color:var(--ink2);white-space:nowrap;font-size:13px}
+  .tablewrap{overflow-x:auto}
+  .quote{border-left:3px solid var(--job);background:var(--job-bg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0 16px;font-size:14.5px}
+  .quote b{display:block;font-size:12.5px;color:var(--job);margin-bottom:2px}
+  ul.clean{margin:0 0 12px;padding-left:20px}
+  ul.clean li{margin:0 0 4px}
+  .priv{background:#f6f6f3;border-left:3px solid #8a8a84;padding:9px 13px;border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:14px}
+  .priv b{display:block;font-size:12.5px;color:#6f6f69;margin-bottom:2px}
+  .priv.off{color:var(--ink3);font-size:13px}
+  .priv img{width:100%;max-width:760px;border-radius:8px;border:1px solid var(--line);display:block;margin:8px 0 4px}
+  .shot{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:start;margin:14px 0}
+  .shot img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+  @media (max-width:640px){.shot{grid-template-columns:1fr}.shot img{max-width:260px}}
+  .rel{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+  .rel a{color:var(--job);text-decoration:none;border-bottom:1px dotted var(--job-soft)}
+  .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
+  @media print{.ver,.back{display:none}.fig,.cmp{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="ver">v1.12</div>
+<script src="../dist-interview/full.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
+<script src="../dist-interview/case_private.js"></script>
+<div class="wrap">
+<a class="back" href="../index.html">← 回首頁</a>
+
+<p class="kicker">本職：遊戲數學 ｜ 深挖</p>
+<h1>LiveMines：開獎不能控制時，數學要怎麼做</h1>
+<p class="lede">這是一台真人在現場落球的機台，開獎是物理結果，不是亂數。實機測試發現球的落點機率跟理論算出來的不一樣，而且這個偏差還會變。於是這款的重點從「把數學算對」變成兩件事：把回報的調節放在可控的變數上，以及在物理雜訊下先把風險演一遍給 PM 看。</p>
+<div class="facts">
+  <div><b>期間</b><span>2025/07 – 2026/09</span></div>
+  <div><b>角色</b><span>獨立完成</span></div>
+  <div><b>上線</b><span>2026/08/10</span></div>
+  <div><b>提案迭代</b><span>14 版</span></div>
+</div>
+
+<section>
+<h2><span class="no">01</span>這款是什麼</h2>
+<p>視訊實體機台：玩家隔著畫面押九宮格，現場真的落下三顆球，押中的格子依落進幾顆球派彩；另有閃電倍數（免費與付費）、寶箱加倍、三球同格觸發五層二級玩法，以及 JP。</p>
+<p>這是一個全新玩法，提案期兩個月、做了 14 版。前 13 版都沒能讓所有高層滿意，每一版我都重做一次數學模型、模擬器與規則文件，第 14 版才通過、成為上線版本。</p>
+<div class="shot">
+  <img src="../素材/遊戲總覽/TG001_LiveMines/截圖/TG001_主畫面.png" alt="LiveMines 實機畫面">
+  <div>
+    <p class="cap" style="margin-top:0">實機畫面：上方是落球機台的即時影像，下方是九宮格押注區，格子上會出現閃電倍數與寶箱。</p>
+    <p>電子遊戲的開獎由亂數決定，設計者說了算。這一款的開獎是一顆球真的掉下去——這就是所有困難的起點。</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2><span class="no">02</span>問題一：實體落球的機率跟理論值不一樣</h2>
+<p>理論上，球落進哪一格可以用幾何與對稱性算出來。實機測試之後發現對不上：<b>兩顆球落在同一格、三顆球落在同一格的出現機率，都跟理論值有差距</b>。真實世界的機台有結構、材質、磨損與擺放的差別，球不會照理想模型走。</p>
+<p>開獎既然不能控制，回報的調節就只能放在可控的東西上。這款可控的有三個：閃電落在哪一格的權重、寶箱的權重，以及多組機率表之間的切換。我把這三個當成旋鈕，用它們把實體造成的偏差補回來。</p>
+
+<figure class="fig">
+<svg viewBox="0 0 760 250" role="img" aria-label="不可控的開獎與可控的調節變數">
+  <defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/></marker></defs>
+  <g font-size="13" fill="#1b1b1b">
+  <rect x="10" y="30" width="230" height="86" rx="10" fill="#fbeeea" stroke="#e8bfb3"/>
+  <text x="125" y="58" text-anchor="middle" font-weight="700" fill="#b5452f">開獎：實體落球</text>
+  <text x="125" y="80" text-anchor="middle" fill="#555">真人現場投球</text>
+  <text x="125" y="100" text-anchor="middle" fill="#b5452f">不可控，且與理論值有落差</text>
+
+  <text x="300" y="36" font-size="12.5" fill="#8a8a8a">回報的調節改放這裡 →</text>
+  <rect x="300" y="46" width="450" height="52" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="318" y="70" font-weight="700" fill="#2f6fb5">可控旋鈕一</text><text x="430" y="70" fill="#1b1b1b">閃電落在哪一格的權重</text>
+  <rect x="300" y="104" width="450" height="52" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="318" y="128" font-weight="700" fill="#2f6fb5">可控旋鈕二</text><text x="430" y="128" fill="#1b1b1b">寶箱出現的權重</text>
+  <rect x="300" y="162" width="450" height="52" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="318" y="186" font-weight="700" fill="#2f6fb5">可控旋鈕三</text><text x="430" y="186" fill="#1b1b1b">多組機率表之間的切換</text>
+
+  <path d="M240,73 L292,73" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a1)"/>
+  <rect x="10" y="150" width="230" height="64" rx="10" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="125" y="176" text-anchor="middle" font-weight="700" fill="#1f8a7a">實機數據回填</text>
+  <text x="125" y="196" text-anchor="middle" fill="#555">量到的落點分布回到模型重算</text>
+  <path d="M125,150 L125,120" stroke="#1f8a7a" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a1)"/>
+  </g>
+</svg>
+<figcaption>開獎不可控，所以把調節搬到可控的變數上；實機量到的落點分布再回填模型重算，理論值要跟實機對得上才算過。</figcaption>
+</figure>
+
+<p>另外做了一份物理參數檔：PM 可以直接把實機測到的數據填進去，模型跟著重算，不必每次都回頭找我。</p>
+<div class="priv" data-k="bias"></div>
+</section>
+
+<section>
+<h2><span class="no">03</span>問題二：偏差會變，所以要先把風險演一遍</h2>
+<p>更麻煩的是，這個偏差不是一個固定的常數。機台會換、球會磨損、現場條件會變，球的偏向也跟著變。只用理論分布算出來的回報，代表不了上線後會發生什麼。</p>
+<p>PM 在改數值、辦活動之前需要一個答案：<b>如果玩家照他們平常的打法來玩，在真實的落球雜訊下，這套數值會走成什麼樣子？</b>所以我做了一套人流沙盤，把玩家行為和真實落球序列一起回放。</p>
+
+<p>玩家行為的來源分兩個階段：上線前，用同類既有遊戲的注單拆出行為特徵，合成一批模擬玩家；上線後，改用這款自己的注單重做。模擬玩家的每一個欄位都標了來源層級，分成四種前綴：直接從歷史注單算出來的、跨遊戲的人格特徵、針對新機制的推測、以及純粹佔位的欄位。<b>目的是讓看報表的人一眼知道哪些是事實、哪些是推測</b>，不會把猜的當成真的。</p>
+
+<p>沙盤模擬的是「風控之下的運作」，風控有三層：依一段時間的回報切換機率表、JP 開獎時的強制控制、以及依風險分數調整位置權重。要講清楚的是分工：<b>線上跑的那套風控由 SERVER 實作，我這邊做的是沙盤推演</b>——同樣的規則在我的模擬環境裡跑，用來回答「這樣設會發生什麼」，不是線上系統本身。</p>
+
+<figure class="fig">
+<svg viewBox="0 0 760 232" role="img" aria-label="線上風控與沙盤推演的分工">
+  <g font-size="13" fill="#1b1b1b">
+  <rect x="10" y="26" width="350" height="180" rx="12" fill="#fafaf8" stroke="#e3e2de"/>
+  <text x="185" y="52" text-anchor="middle" font-size="15" font-weight="600">線上（SERVER 實作）</text>
+  <rect x="34" y="68" width="302" height="40" rx="8" fill="#fff" stroke="#e3e2de"/>
+  <text x="185" y="93" text-anchor="middle">真實玩家、真實落球</text>
+  <rect x="34" y="116" width="302" height="40" rx="8" fill="#fff" stroke="#e3e2de"/>
+  <text x="185" y="141" text-anchor="middle">三層風控即時運作</text>
+  <text x="185" y="184" text-anchor="middle" fill="#8a8a8a" font-size="12.5">由伺服器工程師實作與維運</text>
+
+  <rect x="400" y="26" width="350" height="180" rx="12" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="575" y="52" text-anchor="middle" font-size="15" font-weight="600" fill="#2f6fb5">沙盤（我做的）</text>
+  <rect x="424" y="68" width="302" height="40" rx="8" fill="#fff" stroke="#b9d2ee"/>
+  <text x="575" y="93" text-anchor="middle">模擬玩家（行為取自真實注單）</text>
+  <rect x="424" y="116" width="302" height="40" rx="8" fill="#fff" stroke="#b9d2ee"/>
+  <text x="575" y="141" text-anchor="middle">同一套風控規則，離線推演</text>
+  <text x="575" y="184" text-anchor="middle" fill="#2f6fb5" font-size="12.5">回答「這樣設會發生什麼」，改數值前先看</text>
+  </g>
+</svg>
+<figcaption>兩套東西目的不同：線上那套要穩定地跑；沙盤要能重播、能改參數、能比較，所以是獨立的一套。</figcaption>
+</figure>
+<div class="priv" data-k="sandbox"></div>
+</section>
+
+<section>
+<h2><span class="no">04</span>驗證鏈：理論、模擬、實機、回放</h2>
+<p>這款的驗證不是一次做完，是一條鏈，每一段都要能對得上下一段。</p>
+<figure class="fig">
+<svg viewBox="0 0 760 200" role="img" aria-label="四段驗證鏈">
+  <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/></marker></defs>
+  <g font-size="12.5" fill="#1b1b1b">
+  <rect x="8" y="40" width="168" height="76" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="92" y="66" text-anchor="middle" font-weight="700" fill="#2f6fb5">① 理論</text>
+  <text x="92" y="88" text-anchor="middle">機率表算出賠率</text>
+  <text x="92" y="106" text-anchor="middle">與目標回報</text>
+  <line x1="178" y1="78" x2="196" y2="78" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a2)"/>
+  <rect x="198" y="40" width="168" height="76" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="282" y="66" text-anchor="middle" font-weight="700" fill="#2f6fb5">② 模擬</text>
+  <text x="282" y="88" text-anchor="middle">C++ 十億局，九押注區</text>
+  <text x="282" y="106" text-anchor="middle">× 五種通關策略</text>
+  <line x1="368" y1="78" x2="386" y2="78" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a2)"/>
+  <rect x="388" y="40" width="168" height="76" rx="10" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="472" y="66" text-anchor="middle" font-weight="700" fill="#1f8a7a">③ 實機</text>
+  <text x="472" y="88" text-anchor="middle">量測落點分布</text>
+  <text x="472" y="106" text-anchor="middle">回填模型重算</text>
+  <line x1="558" y1="78" x2="576" y2="78" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a2)"/>
+  <rect x="578" y="40" width="174" height="76" rx="10" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="665" y="66" text-anchor="middle" font-weight="700" fill="#1f8a7a">④ 回放</text>
+  <text x="665" y="88" text-anchor="middle">玩家行為 × 真實落球</text>
+  <text x="665" y="106" text-anchor="middle">在沙盤裡跑一遍</text>
+  <path d="M665,120 L665,150 L92,150 L92,122" fill="none" stroke="#1f8a7a" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a2)"/>
+  <text x="378" y="170" text-anchor="middle" fill="#1f8a7a">上線後用注單分析回頭檢查，對不上就回到第一段重來</text>
+  </g>
+</svg>
+<figcaption>上線後這條鏈沒有停：注單分析每週看實際走勢，發現跟預期不同就回頭調模型或參數。</figcaption>
+</figure>
+<p>上線後的注單分析做成一個單檔的儀表板，看的是玩家分群的回報差異、落球分布的統計檢定，以及二級玩法的漏斗。<b>畫面與數據涉及真實玩家，不放在這裡</b>；作品集上只說明它做什麼。</p>
+</section>
+
+<section>
+<h2><span class="no">05</span>送審：實驗室問的三件事</h2>
+<p>這款要通過第三方實驗室（GLI）送審。實驗室問了三件事：公告的回報率要以哪一種玩法認定（結論是取所有策略中最佳策略的回報率）、要看完整的數學文件、以及信賴區間是怎麼算的。</p>
+<p>我的角色要講清楚：<b>送審流程由 PM 主導，我負責出具數學文件與模擬報表</b>，並回覆這兩項數學上的質疑。這也是為什麼模擬器要輸出「九個押注區 × 五種通關策略」的完整矩陣——實驗室要的不是平均值，是最佳策略下的數字。</p>
+</section>
+
+<section>
+<h2><span class="no">06</span>推行與結果</h2>
+<ul class="clean">
+  <li><b>2026/08/10 上線</b>，是我在這家公司唯一一款視訊實體機台。</li>
+  <li><b>交付：</b>每一版的遊戲數學原理與規則解析（V1–V14）、機率表與設定檔、C++ 模擬器、物理參數檔、送審用的數學文件與模擬報表。</li>
+  <li><b>上線後持續運作：</b>人流沙盤改用這款的真實注單重做模擬玩家；注單分析支援每週的營運決策。</li>
+</ul>
+<div class="priv" data-k="after"></div>
+</section>
+
+<section>
+<h2><span class="no">07</span>回頭看</h2>
+<p><b>第一，開獎不可控的時候，設計的重點會換位置。</b>電子遊戲把機率設定好就結束了；這一款要先承認「實體不照理論走」，再把調節放到可控的變數上，而且模型要能跟著實機數據一起調——因為偏差不是修一次就結束。</p>
+<p><b>第二，沙盤的價值在事前，不在保證。</b>它讓 PM 在改數值之前先看到走勢，但它是推演，不是預言；真正的答案還是要靠上線後的注單回頭驗。所以這兩件事我一直是一起做的。</p>
+<p><b>第三，角色邊界要講清楚。</b>線上的風控是 SERVER 實作與維運，我做的是數學模型、模擬器、沙盤與注單分析。面試時我也會這樣說明，因為把別人的成果算到自己頭上，背景調查一問就露餡。</p>
+</section>
+
+<p class="rel">相關：<a href="../games.html">遊戲總覽（LiveMines 卡片）</a> ｜ <a href="bingoslot.html">BingoSlot 逆向生成引擎</a><span id="pubnote"> ｜ 沙盤畫面、實際數字與上線後的調整只在面試用的完整版。</span></p>
+</div>
+
+<script>
+(function(){
+  var P=(window.CASE_PRIV||{}).livemines||null;
+  var T={bias:"實體偏差的細節",sandbox:"沙盤與三層風控",after:"上線後的調整"};
+  if(P){var pn=document.getElementById("pubnote"); if(pn)pn.remove();}
+  document.querySelectorAll(".priv").forEach(function(el){
+    var k=el.getAttribute("data-k");
+    if(P&&P[k]){el.innerHTML="<b>"+T[k]+"（完整版）</b>"+P[k];}
+    else{el.className="priv off";el.textContent=T[k]+"：面試時的完整版補充。";}
+  });
+})();
+</script>
+</body>
+</html>
