@@ -269,7 +269,7 @@
 <div class="priv" data-k="water"></div>
 </section>
 
-<p class="rel">相關：<a href="../games.html">遊戲總覽（BingoSlot、SlotBingo 卡片）</a><span id="pubnote"> ｜ 本頁數字、內部決策細節只在面試用的完整版。</span></p>
+<p class="rel">相關：<a href="../games.html">遊戲總覽（BingoSlot、SlotBingo 卡片）</a><span id="pubnote"> ｜ 本頁數字與內部決策細節只在完整版。</span></p>
 </div>
 
 <script>
@@ -280,7 +280,7 @@
   document.querySelectorAll(".priv").forEach(function(el){
     var k=el.getAttribute("data-k");
     if(P&&P[k]){el.innerHTML="<b>"+T[k]+"（完整版）</b>"+P[k];}
-    else{el.className="priv off";el.textContent=T[k]+"：面試時的完整版補充。";}
+    else{el.className="priv off";el.textContent=T[k]+"：完整版補充。";}
   });
 })();
 </script>
