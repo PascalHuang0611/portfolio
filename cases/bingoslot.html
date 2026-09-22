@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BingoSlot 逆向生成引擎 ｜ 黃培昇</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1b1b1b; --ink2:#555; --ink3:#8a8a8a; --line:#e3e2de;
+    --job:#2f6fb5; --job-bg:#e9f1fb; --job-soft:#b9d2ee;
+    --side:#1f8a7a; --side-bg:#e6f4f1;
+    --no:#b5452f; --no-bg:#fbeeea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;font-size:15.5px;line-height:1.8}
+  a{color:inherit}
+  .wrap{max-width:860px;margin:0 auto;padding:32px 24px 72px}
+  .back{font-size:13.5px;color:var(--ink2);text-decoration:none}
+  .back:hover{color:var(--ink)}
+  .kicker{margin:18px 0 0;font-size:12.5px;color:var(--job);font-weight:600;letter-spacing:.5px}
+  h1{font-size:28px;margin:2px 0 6px;font-weight:600;line-height:1.35}
+  .lede{font-size:16.5px;margin:10px 0 18px;color:var(--ink)}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
+  .facts div{padding:10px 14px;border-left:1px solid var(--line)}
+  .facts div:first-child{border-left:none}
+  .facts b{display:block;font-size:12px;color:var(--ink3);font-weight:500}
+  .facts span{font-size:14px}
+  @media (max-width:640px){.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){border-left:none}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+  section{margin-top:40px}
+  h2{font-size:19px;margin:0 0 10px;font-weight:600;display:flex;gap:10px;align-items:baseline}
+  h2 .no{font-size:13px;color:var(--job);font-weight:600;font-variant-numeric:tabular-nums}
+  p{margin:0 0 12px}
+  .fig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;margin:14px 0 16px}
+  .fig svg{display:block;width:100%;height:auto}
+  .fig figcaption,.cap{font-size:12.5px;color:var(--ink3);margin-top:6px}
+  .cmp{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:12px 0 16px}
+  .cmp th,.cmp td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  .cmp th{font-size:12.5px;color:var(--ink2);background:#fafaf8;font-weight:600}
+  .cmp tr:last-child td{border-bottom:none}
+  .cmp td:first-child{color:var(--ink2);white-space:nowrap;font-size:13px}
+  .tablewrap{overflow-x:auto}
+  .quote{border-left:3px solid var(--job);background:var(--job-bg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0 16px;font-size:14.5px}
+  .quote b{display:block;font-size:12.5px;color:var(--job);margin-bottom:2px}
+  ul.clean{margin:0 0 12px;padding-left:20px}
+  ul.clean li{margin:0 0 4px}
+  .priv{background:#f6f6f3;border-left:3px solid #8a8a84;padding:9px 13px;border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:14px}
+  .priv b{display:block;font-size:12.5px;color:#6f6f69;margin-bottom:2px}
+  .priv.off{color:var(--ink3);font-size:13px}
+  .shot{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:start;margin:14px 0}
+  .shot img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+  @media (max-width:640px){.shot{grid-template-columns:1fr}.shot img{max-width:260px}}
+  .rel{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+  .rel a{color:var(--job);text-decoration:none;border-bottom:1px dotted var(--job-soft)}
+  .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
+  @media print{.ver,.back{display:none}.fig,.cmp{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="ver">v1.10</div>
+<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=(location.protocol==="file:"?" ｜ 完整版":" ｜ 公開版");});</script>
+<script src="../dist-interview/case_private.js"></script>
+<div class="wrap">
+<a class="back" href="../index.html">← 回首頁</a>
+
+<p class="kicker">本職：遊戲數學 ｜ 深挖</p>
+<h1>BingoSlot 逆向生成引擎</h1>
+<p class="lede">這款的規則讓前後兩轉互相牽動，錄好的盤面用不上。我寫了一套「先決定這一轉付多少、再反過來生成盤面」的演算法：實際分數絕不超過目標，包成 SDK 交給伺服器。專案最後沒有上線，但它卡住的地方，正是我後來自己寫派彩決策伺服器的原因。</p>
+<div class="facts">
+  <div><b>期間</b><span>2025/11 – 12</span></div>
+  <div><b>角色</b><span>獨立完成</span></div>
+  <div><b>狀態</b><span>未上線</span></div>
+  <div><b>工時紀錄</b><span>252 小時</span></div>
+</div>
+
+<section>
+<h2><span class="no">01</span>當時的問題</h2>
+<p>那段時間新遊戲提案不容易過。PM 提的這款，玩法參考一款已經做出來的競品：5×5 的盤面，中心固定一顆星星當萬用符號，12 條連線（5 橫、5 直、2 斜）。每一轉會有新的獎項符號掉進空格，<b>符號填進去之後會留在盤面上三轉</b>，三轉內陸續連成線就得分。</p>
+<p>這個「留三轉」就是問題所在：每一轉開始的盤面，都是前幾轉留下來的。前後兩轉不是獨立事件，而是互相牽動。</p>
+<div class="shot">
+  <img src="../素材/遊戲總覽/TG107_BingoSlot/截圖/TG107_主畫面.png" alt="BingoSlot 規則展示頁">
+  <div>
+    <p class="cap" style="margin-top:0">規則展示頁（前端原型，結果為隨機，不是引擎產生的）。每個數字右下角的小圈是「還會留幾轉」，中心是固定的星星。</p>
+    <p>從盤面上看得很清楚：這一轉會不會連線、連出多少分，取決於盤面上已經有什麼、它們還能留幾轉。</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2><span class="no">02</span>為什麼不能用錄製抽盤</h2>
+<p>我入職第一個月寫過一份 Slot 製作方案，比較了四種做法。其中方案三「錄製抽盤」是我比較推的：離線先把大量完整的遊戲結果錄下來分進容器，線上只依權重表抽一筆出來播放。前一個專案 SlotBingo 就是這樣做的，47 個容器就能涵蓋所有情況。</p>
+<p>錄盤能成立，有一個前提：<b>每一轉互相獨立</b>，任何一筆錄好的結果都能拿來當任何一轉。BingoSlot 剛好打破這個前提。</p>
+
+<figure class="fig">
+<svg viewBox="0 0 760 330" role="img" aria-label="錄製抽盤與逆向生成的前提對比">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/></marker>
+  </defs>
+  <!-- 左：SlotBingo -->
+  <text x="20" y="26" font-size="15" font-weight="600" fill="#1b1b1b">SlotBingo：每一轉互相獨立</text>
+  <rect x="20" y="44" width="330" height="46" rx="8" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="185" y="72" font-size="13.5" text-anchor="middle" fill="#1b1b1b">離線錄下大量完整結果</text>
+  <line x1="185" y1="92" x2="185" y2="112" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="20" y="116" width="330" height="46" rx="8" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="185" y="144" font-size="13.5" text-anchor="middle" fill="#1b1b1b">依條件分進 <tspan font-weight="700" fill="#2f6fb5">47 個容器</tspan></text>
+  <line x1="185" y1="164" x2="185" y2="184" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="20" y="188" width="330" height="46" rx="8" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="185" y="216" font-size="13.5" text-anchor="middle" fill="#1b1b1b">線上依權重表抽一筆、播放</text>
+  <rect x="20" y="252" width="330" height="58" rx="8" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="185" y="276" font-size="13.5" text-anchor="middle" fill="#1f8a7a" font-weight="600">✓ 任何一筆都能拿來當任何一轉</text>
+  <text x="185" y="297" font-size="12.5" text-anchor="middle" fill="#555">錄盤成立</text>
+  <!-- 分隔 -->
+  <line x1="380" y1="40" x2="380" y2="312" stroke="#e3e2de" stroke-width="1.5"/>
+  <!-- 右：BingoSlot -->
+  <text x="410" y="26" font-size="15" font-weight="600" fill="#1b1b1b">BingoSlot：前後兩轉互相牽動</text>
+  <rect x="410" y="44" width="330" height="46" rx="8" fill="#f6f6f3" stroke="#e3e2de"/>
+  <text x="575" y="72" font-size="13.5" text-anchor="middle" fill="#1b1b1b">上一轉留下的符號（還剩 1～3 轉）</text>
+  <line x1="575" y1="92" x2="575" y2="112" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="410" y="116" width="330" height="46" rx="8" fill="#f6f6f3" stroke="#e3e2de"/>
+  <text x="575" y="138" font-size="13.5" text-anchor="middle" fill="#1b1b1b">這一轉的起始盤面，可能的組合約</text>
+  <text x="575" y="156" font-size="14" text-anchor="middle" font-weight="700" fill="#b5452f">6 × 10³⁵ 種</text>
+  <line x1="575" y1="164" x2="575" y2="184" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="410" y="188" width="330" height="46" rx="8" fill="#fbeeea" stroke="#e8bfb3"/>
+  <text x="575" y="216" font-size="13.5" text-anchor="middle" fill="#b5452f">✗ 錄好的結果對不上當下的起始盤面</text>
+  <rect x="410" y="252" width="330" height="58" rx="8" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="575" y="276" font-size="13.5" text-anchor="middle" fill="#2f6fb5" font-weight="600">只能看當下的盤面，即時生成</text>
+  <text x="575" y="297" font-size="12.5" text-anchor="middle" fill="#555">演算法路線（方案二）</text>
+</svg>
+<figcaption>6 × 10³⁵ 怎麼來的：中心以外 24 格，每格可能是空的，或 10 種獎項符號之一 × 還剩 1～3 轉，也就是 31 種狀態；31 的 24 次方約 6 × 10³⁵。這是上限，實際走得到的組合少一些，但仍然遠遠超過能事先錄的量。</figcaption>
+</figure>
+
+<p>所以這款只剩方案二：用演算法依當下的盤面即時生成。這條路我在方案書裡寫過代價，原文照錄：</p>
+<div class="tablewrap">
+<table class="cmp">
+  <tr><th></th><th>方案三：錄製抽盤</th><th>方案二：演算法生成</th></tr>
+  <tr><td>前提</td><td>每一轉互相獨立</td><td>不需要，可以接著上一轉的盤面算</td></tr>
+  <tr><td>調體感</td><td>改權重表，幾分鐘</td><td>改參數要重跑演算法驗證；方向大改就要重寫演算法</td></tr>
+  <tr><td>伺服器</td><td>只做抽樣，不算牌</td><td>要改伺服器流程、呼叫演算法</td></tr>
+  <tr><td>誰看得懂</td><td>權重表人人看得懂</td><td>非技術人員難以理解，技術人員也不直觀</td></tr>
+  <tr><td>複用</td><td>架構可以直接給下一款</td><td>概念能傳承，實作要針對新遊戲重寫</td></tr>
+</table>
+</div>
+<div class="quote"><b>我的原則</b>演算法生盤面我原則上不用，除非必要。它要同時顧三件事：盤面看起來要自然隨機、絕不能多付、湊出來的分數要夠接近目標。三件事互相拉扯，演算法難度高。這款是規則逼出來的必要情況。</div>
+</section>
+
+<section>
+<h2><span class="no">03</span>報備與決策</h2>
+<p>玩法是參考已經做出來的競品，PM 的判斷是：別人已經做出來過，這款就一定做得到。在玩法照著競品走的前提下，很難提「改規則讓每一轉獨立、改用錄盤」這類替代方案——原創的玩法才有這個空間。</p>
+<p>所以我能做的是把代價先講清楚：為什麼只能走演算法、這條路貴在哪裡（上面那張表），然後把它做出來。</p>
+<div class="priv" data-k="decision"></div>
+</section>
+
+<section>
+<h2><span class="no">04</span>我怎麼做：先決定付多少，再反過來生成盤面</h2>
+<p>一般老虎機是「先隨機轉出盤面，再算這盤得幾分」，分數事後才知道。這款反過來：先依權重表抽出這一轉要付的分數（目標分數），再由演算法建構一個總分剛好等於目標的盤面，而且要在上一轉留下的格子不能動的限制下解題。最高原則只有一條：<b>湊不準可以少給，絕不能多給。</b></p>
+
+<figure class="fig">
+<svg viewBox="0 0 760 318" role="img" aria-label="K-Grow 逆向生成流程">
+  <defs>
+    <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/></marker>
+  </defs>
+  <g font-size="13" fill="#1b1b1b">
+  <!-- 第一排 -->
+  <rect x="10" y="20" width="230" height="84" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="26" y="46" font-weight="700" fill="#2f6fb5">① 老化與評估</text>
+  <text x="26" y="68">上一轉的格子倒數減一、釋放</text>
+  <text x="26" y="88">算出這盤「最少會得幾分」</text>
+  <line x1="242" y1="62" x2="262" y2="62" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <rect x="265" y="20" width="230" height="84" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="281" y="46" font-weight="700" fill="#2f6fb5">② 藍圖</text>
+  <text x="281" y="68">先挑要連哪幾條線</text>
+  <text x="281" y="88">算這組線最少、最多能裝幾分</text>
+  <line x1="497" y1="62" x2="517" y2="62" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <rect x="520" y="20" width="230" height="84" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="536" y="46" font-weight="700" fill="#2f6fb5">③ BG 判定</text>
+  <text x="536" y="68">有二級獎勵時，先決定是哪種</text>
+  <text x="536" y="88">再扣掉它，算剩多少要湊</text>
+  <!-- 轉折 -->
+  <path d="M635,106 L635,128 L125,128 L125,150" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <!-- 第二排 -->
+  <rect x="10" y="154" width="230" height="84" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="26" y="180" font-weight="700" fill="#2f6fb5">④ 拆分填入</text>
+  <text x="26" y="202">把剩下的分數拆成獎項</text>
+  <text x="26" y="222">（例：50 → 20＋20＋10）填進藍圖</text>
+  <line x1="242" y1="196" x2="262" y2="196" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <rect x="265" y="154" width="230" height="84" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="281" y="180" font-weight="700" fill="#2f6fb5">⑤ 安全偽裝</text>
+  <text x="281" y="202">只在「填了保證不會連線」的</text>
+  <text x="281" y="222">空格放干擾符號，讓盤面像真的</text>
+  <line x1="497" y1="196" x2="517" y2="196" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <rect x="520" y="154" width="230" height="84" rx="10" fill="#fbeeea" stroke="#e8bfb3"/>
+  <text x="536" y="180" font-weight="700" fill="#b5452f">⑥ 最終守門</text>
+  <text x="536" y="202">用獨立的計分再算一次</text>
+  <text x="536" y="222">實際 &gt; 目標 → 強制回退</text>
+  <!-- 例外 -->
+  <rect x="10" y="258" width="740" height="46" rx="8" fill="#f6f6f3" stroke="#e3e2de"/>
+  <text x="26" y="286" fill="#555">例外路徑：目標分數低於這盤最少會得的分數 → 改走「單格補獎」；藍圖解不出來 → 回退到補獎，保證每一轉都有解。</text>
+  </g>
+</svg>
+<figcaption>K-Grow 兩階段法（②＋④）是這套演算法的核心；①⑤⑥ 負責讓它在「上一轉留下的格子不能動」的限制下，還能安全、自然地交出盤面。</figcaption>
+</figure>
+
+<p>因為最高原則是「只會少、不會多」，長期下來實際回報一定比設定的略低。這個差距可以量：跑大量模擬抓出平均少多少，設定理論回報時先加回去。規格書裡用射箭比喻：箭一定往下掉，瞄的時候就稍微瞄高一點。</p>
+<div class="priv" data-k="numbers"></div>
+</section>
+
+<section>
+<h2><span class="no">05</span>隨機性、安全性、精準度：一次真實的取捨</h2>
+<p>這套演算法原本的設計，是接在水位系統後面：水位系統決定這一轉該付多少，演算法負責把盤面生出來。演算法偶爾少給的那一點分數，會留在水位裡，之後再回補給玩家，所以「少給」不會真的變成玩家的損失。</p>
+
+<figure class="fig">
+<svg viewBox="0 0 760 250" role="img" aria-label="原設計與當時做法的差別">
+  <defs>
+    <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/></marker>
+  </defs>
+  <g font-size="13" fill="#1b1b1b">
+  <text x="10" y="22" font-weight="600" font-size="14">原設計</text>
+  <rect x="10" y="34" width="210" height="56" rx="10" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="115" y="58" text-anchor="middle" font-weight="700" fill="#1f8a7a">水位系統</text>
+  <text x="115" y="78" text-anchor="middle" fill="#555">決定這一轉付多少</text>
+  <line x1="222" y1="62" x2="272" y2="62" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar3)"/>
+  <rect x="276" y="34" width="210" height="56" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="381" y="58" text-anchor="middle" font-weight="700" fill="#2f6fb5">逆向生成</text>
+  <text x="381" y="78" text-anchor="middle" fill="#555">決定盤面長怎樣</text>
+  <line x1="488" y1="62" x2="538" y2="62" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar3)"/>
+  <rect x="542" y="34" width="208" height="56" rx="10" fill="#fafaf8" stroke="#e3e2de"/>
+  <text x="646" y="67" text-anchor="middle">盤面給前端</text>
+  <path d="M381,92 C381,118 115,118 115,94" fill="none" stroke="#1f8a7a" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ar3)"/>
+  <text x="248" y="128" text-anchor="middle" fill="#1f8a7a" font-size="12.5">少給的分數留在水位，之後回補</text>
+
+  <text x="10" y="168" font-weight="600" font-size="14">當時的做法（水位系統仍在開發、時程很長）</text>
+  <rect x="10" y="180" width="210" height="56" rx="10" fill="#f6f6f3" stroke="#e3e2de"/>
+  <text x="115" y="204" text-anchor="middle" font-weight="700" fill="#555">權重表出分</text>
+  <text x="115" y="224" text-anchor="middle" fill="#555">七組固定檔位</text>
+  <line x1="222" y1="208" x2="272" y2="208" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar3)"/>
+  <rect x="276" y="180" width="210" height="56" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="381" y="204" text-anchor="middle" font-weight="700" fill="#2f6fb5">逆向生成</text>
+  <text x="381" y="224" text-anchor="middle" fill="#555">決定盤面長怎樣</text>
+  <rect x="510" y="180" width="240" height="56" rx="10" fill="#fbeeea" stroke="#e8bfb3"/>
+  <text x="630" y="204" text-anchor="middle" fill="#b5452f" font-weight="600">少給的分數沒地方回補</text>
+  <text x="630" y="224" text-anchor="middle" fill="#b5452f">→ 只能讓湊分更準</text>
+  <line x1="488" y1="208" x2="506" y2="208" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#ar3)"/>
+  </g>
+</svg>
+</figure>
+
+<p>問題是水位系統當時還在開發，時程開得很長。為了不等它，GM 希望先用權重表直接出分。這樣一來，演算法少給的分數就沒有地方回補了——再怎麼湊，總會有湊不滿的時候。</p>
+<p>於是後面的版本做了一次明確的取捨：<b>把湊分的精準度大幅提高、效能也略微提升，代價是二級玩法（BG）的盤面隨機性略為降低。</b>隨機性、安全性、精準度三件事，安全性不能讓，只能在另外兩件之間挪；這次挪的方向，是讓分數盡量貼近目標，少一點的隨機感換回玩家實際拿到的回報。這個取捨我寫進了發布頁，讓 PM 知道換了什麼。</p>
+</section>
+
+<section>
+<h2><span class="no">06</span>推行與結果</h2>
+<ul class="clean">
+  <li><b>引擎與驗證：</b>C++ 引擎；OpenMP 統計模擬器跑 20 個情境（固定目標分 0～12000 × 有無 BG，再加隨機模式），量命中率、偏差分布與生成耗時。實際分數超過目標的次數：0。</li>
+  <li><b>交給伺服器的形式：</b>引擎包成 DLL，提供 C API（JSON 進出）給 Go 伺服器直接呼叫，附 Go 整合指南。測試用的 Go 客戶端內建一份 Go 版計分，跟 C++ 回傳的分數逐次比對；我要求伺服器團隊自己讀規則重寫這一塊、不能直接複製，這樣兩邊等於互相審查。</li>
+  <li><b>可以試玩：</b>內網架了一個 Demo Server（Go 伺服器接 C++ 引擎，用 JSON 跟網頁溝通），讓 PM 和團隊直接在瀏覽器試玩、確認規則。</li>
+  <li><b>檔位：</b>七組回報檔位的設定檔，每組附模擬報表與 MD5。</li>
+  <li><b>文件：</b>遊戲核心邏輯與數值規格書 2.0、逆向生成演算法實作方式 1.2（逐函式虛擬碼）、測試數據統計報表 1.2；三個版本（11/19、12/15、12/18）。</li>
+</ul>
+<p><b>結果：沒有上線。</b>伺服器端還沒開始接 SDK，專案就停了；我的理解是整體時程拉得太長。</p>
+<div class="priv" data-k="stop"></div>
+</section>
+
+<section>
+<h2><span class="no">07</span>回頭看</h2>
+<p><b>第一，原則沒有變。</b>演算法生盤面還是我最後才會動用的做法。這次用了，是因為規則讓前後兩轉互相牽動，錄盤的前提不成立；而且為什麼非用不可、要付出什麼代價，事先都寫在方案書裡。</p>
+<p><b>第二，錄盤與演算法是同一套架構的兩種盤面來源。</b>水位決定付多少，盤面交給誰生：每一轉獨立就用錄盤（後來派彩決策伺服器接第二款遊戲，就是這樣做的），前後相關才用演算法。這兩種都做過，所以我知道每一種的前提和成本在哪。</p>
+<p><b>第三，這個專案真正卡住的地方不在演算法，在水位系統。</b>水位系統的時程讓整條線停在原地，這是我後來決定自己寫派彩決策伺服器、直接交給 RD 的原因：與其等，不如先把可以照著做的參照實作交出去。</p>
+<div class="priv" data-k="water"></div>
+</section>
+
+<p class="rel">相關：<a href="../games.html">遊戲總覽（BingoSlot、SlotBingo 卡片）</a> ｜ 本頁數字、內部決策細節只在面試用的完整版。</p>
+</div>
+
+<script>
+(function(){
+  var P=(window.CASE_PRIV||{}).bingoslot||null;
+  var T={decision:"當時的決策背景",numbers:"實際數字",stop:"停下來的原因",water:"水位系統那一段"};
+  document.querySelectorAll(".priv").forEach(function(el){
+    var k=el.getAttribute("data-k");
+    if(P&&P[k]){el.innerHTML="<b>"+T[k]+"（完整版）</b>"+P[k];}
+    else{el.className="priv off";el.textContent=T[k]+"：面試時的完整版補充。";}
+  });
+})();
+</script>
+</body>
+</html>
