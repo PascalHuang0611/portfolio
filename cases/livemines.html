@@ -59,7 +59,7 @@
 <body>
 <div class="ver">v1.12</div>
 <script src="../dist-interview/full.js"></script>
-<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
+<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)if(window.FULL||location.protocol==="file:")v.textContent+=" ｜ 完整版";});</script>
 <script src="../dist-interview/case_private.js"></script>
 <div class="wrap">
 <a class="back" href="../index.html">← 回首頁</a>
@@ -215,18 +215,17 @@
 <p><b>第三，角色邊界要講清楚。</b>線上的風控是 SERVER 實作與維運，我做的是數學模型、模擬器、沙盤與注單分析。這一點我在任何場合都講清楚，因為把別人的成果算到自己頭上，背景調查一問就露餡。</p>
 </section>
 
-<p class="rel">相關：<a href="../games.html">遊戲總覽（LiveMines 卡片）</a> ｜ <a href="bingoslot.html">BingoSlot 逆向生成引擎</a><span id="pubnote"> ｜ 沙盤畫面、實際數字與上線後的調整只在完整版。</span></p>
+<p class="rel">相關：<a href="../games.html">遊戲總覽（LiveMines 卡片）</a> ｜ <a href="bingoslot.html">BingoSlot 逆向生成引擎</a></p>
 </div>
 
 <script>
 (function(){
   var P=(window.CASE_PRIV||{}).livemines||null;
   var T={bias:"實體偏差的細節",sandbox:"沙盤與三層風控",after:"上線後的調整"};
-  if(P){var pn=document.getElementById("pubnote"); if(pn)pn.remove();}
   document.querySelectorAll(".priv").forEach(function(el){
     var k=el.getAttribute("data-k");
     if(P&&P[k]){el.innerHTML="<b>"+T[k]+"（完整版）</b>"+P[k];}
-    else{el.className="priv off";el.textContent=T[k]+"：完整版補充。";}
+    else{el.remove();}
   });
 })();
 </script>

@@ -114,7 +114,7 @@
 <script>if(location.search.indexOf("img=1")>=0)document.body.classList.add("img");var mo=location.search.match(/only=(\d)/);if(mo)document.body.classList.add("only"+mo[1]);window.CODES=location.search.indexOf("codes=1")>=0;document.addEventListener("DOMContentLoaded",function(){var local=(window.FULL||location.protocol==="file:")&&!document.body.classList.contains("img");document.querySelectorAll(".docs").forEach(function(d){var n=d.querySelector(".note");if(local){if(n)n.textContent="本機開啟中，點文件名稱直接開";var a=d.previousElementSibling,f=d.querySelector("a");if(a&&a.classList.contains("item")&&f){a.href=f.href;a.target="_blank";}}else{d.querySelectorAll("a").forEach(function(x){x.removeAttribute("href");x.removeAttribute("target");x.classList.add("off");});}});});</script>
 <div class="ver">v1.12</div>
 <script src="dist-interview/full.js"></script>
-<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
+<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)if(window.FULL||location.protocol==="file:")v.textContent+=" ｜ 完整版";});</script>
 <div class="wrap">
 
 <header>
@@ -194,12 +194,12 @@
       <a class="item nolink"><span><b>SlotBingo 錄製抽盤</b><small>四種做法之一先做成原型，沒有被單獨採用；一年後成為派彩決策系統接入第二款遊戲的選盤機制</small></span><span class="st">併入派彩決策系統</span></a>
       <a class="item nolink"><span><b>數值系統兩階段盲測</b><small>七套數值系統各說各話，沒人能判斷；882 組模擬加資訊熵量化「會不會被玩家猜到」，讓 PM 自己比出結論，勝出兩套</small></span><span class="st">決策依據</span></a>
       <a class="item nolink"><span><b>派彩決策伺服器</b><small>老虎機最怕派彩失控；派彩決策系統以獎池水位決定每一轉該付多少，提了十三個月才在盲測勝出，RD 沒有這類遊戲後端經驗、評估風險高；兩週寫出參照實作，萬人百萬轉零錯誤後交接</small></span><span class="st">已交接</span></a>
-      <div class="docs"><span class="lbl">交接文件</span><a href="dist-interview/docs/dl_readme.html" target="_blank">README</a><a href="dist-interview/docs/dl_spec.html" target="_blank">技術規格書 V8.0</a><a href="dist-interview/docs/dl_qa.html" target="_blank">QA 講解</a><a href="dist-interview/docs/dl_load.html" target="_blank">壓測報告</a><span class="note">涉及公司系統細節，公開版只列文件名稱</span></div>
+      <div class="docs"><span class="lbl">交接文件</span><a href="dist-interview/docs/dl_readme.html" target="_blank">README</a><a href="dist-interview/docs/dl_spec.html" target="_blank">技術規格書 V8.0</a><a href="dist-interview/docs/dl_qa.html" target="_blank">QA 講解</a><a href="dist-interview/docs/dl_load.html" target="_blank">壓測報告</a><span class="note">涉及公司系統細節，這裡只列文件名稱</span></div>
       </div>
       <div>
       <p class="grp">數據基建三層</p>
       <a class="item nolink"><span><b>行為層：CA 事件收集與行為鏈路</b><small>想知道玩家在哪一步離開，GA 給不了這個粒度；自建前端 Cocos 事件 SDK 與 Go 收集服務，20k events/s 佇列零累積，加上行為旅程分析頁</small></span><span class="st">運作中</span></a>
-      <div class="docs"><span class="lbl">交接文件</span><a href="dist-interview/docs/ca_readme.html" target="_blank">README</a><a href="dist-interview/docs/ca_sdk.html" target="_blank">前端 SDK 指南</a><a href="dist-interview/docs/ca_handover.html" target="_blank">後端／維運交接</a><a href="dist-interview/docs/ca_qa.html" target="_blank">QA 欄位說明</a><span class="note">涉及公司系統細節，公開版只列文件名稱</span></div>
+      <div class="docs"><span class="lbl">交接文件</span><a href="dist-interview/docs/ca_readme.html" target="_blank">README</a><a href="dist-interview/docs/ca_sdk.html" target="_blank">前端 SDK 指南</a><a href="dist-interview/docs/ca_handover.html" target="_blank">後端／維運交接</a><a href="dist-interview/docs/ca_qa.html" target="_blank">QA 欄位說明</a><span class="note">涉及公司系統細節，這裡只列文件名稱</span></div>
       <a class="item nolink"><span><b>結果層：BI 資料管線</b><small>公司沒有數據分析，報表靠人手整理；第一版 DEMO 未通過，半年後第二版通過並自動化上線，成為主要分析工具</small></span><span class="st">運作中</span></a>
       <a class="item nolink"><span><b>深挖：注單分析工具三代</b><small>上線後 PM 每週要決策，手上只有原始注單；做成單檔儀表板，分群、House 決策面板、落球卡方檢定與漏斗，PM 每週靠它下決定</small></span><span class="st">運作中</span></a>
       <a class="item dead nolink"><span><b>未採用的嘗試</b><small>Lark 心得擷取分析器：群組心得自動擷取加 LLM 結構化，做完了但沒被採用</small></span><span class="st">未採用</span></a>

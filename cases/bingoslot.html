@@ -58,7 +58,7 @@
 <body>
 <div class="ver">v1.12</div>
 <script src="../dist-interview/full.js"></script>
-<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
+<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)if(window.FULL||location.protocol==="file:")v.textContent+=" ｜ 完整版";});</script>
 <script src="../dist-interview/case_private.js"></script>
 <div class="wrap">
 <a class="back" href="../index.html">← 回首頁</a>
@@ -269,18 +269,17 @@
 <div class="priv" data-k="water"></div>
 </section>
 
-<p class="rel">相關：<a href="../games.html">遊戲總覽（BingoSlot、SlotBingo 卡片）</a><span id="pubnote"> ｜ 本頁數字與內部決策細節只在完整版。</span></p>
+<p class="rel">相關：<a href="../games.html">遊戲總覽（BingoSlot、SlotBingo 卡片）</a></p>
 </div>
 
 <script>
 (function(){
   var P=(window.CASE_PRIV||{}).bingoslot||null;
   var T={decision:"當時的決策背景",numbers:"實際數字",stop:"停下來的原因",water:"水位系統那一段"};
-  if(P){var pn=document.getElementById("pubnote"); if(pn)pn.remove();}
   document.querySelectorAll(".priv").forEach(function(el){
     var k=el.getAttribute("data-k");
     if(P&&P[k]){el.innerHTML="<b>"+T[k]+"（完整版）</b>"+P[k];}
-    else{el.className="priv off";el.textContent=T[k]+"：完整版補充。";}
+    else{el.remove();}
   });
 })();
 </script>
