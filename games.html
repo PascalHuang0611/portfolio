@@ -123,6 +123,7 @@
 <body>
 <div class="ver">v1.10</div>
 <script src="dist-interview/full.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){if(window.FULL){var h=document.getElementById("hintpub");if(h)h.remove();}});</script>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
@@ -145,7 +146,7 @@
 </table>
 </div>
 
-<p class="hint">點任一列開啟該款的卡片；卡片分「概要」與「坎與回看」兩頁，坎公開版列問題、解法在完整版。完整卡片 <span id="donecount"></span>，其餘標「待補」、依上線順序補齊。</p>
+<p class="hint">點任一列開啟該款的卡片；卡片分「概要」與「坎與回看」兩頁<span id="hintpub">，坎公開版列問題、解法在完整版</span>。完整卡片 <span id="donecount"></span>。</p>
 
 <div class="modal" id="modal" aria-modal="true" role="dialog">
   <div class="box" id="mbox">
@@ -336,9 +337,9 @@ function bodyHTML(g){
     const PR=priv(g);
     const hasKanTab=(g.kan&&g.kan.length>0)||PR.after||g.hasAfter;
     if(TAB==="kan"&&hasKanTab){
-      const kan=g.kan.map(([t,b],i)=>`<div class="kan"><b>這款的坎：${t}</b>${b}${PR.sol&&PR.sol[i]?`<p class="sol"><b>解法</b>${PR.sol[i]}</p>`:`<p class="sol more">解法：完整版</p>`}</div>`).join("");
-      const after=PR.after?`<div class="kan after"><b>上線後回看</b>${PR.after}</div>`:(g.hasAfter?`<div class="kan after more"><b>上線後回看</b>完整版</div>`:"");
-      return `${kan}${after}<p class="pubnote">解法與上線後回看在完整版。</p>`;
+      const kan=g.kan.map(([t,b],i)=>`<div class="kan"><b>這款的坎：${t}</b>${b}${PR.sol&&PR.sol[i]?`<p class="sol"><b>解法</b>${PR.sol[i]}</p>`:(window.FULL?"":`<p class="sol more">解法：完整版</p>`)}</div>`).join("");
+      const after=PR.after?`<div class="kan after"><b>上線後回看</b>${PR.after}</div>`:((g.hasAfter&&!window.FULL)?`<div class="kan after more"><b>上線後回看</b>完整版</div>`:"");
+      return `${kan}${after}${window.FULL?"":'<p class="pubnote">解法與上線後回看在完整版。</p>'}`;
     }
     const kv=g.kv.map(([k,v])=>`<b>${k}</b><span>${v}</span>`).join("");
     const deliv=g.deliv.map(d=>`<code>${d}</code>`).join(" ");
