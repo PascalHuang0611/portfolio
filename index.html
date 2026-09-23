@@ -65,14 +65,12 @@
   .prior{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px 14px;border-top:4px solid #8a8a8a}
   .prior h3{margin:0;font-size:16px;font-weight:600}
   .prior .tag{font-size:12.5px;color:var(--ink2);margin:2px 0 12px}
-  .prior .cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px 24px}
-  .prior .phase{margin:2px 0 12px;font-size:13.5px;color:var(--ink2)}
+  .prior .cols{display:grid;grid-template-columns:1fr 1fr;gap:6px 28px}
   .prior h4{margin:6px 0 2px;font-size:13px;color:var(--ink2);font-weight:600}
   .prior ul{margin:0;padding-left:18px;font-size:14px}
   .prior li{margin:0 0 3px}
   .prior .jp{margin:12px 0 0;padding-top:10px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--ink2)}
-  @media (max-width:1000px){.prior .cols{grid-template-columns:1fr 1fr}}
-  @media (max-width:760px){.prior .cols{grid-template-columns:1fr}}
+  @media (max-width:860px){.prior .cols{grid-template-columns:1fr}}
   footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   body.img .links,body.img .web-only{display:none}
   .imgnote{display:none;font-size:13px;color:var(--ink2);text-align:right;line-height:1.6;white-space:nowrap}
@@ -114,7 +112,7 @@
 </head>
 <body>
 <script>if(location.search.indexOf("img=1")>=0)document.body.classList.add("img");var mo=location.search.match(/only=(\d)/);if(mo)document.body.classList.add("only"+mo[1]);window.CODES=location.search.indexOf("codes=1")>=0;document.addEventListener("DOMContentLoaded",function(){var local=(window.FULL||location.protocol==="file:")&&!document.body.classList.contains("img");document.querySelectorAll(".docs").forEach(function(d){var n=d.querySelector(".note");if(local){if(n)n.textContent="本機開啟中，點文件名稱直接開";var a=d.previousElementSibling,f=d.querySelector("a");if(a&&a.classList.contains("item")&&f){a.href=f.href;a.target="_blank";}}else{d.querySelectorAll("a").forEach(function(x){x.removeAttribute("href");x.removeAttribute("target");x.classList.add("off");});}});});</script>
-<div class="ver">v1.14</div>
+<div class="ver">v1.15</div>
 <script src="dist-interview/full.js"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
 <div class="wrap">
@@ -214,11 +212,10 @@
 
 <section class="pb" id="sec3">
   <h2>2016/07 – 2025/05 ｜ 宇峻奧汀科技</h2>
-  <p class="sub">九年遊戲伺服器 C++ 開發與機率設計並行，多人團隊、排程由專案經理管理，有值班與事故處理。</p>
+  <p class="sub">九年遊戲伺服器 C++ 開發與機率設計並行。</p>
   <div class="prior">
     <h3>資深程式設計師 → 機率工程師</h3>
     <p class="tag">多媒體傳播業，500 人以上 ｜ 九年考績皆最高等級，含一次 S 級</p>
-    <p class="phase">前三年以伺服器 C++ 與機率驗算為主；中間三年跨到前後端，做收集與成就系統的經濟循環、多人捕魚的公式與同步；後期轉向活動設計與 AI 輔助開發，職稱改為機率工程師。</p>
     <div class="cols">
       <div>
         <h4>伺服器（C++）</h4>
@@ -233,19 +230,9 @@
         <h4>機率與數值</h4>
         <ul>
           <li>機率公式設計與驗算：象棋麻將、捕魚機整體機率設計；賽馬公式驗算並修正數值錯誤</li>
-          <li>收集與成就系統的經濟循環設計：產出、消耗與獎勵節奏</li>
           <li>專案缺乏數值專才時獨立開發近十款數值計算輔助工具；自動生成滾輪帶工具（輸入 Hit Rate / RTP 產出滾輪表）</li>
           <li>參與三項新活動設計，兩項儲值活動位居專案活動營收第一、第二</li>
           <li>率先導入 AI 輔助開發並推動團隊採用，活動付費比連續提升 50%、30%，獲 S 級考績</li>
-        </ul>
-      </div>
-      <div>
-        <h4>團隊與維運</h4>
-        <ul>
-          <li>多人 SERVER 團隊協作，開發排程由專案經理管理；輪值值班與線上事故處理</li>
-          <li>跨服務與客戶端的協定版本相容：新舊版本並存期間的欄位與流程規則</li>
-          <li>維運工具由團隊自寫：集中監控、集中開關機、程序中斷自動重啟</li>
-          <li>工具鏈為 SVN ＋ C++；參與公司實驗性數據分析部門</li>
         </ul>
       </div>
     </div>
