@@ -128,7 +128,7 @@
 <div class="wrap">
 <a class="back" href="index.html">← 回首頁</a>
 <h1>17 款遊戲總覽</h1>
-<p class="sub">17 款上線（含 3 款衍生版）加 5 款完成設計但未上線。每款核心數學約一週完成，之後跟到上線。表格依系列分組、依重要性排序，點任一列看那一款怎麼做、怎麼驗、花了多少小時。工時皆為自行粗估，時程自管、未納入專案排程。實際 RTP、機率表與參數不對外。</p>
+<p class="sub">17 款上線（含 3 款衍生版）加 5 款完成設計但未上線。每款核心數學約一週完成，之後跟到上線。表格依系列分組、依重要性排序，點任一列看那一款怎麼做、怎麼驗、花了多少小時。工時皆為自行粗估，時程自管、未納入專案排程。</p>
 
 <div class="filters" id="filters">
   <button data-f="all" class="on">全部</button>
@@ -343,7 +343,7 @@ function bodyHTML(g){
     }
     const kv=g.kv.map(([k,v])=>`<b>${k}</b><span>${v}</span>`).join("");
     const deliv=g.deliv.map(d=>`<code>${d}</code>`).join(" ");
-    return `<div class="kv">${kv}</div><p class="deliv" style="margin-top:10px">交付物：${deliv}；${g.deliv_note}</p><p class="pubnote">數學文件、試算表與模擬報表只列名稱。</p>`;
+    return `<div class="kv">${kv}</div><p class="deliv" style="margin-top:10px">交付物：${deliv}；${g.deliv_note}</p>`;
   }
   return `<div class="compact">
     <p>${g.math}</p><p style="color:var(--ink2);font-size:13px">${g.verify}</p>
