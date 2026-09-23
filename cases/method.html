@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>數值設計的八個階段 ｜ 黃培昇</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1b1b1b; --ink2:#555; --ink3:#8a8a8a; --line:#e3e2de;
+    --job:#2f6fb5; --job-bg:#e9f1fb; --job-soft:#b9d2ee;
+    --side:#1f8a7a; --side-bg:#e6f4f1; --side-soft:#a9d9d0;
+    --no:#b5452f; --no-bg:#fbeeea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;font-size:15.5px;line-height:1.8}
+  a{color:inherit}
+  .wrap{max-width:860px;margin:0 auto;padding:32px 24px 72px}
+  .back{font-size:13.5px;color:var(--ink2);text-decoration:none}
+  .back:hover{color:var(--ink)}
+  .kicker{margin:18px 0 0;font-size:12.5px;color:var(--job);font-weight:600;letter-spacing:.5px}
+  h1{font-size:28px;margin:2px 0 6px;font-weight:600;line-height:1.35}
+  .lede{font-size:16.5px;margin:10px 0 18px}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
+  .facts div{padding:10px 14px;border-left:1px solid var(--line)}
+  .facts div:first-child{border-left:none}
+  .facts b{display:block;font-size:12px;color:var(--ink3);font-weight:500}
+  .facts span{font-size:14px}
+  @media (max-width:640px){.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){border-left:none}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+  section{margin-top:40px}
+  h2{font-size:19px;margin:0 0 10px;font-weight:600;display:flex;gap:10px;align-items:baseline}
+  h2 .no{font-size:13px;color:var(--job);font-weight:600;font-variant-numeric:tabular-nums}
+  p{margin:0 0 12px}
+  .stage{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 10px;border-left:4px solid var(--side)}
+  .stage.off{border-left-color:var(--no);background:#fdf7f5}
+  .stage h3{margin:0 0 2px;font-size:15.5px;font-weight:600;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+  .stage h3 .en{font-size:12px;color:var(--ink3);font-weight:400}
+  .stage .badge{margin-left:auto;font-size:12px;border-radius:999px;padding:1px 10px;white-space:nowrap;background:var(--side-bg);color:var(--side);border:1px solid var(--side-soft)}
+  .stage.off .badge{background:var(--no-bg);color:var(--no);border-color:#e8bfb3}
+  .stage p{margin:4px 0 0;font-size:14.5px}
+  .stage .did{color:var(--ink2);font-size:14px}
+  .stage .did b{color:var(--ink);font-weight:600}
+  .quote{border-left:3px solid var(--job);background:var(--job-bg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0 16px;font-size:14.5px}
+  .flow{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;margin:14px 0}
+  .flow svg{display:block;width:100%;height:auto}
+  .flow figcaption{font-size:12.5px;color:var(--ink3);margin-top:6px}
+  .rel{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+  .rel a{color:var(--job);text-decoration:none;border-bottom:1px dotted var(--job-soft)}
+  .priv{background:#f6f6f3;border-left:3px solid #8a8a84;padding:9px 13px;border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:14px}
+  .priv b{display:block;font-size:12.5px;color:#6f6f69;margin-bottom:2px}
+  .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
+  @media print{.ver,.back{display:none}.stage{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="ver">v1.16</div>
+<script src="../dist-interview/full.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
+<script src="../dist-interview/case_private.js"></script>
+<div class="wrap">
+<a class="back" href="../index.html">← 回首頁</a>
+
+<p class="kicker">本職：遊戲數學 ｜ 文章</p>
+<h1>數值設計的八個階段，後來落實了七個</h1>
+<p class="lede">2025 年 7 月，我入職約一個月提前轉正，GM 出題要我對全公司講一場數值設計。這是那場宣講的主幹：一款遊戲從提案到長期營運，數值要在哪八個環節出手、每一段不做會付出什麼代價。一年多之後回頭對，其中七段成了我每一款遊戲的固定做法，一段沒有。</p>
+<div class="facts">
+  <div><b>時間</b><span>2025/07</span></div>
+  <div><b>場合</b><span>內部宣講 15 分鐘</span></div>
+  <div><b>出題</b><span>GM</span></div>
+  <div><b>後來落實</b><span>7 / 8</span></div>
+</div>
+
+<section>
+<h2><span class="no">01</span>為什麼把數值切成八段</h2>
+<p>我的背景是後端伺服器、前端，加上在日本四年做遊戲企劃與 UI/UX。在伺服器團隊待久了，看事情的角度會變成「這個改動會沿著哪條鏈路影響到誰」。數值也是一樣：它不是一張表算完就結束，而是從提案前一路跟到長期營運。</p>
+<div class="quote">產品是輪廓，美術是外貌，數值是劇本與心跳。</div>
+<p>還有一條原則跟致敬競品有關：在完全搞清楚對方每一個賠率、每一條規則的用意之前，不要擅自更改。大廠背後有很強的數學團隊，賠率不會隨便訂。專案卡關，常常就是因為對原規則理解得不夠細。</p>
+</section>
+
+<section>
+<h2><span class="no">02</span>八個階段</h2>
+
+<div class="stage">
+  <h3>一、提案前的數值驗證 <span class="en">Pre-PRD Validation</span><span class="badge">後來固定在做</span></h3>
+  <p>在投入開發資源前，用 Excel 把核心玩法試算一遍，確認成本與回報落在合理範圍。跳過的代價是：資源投下去之後才發現商業或工程上不可行。</p>
+  <p class="did"><b>後來：</b>每一款都從 Excel 建模開始，試算表同時產出設定檔，成為唯一的數據來源。</p>
+</div>
+
+<div class="stage">
+  <h3>二、開發初期的模擬器驗證 <span class="en">Early-Dev Simulation</span><span class="badge">後來固定在做</span></h3>
+  <p>後端功能交付前，先寫一支輕量模擬器，模擬不同玩家策略下的結果，提早找出漏洞，也能先給產品一份數據。</p>
+  <p class="did"><b>後來：</b>C++／Go 模擬器成了標準配備，十億局級的模擬與多種策略對照都在這一段完成。</p>
+</div>
+
+<div class="stage">
+  <h3>三、開發中期的數據比對 <span class="en">Mid-Dev Data Reconciliation</span><span class="badge">後來固定在做</span></h3>
+  <p>把後端的統計報表跟我方模擬器的輸出交叉比對，確保數學模型與伺服器真的算同一件事。兩邊獨立實作、互相驗證，等於一次變形的程式碼審查。</p>
+  <p class="did"><b>後來：</b>有一款我自己寫了一台 Go 測試伺服器，讓數學先接上去跑；另一款的 SDK 要求伺服器team 自行重寫計分邏輯再與引擎比對。</p>
+</div>
+
+<div class="stage">
+  <h3>四、全鏈路使用者體驗測試 <span class="en">E2E User Experience Test</span><span class="badge">後來固定在做</span></h3>
+  <p>用自動化腳本模擬真實玩家的操作路徑，從客戶端到伺服器再回到客戶端，確認玩家看到的就是伺服器算出來的。</p>
+  <p class="did"><b>後來：</b>與 QA 的壓測與機器人腳本搭配，我這邊負責審查與優化跟數值有關的部分。</p>
+</div>
+
+<div class="stage off">
+  <h3>五、數值模組獨立測試 <span class="en">Numerical Module Independent Testing</span><span class="badge">沒有落實</span></h3>
+  <p>把數值核心包成獨立模組、開介面給 QA 單獨測邊界與異常輸入，模組的變更要走審核流程。</p>
+  <p class="did"><b>後來：</b>這一段沒有做成。它是宣講當下加進去的——原本的版本只有七段，GM 認為應該要有這一層，所以補上。一年多下來，公司的節奏沒有走到這一步。</p>
+</div>
+
+<div class="stage">
+  <h3>六、日誌完整性檢查 <span class="en">Log Integrity Check</span><span class="badge">後來固定在做</span></h3>
+  <p>核對伺服器日誌，確認關鍵事件都有埋點、日誌與統計對得上。這一段抓的是模擬器和後端統計都看不到的資料遺失。</p>
+  <p class="did"><b>後來：</b>做到自建事件收集：前端 SDK 加收集服務，把行為資料補齊，再往上接分析。</p>
+</div>
+
+<div class="stage">
+  <h3>七、上線初期的 A／B 測試 <span class="en">Post-Launch A/B Testing</span><span class="badge">後來固定在做</span></h3>
+  <p>小範圍同時上線多組數值，分實驗組與對照組，看留存與付費轉化，再把效果好的版本推開。</p>
+  <p class="did"><b>後來：</b>同架構的三款遊戲互相當對照組：一款維持原狀、一款調高命中率、一款加付費升級玩法，追蹤改版前後各七天再下結論。</p>
+</div>
+
+<div class="stage">
+  <h3>八、長期營運的持續優化 <span class="en">Long-term Live-Ops Tuning</span><span class="badge">後來固定在做</span></h3>
+  <p>持續監控長期數據，觀察活動與版本更新造成的波動，對收益曲線微調，避免系統隨玩家行為變化而失衡。</p>
+  <p class="did"><b>後來：</b>注單分析工具做到第三代，PM 每週靠它決策；上線後的數值調整也都由這裡的數據決定。</p>
+</div>
+<div class="priv" data-k="stage5"></div>
+</section>
+
+<section>
+<h2><span class="no">03</span>現場演示：從 Excel 到玩得到</h2>
+<p>宣講的最後一段是現場操作，用一款已完成的類 Slot 遊戲示範：改一個權重，整條鏈路跟著動。</p>
+<figure class="flow">
+<svg viewBox="0 0 760 130" role="img" aria-label="Excel 到 Demo 的連動">
+  <defs><marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/></marker></defs>
+  <g font-size="13" fill="#1b1b1b">
+  <rect x="8" y="30" width="160" height="58" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="88" y="54" text-anchor="middle" font-weight="700" fill="#2f6fb5">Excel 調權重</text>
+  <text x="88" y="74" text-anchor="middle" font-size="12.5" fill="#555">命中率上升、勝率不變</text>
+  <line x1="170" y1="59" x2="190" y2="59" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#m1)"/>
+  <rect x="192" y="30" width="160" height="58" rx="10" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="272" y="54" text-anchor="middle" font-weight="700" fill="#1f8a7a">自動產出 JSON</text>
+  <text x="272" y="74" text-anchor="middle" font-size="12.5" fill="#555">唯一的數據來源</text>
+  <line x1="354" y1="59" x2="374" y2="59" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#m1)"/>
+  <rect x="376" y="30" width="160" height="58" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="456" y="54" text-anchor="middle" font-weight="700" fill="#2f6fb5">模擬器重跑</text>
+  <text x="456" y="74" text-anchor="middle" font-size="12.5" fill="#555">數字先確認</text>
+  <line x1="538" y1="59" x2="558" y2="59" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#m1)"/>
+  <rect x="560" y="30" width="192" height="58" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="656" y="54" text-anchor="middle" font-weight="700" fill="#2f6fb5">Demo 網頁試玩</text>
+  <text x="656" y="74" text-anchor="middle" font-size="12.5" fill="#555">體感當場感受得到</text>
+  </g>
+</svg>
+<figcaption>三個環節讀同一份 JSON，所以不會出現「表上一套、程式一套、體感又一套」。產品在開發完成前就能先調數值。</figcaption>
+</figure>
+<p>示範時談的是命中率、勝率、免費遊戲觸發頻率這三個指標跟體感的關係：命中率決定多久感覺到一次正面回饋，勝率決定玩家覺得自己贏多還是輸多，免費遊戲的觸發頻率決定多久能碰到一次特色玩法。</p>
+</section>
+
+<section>
+<h2><span class="no">04</span>回頭看</h2>
+<p>這八段是 2025 年 7 月講的，當時我到職一個多月。後面一年多的每一款遊戲、每一套系統，做法都落在這張表上：Excel 建模、模擬器、與伺服器交叉比對、上線後用數據回頭調。</p>
+<p>沒落實的第五段，是唯一一段不是從我自己的做法長出來的——它是講稿裡被補上的一層。這也說明一件事：方法論要能用，得先有人在流程裡真的需要它。</p>
+</section>
+
+<p class="rel">相關：<a href="livemines.html">LiveMines</a> ｜ <a href="bingoslot.html">BingoSlot 逆向生成引擎</a> ｜ <a href="../games.html">遊戲總覽</a></p>
+</div>
+
+<script>
+(function(){
+  var P=(window.CASE_PRIV||{}).method||null;
+  var T={stage5:"第五階段的補充"};
+  document.querySelectorAll(".priv").forEach(function(el){
+    var k=el.getAttribute("data-k");
+    if(P&&P[k]){el.innerHTML="<b>"+T[k]+"（完整版）</b>"+P[k];}
+    else{el.remove();}
+  });
+})();
+</script>
+</body>
+</html>
