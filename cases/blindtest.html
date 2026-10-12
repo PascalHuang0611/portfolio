@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>數值系統盲測 ｜ 黃培昇</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1b1b1b; --ink2:#555; --ink3:#8a8a8a; --line:#e3e2de;
+    --job:#2f6fb5; --job-bg:#e9f1fb; --job-soft:#b9d2ee;
+    --side:#1f8a7a; --side-bg:#e6f4f1; --side-soft:#a9d9d0;
+    --no:#b5452f; --no-bg:#fbeeea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;font-size:15.5px;line-height:1.8}
+  a{color:inherit}
+  .wrap{max-width:860px;margin:0 auto;padding:32px 24px 72px}
+  .back{font-size:13.5px;color:var(--ink2);text-decoration:none}
+  .back:hover{color:var(--ink)}
+  .kicker{margin:18px 0 0;font-size:12.5px;color:var(--side);font-weight:600;letter-spacing:.5px}
+  h1{font-size:28px;margin:2px 0 6px;font-weight:600;line-height:1.35}
+  .lede{font-size:16.5px;margin:10px 0 18px}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
+  .facts div{padding:10px 14px;border-left:1px solid var(--line)}
+  .facts div:first-child{border-left:none}
+  .facts b{display:block;font-size:12px;color:var(--ink3);font-weight:500}
+  .facts span{font-size:14px}
+  @media (max-width:640px){.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){border-left:none}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+  section{margin-top:40px}
+  h2{font-size:19px;margin:0 0 10px;font-weight:600;display:flex;gap:10px;align-items:baseline}
+  h2 .no{font-size:13px;color:var(--side);font-weight:600;font-variant-numeric:tabular-nums}
+  h3{font-size:16px;margin:22px 0 6px;font-weight:600}
+  p{margin:0 0 12px}
+  .fig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;margin:14px 0 16px}
+  .fig svg{display:block;width:100%;height:auto}
+  .fig figcaption{font-size:12.5px;color:var(--ink3);margin-top:6px}
+  .cmp{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:12px 0 16px}
+  .cmp th,.cmp td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  .cmp th{font-size:12.5px;color:var(--ink2);background:#fafaf8;font-weight:600}
+  .cmp tr:last-child td{border-bottom:none}
+  .cmp td.w{white-space:nowrap;color:var(--ink2);font-variant-numeric:tabular-nums}
+  .tablewrap{overflow-x:auto}
+  .quote{border-left:3px solid var(--side);background:var(--side-bg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0 16px;font-size:14.5px}
+  .quote b{display:block;font-size:12.5px;color:var(--side);margin-bottom:2px}
+  ul.clean{margin:0 0 12px;padding-left:20px}
+  ul.clean li{margin:0 0 5px}
+  .priv{background:#f6f6f3;border-left:3px solid #8a8a84;padding:9px 13px;border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:14px}
+  .priv b{display:block;font-size:12.5px;color:#6f6f69;margin-bottom:2px}
+  .rel{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+  .rel a{color:var(--side);text-decoration:none;border-bottom:1px dotted var(--side-soft)}
+  .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
+  @media print{.ver,.back{display:none}.fig,.cmp{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="ver">v1.18</div>
+<script src="../dist-interview/full.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
+<script src="../dist-interview/case_private.js"></script>
+<div class="wrap">
+<a class="back" href="../index.html">← 回首頁</a>
+
+<p class="kicker">本職之外 ｜ 決策依據</p>
+<h1>七套系統各說各話時，怎麼讓人自己比出答案</h1>
+<p class="lede">公司要在多套派彩決策系統裡挑一套，每一套的提出者都說自己的好，沒有人能判斷。我把七套系統蓋掉名字、只留代號，跑出 882 份模擬報表，做兩個網頁讓決策者自己比——包括一個可以改權重的評分工具。我自己不下結論。</p>
+<div class="facts">
+  <div><b>時間</b><span>2026/07</span></div>
+  <div><b>角色</b><span>獨立完成</span></div>
+  <div><b>規模</b><span>882 份模擬報表</span></div>
+  <div><b>結果</b><span>勝出兩套，進入第二階段</span></div>
+</div>
+
+<section>
+<h2><span class="no">01</span>當時的問題</h2>
+<p>派彩決策的做法有很多種，公司內部同時有七套方案在檯面上。每一套的提出者都能講出自己的優點，但彼此的說法沒有共同的比較基礎：有人講回報率、有人講玩家體感、有人講獎池穩定度，各說各話。</p>
+<p>更麻煩的是，只要大家知道哪一套是誰提的、哪一套是「公司原本想用的」，比較就不再是比較。要讓結論站得住腳，得先把人的因素拿掉。</p>
+</section>
+
+<section>
+<h2><span class="no">02</span>做法：蓋掉名字，把資料攤開</h2>
+<p>七套系統只以代號 B 到 H 呈現，閱讀指南裡不說明任何一套的內部機制，也不做推薦。參加評選的人看到的只有行為與數據。</p>
+<p>七套裡有一套是<b>純隨機</b>，當對照組。它的代號跟其他六套混在一起，沒有人知道哪一個是它——如果某套系統的表現跟純隨機分不出差別，那它多做的那些事就沒有意義。</p>
+
+<figure class="fig">
+<svg viewBox="0 0 760 180" role="img" aria-label="882 份模擬報表的組成">
+  <g font-size="13" fill="#1b1b1b">
+  <text x="10" y="24" font-size="14" font-weight="600">882 份模擬報表怎麼來的</text>
+  <rect x="10" y="40" width="128" height="56" rx="9" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="74" y="64" text-anchor="middle" font-weight="700" fill="#1f8a7a">7 套系統</text>
+  <text x="74" y="84" text-anchor="middle" font-size="12.5" fill="#555">代號 B ~ H</text>
+  <text x="146" y="74" font-size="15" fill="#8a8a8a">×</text>
+  <rect x="162" y="40" width="128" height="56" rx="9" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="226" y="64" text-anchor="middle" font-weight="700" fill="#2f6fb5">2 種玩家配置</text>
+  <text x="226" y="84" text-anchor="middle" font-size="12.5" fill="#555">均等 / 不均等注額</text>
+  <text x="298" y="74" font-size="15" fill="#8a8a8a">×</text>
+  <rect x="314" y="40" width="128" height="56" rx="9" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="378" y="64" text-anchor="middle" font-weight="700" fill="#2f6fb5">7 組緩衝區間</text>
+  <text x="378" y="84" text-anchor="middle" font-size="12.5" fill="#555">獎池的鬆緊</text>
+  <text x="450" y="74" font-size="15" fill="#8a8a8a">×</text>
+  <rect x="466" y="40" width="128" height="56" rx="9" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="530" y="64" text-anchor="middle" font-weight="700" fill="#2f6fb5">3 種預墊比例</text>
+  <text x="530" y="84" text-anchor="middle" font-size="12.5" fill="#555">開局先墊多少</text>
+  <text x="602" y="74" font-size="15" fill="#8a8a8a">×</text>
+  <rect x="618" y="40" width="132" height="56" rx="9" fill="#fafaf8" stroke="#e3e2de"/>
+  <text x="684" y="64" text-anchor="middle" font-weight="700">3 次獨立 Run</text>
+  <text x="684" y="84" text-anchor="middle" font-size="12.5" fill="#555">只換亂數</text>
+  <rect x="10" y="112" width="740" height="52" rx="9" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="380" y="136" text-anchor="middle" font-weight="700" fill="#1f8a7a">＝ 882 份報表；每套系統各有 21 種參數組合</text>
+  <text x="380" y="155" text-anchor="middle" font-size="12.5" fill="#555">同一個現象要在三次不同亂數下都出現，才算數</text>
+  </g>
+</svg>
+</figure>
+
+<h3>兩個網頁，分別回答兩種問題</h3>
+<ul class="clean">
+  <li><b>參數比對工具</b>——把所有參數組合的統計數字放進同一張表。可以勾選任意幾組跨系統對比、可以依任何欄位排序、可以只留下想看的系統。回答的是「哪一組設定比較好」。</li>
+  <li><b>儀表板</b>——單一參數組合的完整圖表：玩家最終回報分布、最大連贏與連輸分布、各注額群組逐局的勝率與回報變化，最後一層可以點進任何一位模擬玩家，看他的逐局歷程。回答的是「這一組設定下，玩家實際經歷了什麼」。</li>
+</ul>
+<p>儀表板打開時<b>隨機載入一套系統與一組參數</b>當起點，所以每個人、每次進去看到的第一個畫面都不同。這是刻意的：避免所有人都從同一套系統開始看，第一印象變成定錨。</p>
+</section>
+
+<section>
+<h2><span class="no">03</span>評分公式：先承認它只是篩選工具</h2>
+<p>每套系統有 21 種參數組合，七套就是 147 組，全部看完不切實際。所以我先用一組公式替每套系統圈出三組「建議優先檢視」的參數，讓人從這三組開始看，再自行延伸。</p>
+<p>公式有十二個項目，加總後<b>分數越低越好</b>，單位都換算成百分點：</p>
+<div class="tablewrap">
+<table class="cmp">
+  <tr><th>項目</th><th class="w">權重</th><th>想避免的事</th></tr>
+  <tr><td>回報率錨定</td><td class="w">×2.0</td><td>長期回報偏離目標</td></tr>
+  <tr><td>跨注額公平</td><td class="w">×1.0</td><td>大注與小注的玩家回報不一致</td></tr>
+  <tr><td>重現穩定</td><td class="w">×1.0</td><td>換一批亂數結論就變了</td></tr>
+  <tr><td>開局勝率（第 5／10／20 局）</td><td class="w">×1.0／0.7／0.7</td><td>入場就冷場，或一開始放水</td></tr>
+  <tr><td>深連輸（≥8 局／≥10 局）</td><td class="w">×0.4／0.6</td><td>有玩家被連輸拖太久</td></tr>
+  <tr><td>首勝速度</td><td class="w">×3.0</td><td>太久沒嘗到第一次贏</td></tr>
+  <tr><td>久未開胡</td><td class="w">×0.5</td><td>十局還沒贏過的人太多</td></tr>
+  <tr><td>輸贏規律性（5 局／10 局窗）</td><td class="w">×0.3／0.2</td><td>被玩家摸出固定循環</td></tr>
+</table>
+</div>
+<p>首勝速度那一項權重最高，但門檻訂得很小心：理論上勝率五成時平均兩局就該贏一次，我用同樣局數去模擬公平硬幣，實測落在 1.87～2.20 局，所以門檻取上緣 2.2，只懲罰超出的部分。<b>這樣才不會把運氣當成系統的錯。</b></p>
+<div class="quote"><b>這組分數的定位</b>每套系統只跟自己的 21 組參數比，分數不用於系統之間的比較；圈出來的三組也不分名次。它只是把 147 組收斂到 21 組的篩子，真正的判斷請看分布圖與比對工具裡的完整數據。</div>
+</section>
+
+<section>
+<h2><span class="no">04</span>把「會不會被玩家猜到」變成一個數字</h2>
+<p>其他指標都有現成的算法，只有一件事沒有：玩家會不會摸出規律。這件事大家都在講——「這個系統玩久了會被看穿」——但沒有人能給一個數字。</p>
+<p>我的做法是看輸贏的「樣態」。把每連續 5 局（或 10 局）的輸贏排列當成一種樣態，例如「贏輸輸贏輸」，用滑動視窗統計所有玩家、所有樣態的出現分布。如果輸贏沒有規律，分布會接近與整體勝率一致的隨機分布；如果系統有固定循環，例如每贏一把就固定連輸兩把，分布就會集中在少數幾種樣態上。</p>
+<figure class="fig">
+<svg viewBox="0 0 760 200" role="img" aria-label="樣態分布：隨機與固定循環的差別">
+  <g font-size="12.5" fill="#1b1b1b">
+  <text x="20" y="22" font-size="13.5" font-weight="600" fill="#1f8a7a">接近隨機：樣態分散</text>
+  <g fill="#a9d9d0" stroke="#1f8a7a">
+    <rect x="20" y="118" width="26" height="42"/><rect x="52" y="108" width="26" height="52"/><rect x="84" y="124" width="26" height="36"/>
+    <rect x="116" y="112" width="26" height="48"/><rect x="148" y="126" width="26" height="34"/><rect x="180" y="116" width="26" height="44"/>
+    <rect x="212" y="130" width="26" height="30"/><rect x="244" y="120" width="26" height="40"/><rect x="276" y="128" width="26" height="32"/>
+    <rect x="308" y="122" width="26" height="38"/>
+  </g>
+  <line x1="16" y1="160" x2="340" y2="160" stroke="#8a8a8a"/>
+  <text x="178" y="182" text-anchor="middle" fill="#555">各種輸贏樣態</text>
+  <text x="178" y="92" text-anchor="middle" font-weight="700" fill="#1f8a7a">規律性 ≈ 0%</text>
+
+  <line x1="380" y1="16" x2="380" y2="188" stroke="#e3e2de" stroke-width="1.5"/>
+
+  <text x="410" y="22" font-size="13.5" font-weight="600" fill="#b5452f">有固定循環：集中在少數樣態</text>
+  <g fill="#e8bfb3" stroke="#b5452f">
+    <rect x="410" y="44" width="26" height="116"/><rect x="442" y="62" width="26" height="98"/><rect x="474" y="140" width="26" height="20"/>
+    <rect x="506" y="148" width="26" height="12"/><rect x="538" y="152" width="26" height="8"/><rect x="570" y="154" width="26" height="6"/>
+    <rect x="602" y="156" width="26" height="4"/><rect x="634" y="157" width="26" height="3"/><rect x="666" y="158" width="26" height="2"/>
+    <rect x="698" y="158" width="26" height="2"/>
+  </g>
+  <line x1="406" y1="160" x2="730" y2="160" stroke="#8a8a8a"/>
+  <text x="568" y="182" text-anchor="middle" fill="#555">各種輸贏樣態</text>
+  <text x="568" y="36" text-anchor="middle" font-weight="700" fill="#b5452f">規律性 → 100%</text>
+  </g>
+</svg>
+<figcaption>以資訊熵計算分布的集中程度：0% 表示與公平硬幣的隨機結果無異，100% 表示完全固定循環。數值越高，代表玩家越容易摸清節奏，評分懲罰越重。</figcaption>
+</figure>
+<p>有了這個數字，「會被看穿」就從一句感覺變成可以排序、可以比較的欄位。</p>
+</section>
+
+<section>
+<h2><span class="no">05</span>不下結論，但讓人能反駁我</h2>
+<p>整份評比我沒有寫任何一句「我建議選哪一套」。比較少見的是另一件事：<b>評分的權重可以被使用者改掉</b>。</p>
+<ul class="clean">
+  <li>比對工具裡每一個評分項目的權重都能直接修改，套用後綜合評分、排序與推薦標記全部重算。</li>
+  <li>修改只存在改的人自己的瀏覽器裡，不會影響別人看到的內容，也隨時可以恢復預設。</li>
+</ul>
+<p>理由很簡單：權重是價值判斷，不是數學事實。我設的權重代表我認為「首勝速度比深連輸更重要」，但決策者可以不同意。與其爭論權重，不如讓對方直接改掉，再看結論會不會變——如果換了權重結論依然一樣，那個結論才是穩的。</p>
+<div class="priv" data-k="stage1"></div>
+</section>
+
+<section>
+<h2><span class="no">06</span>回頭看</h2>
+<p>這個案子真正的產出不是報表，是一個判斷流程：<b>先把身分蓋掉，再把資料攤開，最後把權重交回去給決策者</b>。七套系統裡勝出兩套，進入第二階段的實戰比較。</p>
+<p>我後來把同一套做法用在第二階段：一樣是盲測、一樣附上可自訂的評分、一樣不下結論。差別是第二階段改用真實遊戲的賠率表，讓比較更貼近上線後的狀況。</p>
+</section>
+
+<p class="rel">相關：<a href="bingoslot.html">BingoSlot 逆向生成引擎</a> ｜ <a href="livemines.html">LiveMines</a> ｜ <a href="method.html">數值設計的八個階段</a></p>
+</div>
+
+<script>
+(function(){
+  var P=(window.CASE_PRIV||{}).blindtest||null;
+  var T={stage1:"第一階段的內部細節"};
+  document.querySelectorAll(".priv").forEach(function(el){
+    var k=el.getAttribute("data-k");
+    if(P&&P[k]){el.innerHTML="<b>"+T[k]+"（完整版）</b>"+P[k];}
+    else{el.remove();}
+  });
+})();
+</script>
+</body>
+</html>
