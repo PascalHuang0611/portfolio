@@ -48,12 +48,18 @@
   .priv b{display:block;font-size:12.5px;color:#6f6f69;margin-bottom:2px}
   .rel{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
   .rel a{color:var(--side);text-decoration:none;border-bottom:1px dotted var(--side-soft)}
+  .demo{background:#fff8e8;border:1px solid #ecd2a3;border-left:4px solid #b5761a;border-radius:0 10px 10px 0;padding:12px 16px;margin:18px 0}
+  .demo b{display:block;font-size:13px;color:#8a5a12;margin-bottom:2px}
+  .demo .hint{font-size:12.5px;color:var(--ink3);margin:0 0 8px}
+  .demo ul{margin:0;padding-left:20px;font-size:14px}
+  .demo li{margin:0 0 4px}
+  .demo a{color:#8a5a12}
   .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
   @media print{.ver,.back{display:none}.fig,.cmp{break-inside:avoid}}
 </style>
 </head>
 <body>
-<div class="ver">v1.20</div>
+<div class="ver">v1.21</div>
 <script src="../dist-interview/full.js"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
 <script src="../dist-interview/case_private.js"></script>
@@ -239,8 +245,17 @@
 <p>我自己的角色也固定：負責把比較做到可信，不負責決定要用哪一套。評分公式全部公開、權重可以改、解盲版只寫事實、主觀意見隔離成獨立頁面——這些設計都指向同一件事：<b>結論要是看的人自己得出來的，才有人會為它負責。</b></p>
 </section>
 
+<div class="demo" hidden>
+  <b>展示用：打開當時交付的頁面</b>
+  <p class="hint">純說明頁直接開即可；儀表板與比對工具要讀資料，請先執行專案根目錄的「啟動展示.bat」再點。</p>
+  <ul>
+    <li>第一階段：<a href="../../03_本職外專案/PAS004_水池系統比較/guide.html">閱讀指南</a> ｜ <a href="../../03_本職外專案/PAS004_水池系統比較/compare.html">參數比對工具</a> ｜ <a href="../../03_本職外專案/PAS004_水池系統比較/index.html">儀表板（盲測）</a> ｜ <a href="../../03_本職外專案/PAS004_水池系統比較/answer.html">儀表板（解盲）</a></li>
+    <li>第二階段：<a href="../../03_本職外專案/PAS005_機率系統比較/web/guide.html">閱讀指南</a> ｜ <a href="../../03_本職外專案/PAS005_機率系統比較/web/index.html">儀表板（盲測）</a> ｜ <a href="../../03_本職外專案/PAS005_機率系統比較/web/guide-detail.html">閱讀指南 Detail</a> ｜ <a href="../../03_本職外專案/PAS005_機率系統比較/web/detail.html">儀表板 Detail</a> ｜ <a href="../../03_本職外專案/PAS005_機率系統比較/web/flow.html">流程圖</a> ｜ <a href="../../03_本職外專案/PAS005_機率系統比較/web/params.html">參數總表</a> ｜ <a href="../../03_本職外專案/PAS005_機率系統比較/web/notes.html">觀察筆記</a></li>
+  </ul>
+</div>
 <p class="rel">相關：<a href="bingoslot.html">BingoSlot 逆向生成引擎</a> ｜ <a href="livemines.html">LiveMines</a> ｜ <a href="method.html">數值設計的八個階段</a></p>
 </div>
+<script>document.addEventListener("DOMContentLoaded",function(){var local=(location.protocol==="file:"||location.hostname==="127.0.0.1"||location.hostname==="localhost");document.querySelectorAll(".demo").forEach(function(d){d.hidden=!local;});});</script>
 
 <script>
 (function(){

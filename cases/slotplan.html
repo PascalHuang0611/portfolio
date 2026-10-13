@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slot 製作方案 ｜ 黃培昇</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1b1b1b; --ink2:#555; --ink3:#8a8a8a; --line:#e3e2de;
+    --job:#2f6fb5; --job-bg:#e9f1fb; --job-soft:#b9d2ee;
+    --side:#1f8a7a; --side-bg:#e6f4f1; --side-soft:#a9d9d0;
+    --no:#b5452f; --no-bg:#fbeeea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;font-size:15.5px;line-height:1.8}
+  a{color:inherit}
+  .wrap{max-width:860px;margin:0 auto;padding:32px 24px 72px}
+  .back{font-size:13.5px;color:var(--ink2);text-decoration:none}
+  .back:hover{color:var(--ink)}
+  .kicker{margin:18px 0 0;font-size:12.5px;color:var(--side);font-weight:600;letter-spacing:.5px}
+  h1{font-size:28px;margin:2px 0 6px;font-weight:600;line-height:1.35}
+  .lede{font-size:16.5px;margin:10px 0 18px}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 8px}
+  .facts div{padding:10px 14px;border-left:1px solid var(--line)}
+  .facts div:first-child{border-left:none}
+  .facts b{display:block;font-size:12px;color:var(--ink3);font-weight:500}
+  .facts span{font-size:14px}
+  @media (max-width:640px){.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){border-left:none}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+  section{margin-top:40px}
+  h2{font-size:19px;margin:0 0 10px;font-weight:600;display:flex;gap:10px;align-items:baseline}
+  h2 .no{font-size:13px;color:var(--side);font-weight:600;font-variant-numeric:tabular-nums}
+  h3{font-size:16px;margin:22px 0 6px;font-weight:600}
+  p{margin:0 0 12px}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 10px;border-left:4px solid var(--ink3)}
+  .plan.pick{border-left-color:var(--side);background:#f4fbf9}
+  .plan h4{margin:0 0 4px;font-size:15.5px;font-weight:600;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+  .plan .badge{margin-left:auto;font-size:12px;border-radius:999px;padding:1px 10px;background:#f1f1ee;color:var(--ink2);border:1px solid var(--line);white-space:nowrap}
+  .plan.pick .badge{background:var(--side-bg);color:var(--side);border-color:var(--side-soft)}
+  .plan p{margin:4px 0 0;font-size:14.5px}
+  .plan .cost{color:var(--ink2);font-size:14px}
+  .plan .cost b{color:var(--ink);font-weight:600}
+  .fig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;margin:14px 0 16px}
+  .fig svg{display:block;width:100%;height:auto}
+  .fig figcaption{font-size:12.5px;color:var(--ink3);margin-top:6px}
+  .quote{border-left:3px solid var(--side);background:var(--side-bg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0 16px;font-size:14.5px}
+  .quote b{display:block;font-size:12.5px;color:var(--side);margin-bottom:2px}
+  ul.clean{margin:0 0 12px;padding-left:20px}
+  ul.clean li{margin:0 0 5px}
+  .priv{background:#f6f6f3;border-left:3px solid #8a8a84;padding:9px 13px;border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:14px}
+  .priv b{display:block;font-size:12.5px;color:#6f6f69;margin-bottom:2px}
+  .demo{background:#fff8e8;border:1px solid #ecd2a3;border-left:4px solid #b5761a;border-radius:0 10px 10px 0;padding:12px 16px;margin:18px 0}
+  .demo b{display:block;font-size:13px;color:#8a5a12;margin-bottom:2px}
+  .demo .hint{font-size:12.5px;color:var(--ink3);margin:0 0 8px}
+  .demo ul{margin:0;padding-left:20px;font-size:14px}
+  .demo li{margin:0 0 4px}
+  .demo a{color:#8a5a12}
+  .rel{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+  .rel a{color:var(--side);text-decoration:none;border-bottom:1px dotted var(--side-soft)}
+  .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
+  @media print{.ver,.back,.demo{display:none}.plan,.fig{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="ver">v1.21</div>
+<script src="../dist-interview/full.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
+<script src="../dist-interview/case_private.js"></script>
+<div class="wrap">
+<a class="back" href="../index.html">← 回首頁</a>
+
+<p class="kicker">本職之外 ｜ 提案</p>
+<h1>公司要轉做 Slot，但還沒有自己的數學方法</h1>
+<p class="lede">入職第一個月，我寫了一組四個方案的比較：每一種做法能解決什麼、要付出什麼、風險在哪。每份文件都分成兩層，決策者看一層、研發看另一層。後來公司走的每一條線——錄盤原型、逆向生成引擎、派彩決策伺服器——都從這份提案裡長出來。</p>
+<div class="facts">
+  <div><b>時間</b><span>2025/06</span></div>
+  <div><b>角色</b><span>獨立完成</span></div>
+  <div><b>產出</b><span>4 份方案書＋原型計畫書</span></div>
+  <div><b>後續</b><span>2 個專案、1 台伺服器</span></div>
+</div>
+
+<section>
+<h2><span class="no">01</span>當時的問題</h2>
+<p>公司正要轉做 Slot，但手上沒有自己的數學方法。線上產品有三個明確的症狀：<b>大獎太早出現、高連鎖不夠、每次要調體感都很貴</b>——調一次就得改參數、重跑驗證、再等後端配合。</p>
+<p>我入職第一個月，還沒有人分配這件事給我。我把它當成一個要先回答的問題：如果要做，有哪幾種做法？各自要付出什麼？</p>
+</section>
+
+<section>
+<h2><span class="no">02</span>四個方案</h2>
+
+<div class="plan">
+  <h4>方案一：手動盲調，可選自動化優化<span class="badge">現況做法</span></h4>
+  <p>直接用現有模擬器，人工選一組參數、跑模擬、看結果、再調下一組。進階版是用演算法（隨機搜尋、爬山、模擬退火、遺傳）自動迭代。</p>
+  <p class="cost"><b>代價：</b>參數空間一大，人工幾乎不可能系統化探索，而且結果不易複現；改成自動化就要多台機器跑、要設計評分模型，還可能卡在局部最佳解。即使算出最優參數，上線前仍需人工微調體感。</p>
+</div>
+
+<div class="plan">
+  <h4>方案二：動態體感演算法<span class="badge">保留</span></h4>
+  <p>每次消除後，演算法即時重算剩餘格子的符號機率分布，讓後續結果更貼近體感目標（高連鎖才放大獎、避免前段爆獎）。</p>
+  <p class="cost"><b>代價：</b>開發成本高、要重構伺服器流程、非技術人員難以理解，而且實作無法直接複用到下一款。<b>這條路我原則上不用，除非規則逼得沒有別的選擇。</b></p>
+</div>
+
+<div class="plan pick">
+  <h4>方案三：錄製抽盤<span class="badge">主推</span></h4>
+  <p>上線前先用模擬器大量錄製盤面，依「連鎖等級 × 賠率區間」分成多個容器，在容器內做硬性篩選；線上伺服器只依權重從容器抽一張出來給玩家。想調體感，就到對應容器改權重。</p>
+  <p class="cost"><b>代價：</b>容器與記憶體成本、抽樣延遲要靠快取與預抽緩衝控制、同一容器內盤面可能讓玩家察覺雷同——最後這點我在文件裡標成「需要 A/B 測試確認」，沒有直接下結論。</p>
+</div>
+
+<div class="plan">
+  <h4>方案四：個人＋公共水位系統<span class="badge">方案三的進階</span></h4>
+  <p>玩家的押注依比例流進多條隱形水位，每條對應一類獎勵；累積到隨機浮動的門檻就觸發，獎勵素材直接取自方案三的預錄容器。另有一條所有玩家共享的公共水位，負責稀有大獎。</p>
+  <p class="cost"><b>代價：</b>狀態管理複雜（玩家 × 注額 × 多條水位）、每一轉都要在毫秒級內原子更新、預灌水位會讓開局回報暫時偏高，而且機制一旦外洩就可能被套利。</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 760 150" role="img" aria-label="四個方案的關係">
+  <defs><marker id="s1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/></marker></defs>
+  <g font-size="13" fill="#1b1b1b">
+  <rect x="10" y="40" width="170" height="60" rx="10" fill="#fafaf8" stroke="#e3e2de"/>
+  <text x="95" y="66" text-anchor="middle" font-weight="700">方案一</text>
+  <text x="95" y="86" text-anchor="middle" font-size="12.5" fill="#555">調參數，人工或演算法</text>
+  <rect x="196" y="40" width="170" height="60" rx="10" fill="#fafaf8" stroke="#e3e2de"/>
+  <text x="281" y="66" text-anchor="middle" font-weight="700">方案二</text>
+  <text x="281" y="86" text-anchor="middle" font-size="12.5" fill="#555">演算法即時生成</text>
+  <rect x="382" y="40" width="170" height="60" rx="10" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="467" y="66" text-anchor="middle" font-weight="700" fill="#1f8a7a">方案三 錄製抽盤</text>
+  <text x="467" y="86" text-anchor="middle" font-size="12.5" fill="#555">先錄好，再依權重抽</text>
+  <line x1="554" y1="70" x2="574" y2="70" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#s1)"/>
+  <rect x="576" y="40" width="174" height="60" rx="10" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="663" y="66" text-anchor="middle" font-weight="700" fill="#2f6fb5">方案四 水位系統</text>
+  <text x="663" y="86" text-anchor="middle" font-size="12.5" fill="#555">決定何時付、付多少</text>
+  <text x="380" y="128" text-anchor="middle" font-size="12.5" fill="#555">方案三決定「盤面長什麼樣」，方案四決定「這一轉該付多少」——兩者是上下游，不是互斥選項</text>
+  </g>
+</svg>
+</figure>
+</section>
+
+<section>
+<h2><span class="no">03</span>為什麼主推方案三</h2>
+<ul class="clean">
+  <li><b>上線前就看得到體感。</b>所有盤面都在模擬器裡檢視過，只有符合設計的才會出現在玩家面前，直接對準「大獎前置、高連鎖不足」這兩個症狀。</li>
+  <li><b>微調只動一個容器。</b>想讓某個連鎖等級多一點中倍率盤面，就改那個容器的權重，不必重跑整個庫。</li>
+  <li><b>對後端的改動最小。</b>伺服器只要把邏輯改成「從容器抽一張」，前端幾乎不用動，產品與企劃也只需要理解「先錄、分組、過濾、加權抽」這一句話。</li>
+  <li><b>它是方案四的前置。</b>水位系統要派獎時，獎勵素材直接取自方案三的容器，不必重做一次。</li>
+</ul>
+<div class="quote"><b>文件怎麼寫</b>每一份方案書都分兩層：前半是「給決策者」，不談演算法，只講做法、優點、代價與建議；後半是「給研發」，寫流程、技術挑戰與風險。四份都有「缺點與風險」這一節——包含我主推的那一個。</div>
+</section>
+
+<section>
+<h2><span class="no">04</span>提案之後：一份可以當場操作的原型計畫</h2>
+<p>方案比較只能回答「該走哪條路」，回答不了「這條路真的走得通嗎」。所以我另外寫了一份原型開發計畫書，把錄製抽盤拆成五個階段：數學模型與容器規則（Excel）→ 盤面生產與容器化（C++）→ 離線抽樣驗證（億萬次級別）→ 輕量伺服器與 API → 前端互動 Demo。</p>
+<p>計畫書裡寫明這個原型要證明什麼：</p>
+<ul class="clean">
+  <li><b>可行性</b>——從數據生成、伺服器抽樣到前端展示，跑通一條完整的鏈路。</li>
+  <li><b>量化風險</b>——錄一萬筆和十萬筆，玩家的重複感差多少？容器檔案多大、記憶體吃多少？</li>
+  <li><b>靈活性</b>——驗收標準是「現場改一個設定檔，數分鐘內就能看到回報率與體感跟著變」。</li>
+  <li><b>建立信任</b>——用可操作的原型跟高層溝通，把未來正式開發的不確定性先降下來。</li>
+</ul>
+<p>這份計畫書後來成了 SlotBingo 錄盤原型的施工圖，五個階段全部做完。</p>
+<div class="priv" data-k="context"></div>
+</section>
+
+<section>
+<h2><span class="no">05</span>這份提案後來長成什麼</h2>
+<figure class="fig">
+<svg viewBox="0 0 760 200" role="img" aria-label="四個方案後來的去向">
+  <defs><marker id="s2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/></marker></defs>
+  <g font-size="12.5" fill="#1b1b1b">
+  <rect x="10" y="16" width="150" height="44" rx="9" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="85" y="43" text-anchor="middle" font-weight="700" fill="#1f8a7a">方案三</text>
+  <line x1="162" y1="38" x2="186" y2="38" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#s2)"/>
+  <rect x="188" y="16" width="230" height="44" rx="9" fill="#fff" stroke="#e3e2de"/>
+  <text x="303" y="43" text-anchor="middle">2025/09 SlotBingo 錄盤原型</text>
+  <line x1="420" y1="38" x2="444" y2="38" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#s2)"/>
+  <rect x="446" y="16" width="304" height="44" rx="9" fill="#fff" stroke="#e3e2de"/>
+  <text x="598" y="43" text-anchor="middle">案子停止；錄盤機制一年後併入派彩決策系統</text>
+
+  <rect x="10" y="78" width="150" height="44" rx="9" fill="#fafaf8" stroke="#e3e2de"/>
+  <text x="85" y="105" text-anchor="middle" font-weight="700">方案二</text>
+  <line x1="162" y1="100" x2="186" y2="100" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#s2)"/>
+  <rect x="188" y="78" width="230" height="44" rx="9" fill="#fff" stroke="#e3e2de"/>
+  <text x="303" y="105" text-anchor="middle">2025/11 BingoSlot 逆向生成引擎</text>
+  <line x1="420" y1="100" x2="444" y2="100" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#s2)"/>
+  <rect x="446" y="78" width="304" height="44" rx="9" fill="#fff" stroke="#e3e2de"/>
+  <text x="598" y="105" text-anchor="middle">規則逼出來的必要情況；未上線</text>
+
+  <rect x="10" y="140" width="150" height="44" rx="9" fill="#e9f1fb" stroke="#b9d2ee"/>
+  <text x="85" y="167" text-anchor="middle" font-weight="700" fill="#2f6fb5">方案四</text>
+  <line x1="162" y1="162" x2="186" y2="162" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#s2)"/>
+  <rect x="188" y="140" width="230" height="44" rx="9" fill="#fff" stroke="#e3e2de"/>
+  <text x="303" y="167" text-anchor="middle">2026/07 兩階段盲測</text>
+  <line x1="420" y1="162" x2="444" y2="162" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#s2)"/>
+  <rect x="446" y="140" width="304" height="44" rx="9" fill="#e6f4f1" stroke="#a9d9d0"/>
+  <text x="598" y="167" text-anchor="middle" fill="#1f8a7a">2026/09 派彩決策伺服器交接 RD 與 QA</text>
+  </g>
+</svg>
+<figcaption>入職第一個月提的四個方案，三條線都真的走過一遍；最後一條走到了可交付的伺服器。</figcaption>
+</figure>
+</section>
+
+<section>
+<h2><span class="no">06</span>回頭看</h2>
+<p><b>提案的價值不在押中哪一個。</b>四個方案裡，主推的那個最後沒有單獨上線，我原則上不用的那個反而因為規則被迫動用。真正留下來的是那張比較表：每條路要付出什麼、風險在哪、誰要配合——這些在第一個月就寫清楚了，後面每次選擇都回來對照它。</p>
+<p><b>文件要分層寫。</b>決策者不需要看背包啟發式和原子更新，他們需要知道成本與風險；研發不需要看比喻，他們需要看流程與邊界。同一件事寫兩層，兩邊才都能決策。</p>
+<p><b>先做能落地的那一半。</b>方案四是我當時推薦的長期方向，但它要等方案三先把素材庫建起來。所以我先做方案三的原型，而且在做的時候就想好之後怎麼接上去——一年後真的接上了。</p>
+</section>
+
+<div class="demo" hidden>
+  <b>展示用：打開原始文件</b>
+  <p class="hint">以下會用 Word 或 Excel 開啟。</p>
+  <ul>
+    <li>方案書：<a href="../../03_本職外專案/Slot製作方案/方案一_手動盲調＋可選自動化優化.docx">方案一</a> ｜ <a href="../../03_本職外專案/Slot製作方案/方案二_加入動態體感演算法.docx">方案二</a> ｜ <a href="../../03_本職外專案/Slot製作方案/方案三_錄製抽盤.docx">方案三</a> ｜ <a href="../../03_本職外專案/Slot製作方案/方案三(生存版)_錄製抽盤核心要點與執行策略總結.docx">方案三（生存版）</a> ｜ <a href="../../03_本職外專案/Slot製作方案/方案四_個人 + 公共水位系統.docx">方案四</a></li>
+    <li>原型計畫：<a href="../../03_本職外專案/Slot製作方案/「錄製抽盤」系統原型開發計畫書.docx">錄製抽盤系統原型開發計畫書 V1.5</a></li>
+    <li>輔助表：<a href="../../03_本職外專案/Slot製作方案/方案三輔助計算表.xlsx">方案三輔助計算表</a> ｜ <a href="../../03_本職外專案/Slot製作方案/方案四輔助表格.xlsx">方案四輔助表格</a></li>
+  </ul>
+</div>
+
+<p class="rel">相關：<a href="blindtest.html">數值系統兩階段盲測</a> ｜ <a href="bingoslot.html">BingoSlot 逆向生成引擎</a> ｜ <a href="method.html">數值設計的八個階段</a></p>
+</div>
+
+<script>document.addEventListener("DOMContentLoaded",function(){var local=(location.protocol==="file:"||location.hostname==="127.0.0.1"||location.hostname==="localhost");document.querySelectorAll(".demo").forEach(function(d){d.hidden=!local;});});</script>
+<script>
+(function(){
+  var P=(window.CASE_PRIV||{}).slotplan||null;
+  var T={context:"提案當時的處境"};
+  document.querySelectorAll(".priv").forEach(function(el){
+    var k=el.getAttribute("data-k");
+    if(P&&P[k]){el.innerHTML="<b>"+T[k]+"（完整版）</b>"+P[k];}
+    else{el.remove();}
+  });
+})();
+</script>
+</body>
+</html>

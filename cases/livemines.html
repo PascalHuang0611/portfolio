@@ -52,12 +52,18 @@
   @media (max-width:640px){.shot{grid-template-columns:1fr}.shot img{max-width:260px}}
   .rel{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
   .rel a{color:var(--job);text-decoration:none;border-bottom:1px dotted var(--job-soft)}
+  .demo{background:#fff8e8;border:1px solid #ecd2a3;border-left:4px solid #b5761a;border-radius:0 10px 10px 0;padding:12px 16px;margin:18px 0}
+  .demo b{display:block;font-size:13px;color:#8a5a12;margin-bottom:2px}
+  .demo .hint{font-size:12.5px;color:var(--ink3);margin:0 0 8px}
+  .demo ul{margin:0;padding-left:20px;font-size:14px}
+  .demo li{margin:0 0 4px}
+  .demo a{color:#8a5a12}
   .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
   @media print{.ver,.back{display:none}.fig,.cmp{break-inside:avoid}}
 </style>
 </head>
 <body>
-<div class="ver">v1.20</div>
+<div class="ver">v1.21</div>
 <script src="../dist-interview/full.js"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
 <script src="../dist-interview/case_private.js"></script>
@@ -215,8 +221,17 @@
 <p><b>這款留下的方法，後來都還在用。</b>可控變數的思路、實機數據回填、行為資料分層標示可信度、驗證鏈的四個環節，之後的專案都照著做。</p>
 </section>
 
+<div class="demo" hidden>
+  <b>展示用：打開實際工具</b>
+  <p class="hint">要先執行專案根目錄的「啟動展示.bat」，這兩個都需要讀資料。</p>
+  <ul>
+    <li>風控沙盤：<a href="../../02_遊戲數學/TG001_LiveMines/V14_FinalCheck/dist/TG001_FinalCheck_V14A.html">V14A 模擬伺服器版</a> ｜ <a href="../../02_遊戲數學/TG001_LiveMines/V14_FinalCheck/dist/TG001_FinalCheck_V14B.html">V14B 真實開獎回放版</a></li>
+    <li>注單分析：<a href="../../02_遊戲數學/TG001_LiveMines/注單分析/analyzer.html">單檔儀表板</a>（含真實玩家資料，對外展示前先確認要給誰看）</li>
+  </ul>
+</div>
 <p class="rel">相關：<a href="../games.html">遊戲總覽（LiveMines 卡片）</a> ｜ <a href="bingoslot.html">BingoSlot 逆向生成引擎</a></p>
 </div>
+<script>document.addEventListener("DOMContentLoaded",function(){var local=(location.protocol==="file:"||location.hostname==="127.0.0.1"||location.hostname==="localhost");document.querySelectorAll(".demo").forEach(function(d){d.hidden=!local;});});</script>
 
 <script>
 (function(){

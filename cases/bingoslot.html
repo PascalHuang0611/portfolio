@@ -51,12 +51,18 @@
   @media (max-width:640px){.shot{grid-template-columns:1fr}.shot img{max-width:260px}}
   .rel{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
   .rel a{color:var(--job);text-decoration:none;border-bottom:1px dotted var(--job-soft)}
+  .demo{background:#fff8e8;border:1px solid #ecd2a3;border-left:4px solid #b5761a;border-radius:0 10px 10px 0;padding:12px 16px;margin:18px 0}
+  .demo b{display:block;font-size:13px;color:#8a5a12;margin-bottom:2px}
+  .demo .hint{font-size:12.5px;color:var(--ink3);margin:0 0 8px}
+  .demo ul{margin:0;padding-left:20px;font-size:14px}
+  .demo li{margin:0 0 4px}
+  .demo a{color:#8a5a12}
   .ver{position:fixed;top:8px;right:12px;font-size:11px;color:#c2c2bd;letter-spacing:.3px;z-index:60;font-variant-numeric:tabular-nums}
   @media print{.ver,.back{display:none}.fig,.cmp{break-inside:avoid}}
 </style>
 </head>
 <body>
-<div class="ver">v1.20</div>
+<div class="ver">v1.21</div>
 <script src="../dist-interview/full.js"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
 <script src="../dist-interview/case_private.js"></script>
@@ -269,8 +275,17 @@
 <div class="priv" data-k="water"></div>
 </section>
 
+<div class="demo" hidden>
+  <b>展示用：打開規則展示頁</b>
+  <p class="hint">這一頁是前端原型，直接開就能點；結果由頁面自己隨機產生，不是引擎算的。</p>
+  <ul>
+    <li><a href="../../02_遊戲數學/TG107_BingoSlot/BingoSlot.html">BingoSlot 規則展示頁</a></li>
+    <li>SlotBingo 的錄盤 Demo 要先跑伺服器：在 <code>02_遊戲數學\TG1XX_SlotBingo\SlotBingo_Server\</code> 執行 <code>SlotBingoDraw.exe --server 8080</code>，再開 <code>http://localhost:8080</code></li>
+  </ul>
+</div>
 <p class="rel">相關：<a href="../games.html">遊戲總覽（BingoSlot、SlotBingo 卡片）</a></p>
 </div>
+<script>document.addEventListener("DOMContentLoaded",function(){var local=(location.protocol==="file:"||location.hostname==="127.0.0.1"||location.hostname==="localhost");document.querySelectorAll(".demo").forEach(function(d){d.hidden=!local;});});</script>
 
 <script>
 (function(){
