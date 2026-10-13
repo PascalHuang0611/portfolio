@@ -53,7 +53,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v1.19</div>
+<div class="ver">v1.20</div>
 <script src="../dist-interview/full.js"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
 <script src="../dist-interview/case_private.js"></script>
@@ -64,10 +64,10 @@
 <h1>七套系統各說各話時，怎麼讓人自己比出答案</h1>
 <p class="lede">公司要在多套派彩決策系統裡挑一套，每一套的提出者都說自己的好，沒有人能判斷。我把七套系統蓋掉名字、只留代號，跑出 882 份模擬報表，做兩個網頁讓決策者自己比——包括一個可以改權重的評分工具。我自己不下結論。</p>
 <div class="facts">
-  <div><b>時間</b><span>2026/07</span></div>
+  <div><b>時間</b><span>2026/07 – 08</span></div>
   <div><b>角色</b><span>獨立完成</span></div>
-  <div><b>規模</b><span>882 份模擬報表</span></div>
-  <div><b>結果</b><span>勝出兩套，進入第二階段</span></div>
+  <div><b>兩階段</b><span>七套 → 五套</span></div>
+  <div><b>交付</b><span>11 個可操作頁面</span></div>
 </div>
 
 <section>
@@ -200,9 +200,43 @@
 </section>
 
 <section>
-<h2><span class="no">06</span>回頭看</h2>
-<p>這個案子真正的產出不是報表，是一個判斷流程：<b>先把身分蓋掉，再把資料攤開，最後把權重交回去給決策者</b>。七套系統裡勝出兩套，進入第二階段的實戰比較。</p>
-<p>我後來把同一套做法用在第二階段：一樣是盲測、一樣附上可自訂的評分、一樣不下結論。差別是第二階段改用真實遊戲的賠率表，讓比較更貼近上線後的狀況。</p>
+<h2><span class="no">06</span>第二階段：從「比機制」走到「能不能落地」</h2>
+<p>第一階段比的是機制本身，用的是抽象的模擬環境。勝出的做法要真的上線，還有一層問題沒答：<b>套在真實的賠率結構上，它還撐得住嗎？採用它要先做哪些事？</b></p>
+<p>所以第二階段把候選方案收斂到五套，全部套上同一款已上線遊戲的真實賠率表，用 Go 寫的逐局模擬器重跑。水位引擎共用，一套方案一個檔案，每套方案的參數與啟動狀態各自獨立。</p>
+<p>盲測照舊，而且做了一件事：<b>第二階段重新洗牌、換一組代號</b>，字首刻意避開第一階段用過的字母，免得有人從代號聯想到上一輪的印象。給評審的所有產出一律只用新代號。</p>
+
+<h3>每套方案四組資料，差別只有一個變因</h3>
+<p>每套方案都提供四組資料，兩兩成對：</p>
+<div class="tablewrap">
+<table class="cmp">
+  <tr><th>組別</th><th>參數版本</th><th>開機方式</th></tr>
+  <tr><td>基 1 / 基 2</td><td>基礎版：對標現行機率設計</td><td>基 1 用運轉一段時間後的狀態；基 2 用全新啟動的標準初始狀態</td></tr>
+  <tr><td>特 1 / 特 2</td><td>特化版：對標營運方另外開出的目標清單</td><td>同上，兩者參數完全相同</td></tr>
+</table>
+</div>
+<p>同一組參數跑兩種開機方式，是為了把「系統本身的表現」和「開局狀態造成的影響」分開——不然一套方案開局好看，分不清是機制好還是水位預先灌飽了。</p>
+
+<h3>交付的七個頁面</h3>
+<div class="tablewrap">
+<table class="cmp">
+  <tr><th>頁面</th><th>給誰看</th><th>內容</th></tr>
+  <tr><td><b>閱讀指南</b></td><td>評審（盲測）</td><td>資料怎麼來、每個批次想達成什麼、建議的閱讀順序、判讀時的注意事項</td></tr>
+  <tr><td><b>儀表板</b></td><td>評審（盲測）</td><td>玩家最終回報分布、最大連贏與連輸分布、連贏次數分布</td></tr>
+  <tr><td><b>閱讀指南 Detail</b></td><td>解盲後</td><td>名詞定義、代號對照與各方案的實際做法、六組資料的差別，以及<b>採用每一套方案要先做哪些前置作業、額外成本是什麼</b></td></tr>
+  <tr><td><b>儀表板 Detail</b></td><td>解盲後</td><td>同一套圖表，但系統以真實名稱呈現</td></tr>
+  <tr><td><b>流程圖</b></td><td>解盲後</td><td>五套方案在「玩家按下一次按鈕」時各自依序做了什麼；判斷、發獎、沒中獎、進階版才執行的步驟分色標示</td></tr>
+  <tr><td><b>參數總表</b></td><td>解盲後</td><td>各方案實際使用的水位參數，直接由設定檔產生，等於模擬時真正跑的值</td></tr>
+  <tr><td><b>觀察筆記</b></td><td>想聽主觀意見的人</td><td>調校過程中形成的判斷、改變過的看法、選型時我會怎麼看</td></tr>
+</table>
+</div>
+<p>兩件事值得說明。第一，<b>解盲版的指南只陳述事實與成本，不含優劣評價與選型建議</b>——評價留給看的人。第二，主觀的部分獨立成一頁，開頭就寫明「這一頁是主觀判斷，不是事實陳述，機制與數據請以解盲版指南、參數總表與儀表板為準」。把事實和意見放在同一份文件裡，讀的人會分不清楚哪句該信。</p>
+<div class="priv" data-k="stage2"></div>
+</section>
+
+<section>
+<h2><span class="no">07</span>回頭看</h2>
+<p>兩個階段用的是同一套流程：<b>先把身分蓋掉，再把資料攤開，最後把判斷交回給決策者</b>。差別只在第二階段多了一層落地的問題——不只是「哪一套表現好」，還有「採用它要付出什麼」。</p>
+<p>我自己的角色也固定：負責把比較做到可信，不負責決定要用哪一套。評分公式全部公開、權重可以改、解盲版只寫事實、主觀意見隔離成獨立頁面——這些設計都指向同一件事：<b>結論要是看的人自己得出來的，才有人會為它負責。</b></p>
 </section>
 
 <p class="rel">相關：<a href="bingoslot.html">BingoSlot 逆向生成引擎</a> ｜ <a href="livemines.html">LiveMines</a> ｜ <a href="method.html">數值設計的八個階段</a></p>
@@ -211,7 +245,7 @@
 <script>
 (function(){
   var P=(window.CASE_PRIV||{}).blindtest||null;
-  var T={stage1:"第一階段的內部細節"};
+  var T={stage1:"第一階段的內部細節",stage2:"第二階段的內部細節"};
   document.querySelectorAll(".priv").forEach(function(el){
     var k=el.getAttribute("data-k");
     if(P&&P[k]){el.innerHTML="<b>"+T[k]+"（完整版）</b>"+P[k];}
