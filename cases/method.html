@@ -52,7 +52,7 @@
 </style>
 </head>
 <body>
-<div class="ver">v1.22</div>
+<div class="ver">v1.23</div>
 <script src="../dist-interview/full.js"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){var v=document.querySelector(".ver");if(v)v.textContent+=((window.FULL||location.protocol==="file:")?" ｜ 完整版":" ｜ 公開版");});</script>
 <script src="../dist-interview/case_private.js"></script>
@@ -73,7 +73,7 @@
 <h2><span class="no">01</span>為什麼把數值切成八段</h2>
 <p>我的背景是後端伺服器、前端，加上在日本四年做遊戲企劃與 UI/UX。在伺服器團隊待久了，看事情的角度會變成「這個改動會沿著哪條鏈路影響到誰」。數值也是一樣：它不是一張表算完就結束，而是從提案前一路跟到長期營運。</p>
 <div class="quote">產品是輪廓，美術是外貌，數值是劇本與心跳。</div>
-<p>還有一條原則跟致敬競品有關：在完全搞清楚對方每一個賠率、每一條規則的用意之前，不要擅自更改。大廠背後有很強的數學團隊，賠率不會隨便訂。專案卡關，常常就是因為對原規則理解得不夠細。</p>
+<p>還有一條原則跟參考既有玩法有關：在完全搞清楚原設計每一個賠率、每一條規則的用意之前，不要擅自更改。大廠背後有很強的數學團隊，賠率不會隨便訂。</p>
 </section>
 
 <section>
@@ -106,7 +106,7 @@
 <div class="stage off">
   <h3>五、數值模組獨立測試 <span class="en">Numerical Module Independent Testing</span><span class="badge">沒有落實</span></h3>
   <p>把數值核心包成獨立模組、開介面給 QA 單獨測邊界與異常輸入，模組的變更要走審核流程。</p>
-  <p class="did"><b>後來：</b>這一段沒有做成。它是宣講當下加進去的——原本的版本只有七段，GM 認為應該要有這一層，所以補上。一年多下來，公司的節奏沒有走到這一步。</p>
+  <p class="did"><b>後來：</b>這一段沒有成為固定流程。</p>
 </div>
 
 <div class="stage">
@@ -161,7 +161,6 @@
 <section>
 <h2><span class="no">04</span>回頭看</h2>
 <p>這八段是 2025 年 7 月講的，當時我到職一個多月。後面一年多的每一款遊戲、每一套系統，做法都落在這張表上：Excel 建模、模擬器、與伺服器交叉比對、上線後用數據回頭調。</p>
-<p>沒落實的第五段，是唯一一段不是從我自己的做法長出來的——它是講稿裡被補上的一層。這也說明一件事：方法論要能用，得先有人在流程裡真的需要它。</p>
 </section>
 
 <p class="rel">相關：<a href="livemines.html">LiveMines</a> ｜ <a href="bingoslot.html">BingoSlot 逆向生成引擎</a> ｜ <a href="../games.html">遊戲總覽</a></p>
